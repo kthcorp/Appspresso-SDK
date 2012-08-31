@@ -1,0 +1,25 @@
+# Eclipse
+.settings/
+
+# output directory
+output/
+
+# merry/sunny
+android/merry/assets/*
+ios/sunny/assets/*
+
+# Java, android
+bin/
+gen/
+local.properties
+
+# Xcode\
+build/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+xcuserdata/
+
+!/build

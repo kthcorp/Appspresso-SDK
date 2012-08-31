@@ -1,0 +1,312 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6333CE3C147E48F100C33EE4 /* KthWaikikiWacAspect.m in Sources */ = {isa = PBXBuildFile; fileRef = 6333CE3A147E48F100C33EE4 /* KthWaikikiWacAspect.m */; };
+		638582CA13B0472500C316B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638582C913B0472500C316B8 /* Foundation.framework */; };
+		638582D513B0473400C316B8 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 638582D313B0473400C316B8 /* Reachability.h */; };
+		638582D613B0473400C316B8 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 638582D413B0473400C316B8 /* Reachability.m */; };
+		638582ED13B0474C00C316B8 /* Aspects.h in Headers */ = {isa = PBXBuildFile; fileRef = 638582DF13B0474C00C316B8 /* Aspects.h */; };
+		638582F213B0474C00C316B8 /* KthWaikikiDevicestatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 638582E713B0474C00C316B8 /* KthWaikikiDevicestatus.h */; };
+		638582F313B0474C00C316B8 /* KthWaikikiDevicestatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 638582E813B0474C00C316B8 /* KthWaikikiDevicestatus.m */; };
+		638F4C4D1400B4E9004616F3 /* KthWaikikiMemoryUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 638F4C4B1400B4E9004616F3 /* KthWaikikiMemoryUnit.m */; };
+		63A19E251460EA6000E98F84 /* KthWaikikiDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A19E231460EA5F00E98F84 /* KthWaikikiDisplay.m */; };
+		63FD7DC313B0699B00E94D3D /* KthWaikikiBatteryAspectBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DB513B0699B00E94D3D /* KthWaikikiBatteryAspectBattery.m */; };
+		63FD7DC413B0699B00E94D3D /* KthWaikikiCellularHardwareAspect.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DB713B0699B00E94D3D /* KthWaikikiCellularHardwareAspect.m */; };
+		63FD7DC513B0699B00E94D3D /* KthWaikikiDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DB913B0699B00E94D3D /* KthWaikikiDevice.m */; };
+		63FD7DC613B0699B00E94D3D /* KthWaikikiOperatingSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DBB13B0699B00E94D3D /* KthWaikikiOperatingSystem.m */; };
+		63FD7DC713B0699B00E94D3D /* KthWaikikiAspectWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD7DBD13B0699B00E94D3D /* KthWaikikiAspectWatcher.h */; };
+		63FD7DC813B0699B00E94D3D /* KthWaikikiAspectWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DBE13B0699B00E94D3D /* KthWaikikiAspectWatcher.m */; };
+		63FD7DC913B0699B00E94D3D /* KthWaikikiWiFiHardwareAspect.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DC013B0699B00E94D3D /* KthWaikikiWiFiHardwareAspect.m */; };
+		63FD7DCA13B0699B00E94D3D /* KthWaikikiWiFiNetworkAspect.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DC213B0699B00E94D3D /* KthWaikikiWiFiNetworkAspect.m */; };
+		E21A5DB513F50B25006F3576 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E21A5DB413F50B25006F3576 /* CoreFoundation.framework */; };
+		E21A5DB813F50B2D006F3576 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E21A5DB713F50B2D006F3576 /* SystemConfiguration.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6333CE3A147E48F100C33EE4 /* KthWaikikiWacAspect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiWacAspect.m; sourceTree = "<group>"; };
+		638582C613B0472500C316B8 /* libdevicestatus-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libdevicestatus-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		638582C913B0472500C316B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		638582CD13B0472500C316B8 /* devicestatus-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "devicestatus-ios-Prefix.pch"; sourceTree = "<group>"; };
+		638582D313B0473400C316B8 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		638582D413B0473400C316B8 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		638582DF13B0474C00C316B8 /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
+		638582E713B0474C00C316B8 /* KthWaikikiDevicestatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiDevicestatus.h; sourceTree = "<group>"; };
+		638582E813B0474C00C316B8 /* KthWaikikiDevicestatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiDevicestatus.m; sourceTree = "<group>"; };
+		638F4C4B1400B4E9004616F3 /* KthWaikikiMemoryUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiMemoryUnit.m; sourceTree = "<group>"; };
+		63A19E231460EA5F00E98F84 /* KthWaikikiDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiDisplay.m; sourceTree = "<group>"; };
+		63FD7DB513B0699B00E94D3D /* KthWaikikiBatteryAspectBattery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KthWaikikiBatteryAspectBattery.m; path = AspectBattery/KthWaikikiBatteryAspectBattery.m; sourceTree = "<group>"; };
+		63FD7DB713B0699B00E94D3D /* KthWaikikiCellularHardwareAspect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KthWaikikiCellularHardwareAspect.m; path = AspectCellularHardware/KthWaikikiCellularHardwareAspect.m; sourceTree = "<group>"; };
+		63FD7DB913B0699B00E94D3D /* KthWaikikiDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KthWaikikiDevice.m; path = AspectDevice/KthWaikikiDevice.m; sourceTree = "<group>"; };
+		63FD7DBB13B0699B00E94D3D /* KthWaikikiOperatingSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KthWaikikiOperatingSystem.m; path = AspectOperatingSystem/KthWaikikiOperatingSystem.m; sourceTree = "<group>"; };
+		63FD7DBD13B0699B00E94D3D /* KthWaikikiAspectWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiAspectWatcher.h; sourceTree = "<group>"; };
+		63FD7DBE13B0699B00E94D3D /* KthWaikikiAspectWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiAspectWatcher.m; sourceTree = "<group>"; };
+		63FD7DC013B0699B00E94D3D /* KthWaikikiWiFiHardwareAspect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KthWaikikiWiFiHardwareAspect.m; path = AspectWifiHardware/KthWaikikiWiFiHardwareAspect.m; sourceTree = "<group>"; };
+		63FD7DC213B0699B00E94D3D /* KthWaikikiWiFiNetworkAspect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KthWaikikiWiFiNetworkAspect.m; path = AspectWifiNetwork/KthWaikikiWiFiNetworkAspect.m; sourceTree = "<group>"; };
+		E21A5DB413F50B25006F3576 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		E21A5DB713F50B2D006F3576 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		638582C313B0472500C316B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E21A5DB813F50B2D006F3576 /* SystemConfiguration.framework in Frameworks */,
+				E21A5DB513F50B25006F3576 /* CoreFoundation.framework in Frameworks */,
+				638582CA13B0472500C316B8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		638582BB13B0472500C316B8 = {
+			isa = PBXGroup;
+			children = (
+				638582CB13B0472500C316B8 /* devicestatus-ios */,
+				638582C813B0472500C316B8 /* Frameworks */,
+				638582C713B0472500C316B8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		638582C713B0472500C316B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				638582C613B0472500C316B8 /* libdevicestatus-ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		638582C813B0472500C316B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E21A5DB413F50B25006F3576 /* CoreFoundation.framework */,
+				638582C913B0472500C316B8 /* Foundation.framework */,
+				E21A5DB713F50B2D006F3576 /* SystemConfiguration.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		638582CB13B0472500C316B8 /* devicestatus-ios */ = {
+			isa = PBXGroup;
+			children = (
+				6333CE3A147E48F100C33EE4 /* KthWaikikiWacAspect.m */,
+				63A19E231460EA5F00E98F84 /* KthWaikikiDisplay.m */,
+				638F4C4B1400B4E9004616F3 /* KthWaikikiMemoryUnit.m */,
+				63FD7DB513B0699B00E94D3D /* KthWaikikiBatteryAspectBattery.m */,
+				63FD7DB713B0699B00E94D3D /* KthWaikikiCellularHardwareAspect.m */,
+				63FD7DBB13B0699B00E94D3D /* KthWaikikiOperatingSystem.m */,
+				63FD7DC013B0699B00E94D3D /* KthWaikikiWiFiHardwareAspect.m */,
+				63FD7DB913B0699B00E94D3D /* KthWaikikiDevice.m */,
+				63FD7DC213B0699B00E94D3D /* KthWaikikiWiFiNetworkAspect.m */,
+				63FD7DBC13B0699B00E94D3D /* AspectWatcher */,
+				638582D313B0473400C316B8 /* Reachability.h */,
+				638582D413B0473400C316B8 /* Reachability.m */,
+				638582DF13B0474C00C316B8 /* Aspects.h */,
+				638582E713B0474C00C316B8 /* KthWaikikiDevicestatus.h */,
+				638582E813B0474C00C316B8 /* KthWaikikiDevicestatus.m */,
+				638582CC13B0472500C316B8 /* Supporting Files */,
+			);
+			path = "devicestatus-ios";
+			sourceTree = "<group>";
+		};
+		638582CC13B0472500C316B8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				638582CD13B0472500C316B8 /* devicestatus-ios-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		63FD7DBC13B0699B00E94D3D /* AspectWatcher */ = {
+			isa = PBXGroup;
+			children = (
+				63FD7DBD13B0699B00E94D3D /* KthWaikikiAspectWatcher.h */,
+				63FD7DBE13B0699B00E94D3D /* KthWaikikiAspectWatcher.m */,
+			);
+			path = AspectWatcher;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		638582C413B0472500C316B8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638582D513B0473400C316B8 /* Reachability.h in Headers */,
+				638582ED13B0474C00C316B8 /* Aspects.h in Headers */,
+				638582F213B0474C00C316B8 /* KthWaikikiDevicestatus.h in Headers */,
+				63FD7DC713B0699B00E94D3D /* KthWaikikiAspectWatcher.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		638582C513B0472500C316B8 /* devicestatus-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 638582D013B0472500C316B8 /* Build configuration list for PBXNativeTarget "devicestatus-ios" */;
+			buildPhases = (
+				638582C213B0472500C316B8 /* Sources */,
+				638582C313B0472500C316B8 /* Frameworks */,
+				638582C413B0472500C316B8 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "devicestatus-ios";
+			productName = "devicestatus-ios";
+			productReference = 638582C613B0472500C316B8 /* libdevicestatus-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		638582BD13B0472500C316B8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = KTH;
+			};
+			buildConfigurationList = 638582C013B0472500C316B8 /* Build configuration list for PBXProject "devicestatus-ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 638582BB13B0472500C316B8;
+			productRefGroup = 638582C713B0472500C316B8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				638582C513B0472500C316B8 /* devicestatus-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		638582C213B0472500C316B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638582D613B0473400C316B8 /* Reachability.m in Sources */,
+				638582F313B0474C00C316B8 /* KthWaikikiDevicestatus.m in Sources */,
+				63FD7DC313B0699B00E94D3D /* KthWaikikiBatteryAspectBattery.m in Sources */,
+				63FD7DC413B0699B00E94D3D /* KthWaikikiCellularHardwareAspect.m in Sources */,
+				63FD7DC513B0699B00E94D3D /* KthWaikikiDevice.m in Sources */,
+				63FD7DC613B0699B00E94D3D /* KthWaikikiOperatingSystem.m in Sources */,
+				63FD7DC813B0699B00E94D3D /* KthWaikikiAspectWatcher.m in Sources */,
+				63FD7DC913B0699B00E94D3D /* KthWaikikiWiFiHardwareAspect.m in Sources */,
+				63FD7DCA13B0699B00E94D3D /* KthWaikikiWiFiNetworkAspect.m in Sources */,
+				638F4C4D1400B4E9004616F3 /* KthWaikikiMemoryUnit.m in Sources */,
+				63A19E251460EA6000E98F84 /* KthWaikikiDisplay.m in Sources */,
+				6333CE3C147E48F100C33EE4 /* KthWaikikiWacAspect.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		638582CE13B0472500C316B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		638582CF13B0472500C316B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		638582D113B0472500C316B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/devicestatus_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "devicestatus-ios/devicestatus-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		638582D213B0472500C316B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/devicestatus_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "devicestatus-ios/devicestatus-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		638582C013B0472500C316B8 /* Build configuration list for PBXProject "devicestatus-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638582CE13B0472500C316B8 /* Debug */,
+				638582CF13B0472500C316B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		638582D013B0472500C316B8 /* Build configuration list for PBXNativeTarget "devicestatus-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638582D113B0472500C316B8 /* Debug */,
+				638582D213B0472500C316B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 638582BD13B0472500C316B8 /* Project object */;
+}

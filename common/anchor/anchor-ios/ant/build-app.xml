@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-app-ios" default="help" basedir=".">
+	<description>Appspresso App Build Script for iOS</description>
+
+	<property environment="env" />
+	<dirname property="self.dir" file="ant.file.build-app-ios" />
+	<property file="${self.dir}/build-app.properties" />
+
+	<!-- appspresso sdk cli -->
+	<property name="ax.sdk.dir" location="${env.AX_HOME}" />
+	<property name="ax.keel.dir" location="${ax.sdk.dir}/common/keel" />
+	<property name="ax.plugins.dir" location="${ax.sdk.dir}/plugins" />
+	<property name="ax.platforms.dir" location="${ax.sdk.dir}/platforms" />
+
+	<!-- appspresso sdk cli for ios -->
+	<property name="ax.ios.dir" location="${ax.platforms.dir}/ios" />
+	<property name="ax.ios.build-app.xml" location="${ax.ios.dir}/build-app.xml" />
+	<property name="ax.ios.templates.dir" location="${ax.ios.dir}/templates" />
+	<property name="ax.ios.templates.app.dir" location="${ax.ios.templates.dir}/app" />
+
+	<!-- appspresso application properties -->
+	<property name="app.runtime.project.name" value="application" />
+	<property name="app.runtime.project.app" location="${app.runtime.project.dir}/${app.runtime.project.name}" />
+	<property name="app.runtime.project.assets" location="${app.runtime.project.app}/assets/" />
+	<property name="app.runtime.project.out" location="${app.runtime.project.dir}/build/${app.runtime.project.name}.app" />
+	<property name="app.platform.dir" location="${app.dir}/platforms/iOS" />
+
+	<property name="app.template.name" value="_blank" />
+
+	<!-- ios sdk & xcode sdk -->
+	<property name="ios.sdk.dir" location="${env.IOS_HOME}" />
+	<property name="ios.sdk.type" value="iphoneos" />
+	<property name="ios.targetDevice" value="1" />
+
+	<!-- property for redirecting output to log file-->
+	<property name="redirect.output.log" location="${java.io.tmpdir}/output.log" />
+
+	<path id="anchor.libs">
+		<pathelement path="${ax.ios.dir}/anttask/build-app.jar" />
+	</path>
+
+	<taskdef name="prepare-filterset" classpathref="anchor.libs" classname="com.appspresso.cli.ant.ios.app.PrepareFilterSet" />
+
+	<taskdef name="axconfig-gen" classpathref="anchor.libs" classname="com.appspresso.cli.ant.ios.app.AxConfigGen" />
+
+	<taskdef name="appname-gen" classpathref="anchor.libs" classname="com.appspresso.cli.ant.ios.app.AppNameGen" />
+
+	<taskdef name="attach-axp" classpathref="anchor.libs" classname="com.appspresso.cli.ant.ios.app.AttachAxp" />
+
+	<taskdef name="copy-pbxproj" classpathref="anchor.libs" classname="com.appspresso.cli.ant.ios.app.CopyPbxproj" />
+
+	<!-- macro define -->
+	<macrodef name="packaging-ipa">
+		<attribute name="input" />
+		<attribute name="output" />
+
+		<sequential>
+			<exec executable="/usr/bin/xcrun">
+				<arg line="-sdk iphoneos" />
+				<arg line="PackageApplication" />
+				<arg path="@{input}" />
+				<arg value="-o" />
+				<arg path="@{output}" />
+				<!--<arg value="-v" />-->
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="exec-xcodebuild">
+		<attribute name="project.dir" />
+		<attribute name="app.name" />
+		<attribute name="sdk" />
+		<attribute name="configuration" default="Release" />
+		<attribute name="device.family" />
+
+		<sequential>
+			<exec executable="${ios.sdk.dir}/usr/bin/xcodebuild" failonerror="true">
+				<arg value="-project" />
+				<arg path="@{project.dir}/@{app.name}.xcodeproj" />
+
+				<arg value="-xcconfig" />
+				<arg path="@{project.dir}/build.xcconfig" />
+
+				<arg line="-configuration @{configuration} -sdk @{sdk}" />
+
+				<arg line="TARGET_BUILD_DIR=&quot;@{project.dir}/build&quot;" />
+
+				<arg line="TARGET_DEVICE_FAMILY=@{device.family}" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="exec-iphonesim">
+		<attribute name="ios.sdk.dir" />
+		<attribute name="app.path" />
+		<attribute name="simulator.version"/>
+		<attribute name="simulator.type" default=""/>
+
+		<sequential>
+			<exec executable="${ax.ios.dir}/scripts/iphonesim" failonerror="false" spawn="false"
+				resultproperty="iphonesim.launch.result" resolveexecutable="true">
+
+				<arg value="launch" />
+				<arg path="@{ios.sdk.dir}" />
+				<arg path="@{app.path}" />
+				<arg value="@{simulator.version}" />
+				<arg value="@{simulator.type}" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+
+	<target name="create">
+		<echo>create on ${app.platform.dir}</echo>
+
+		<condition property="app.platform.template.dir"
+			value="${ax.ios.templates.app.dir}/${app.template.name}"
+			else="${ax.ios.templates.app.dir}/_blank">
+
+			<available file="${ax.ios.templates.app.dir}/${app.template.name}" type="dir" />
+		</condition>
+
+		<copy todir="${app.platform.dir}">
+			<fileset dir="${app.platform.template.dir}">
+				<exclude name="excludes/**" />
+				<exclude name="**/*.png" />
+			</fileset>
+
+			<filterset>
+				<filter token="APP_NAME" value="${app.name}" />
+			</filterset>
+		</copy>
+
+		<copy todir="${app.platform.dir}">
+			<fileset dir="${app.platform.template.dir}">
+				<include name="**/*.png" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="init">
+		<tstamp />
+		<echo message="Appspresso SDK on ${ax.sdk.dir}" />
+		<echo message="Appspresso iOS Runtime on ${ax.ios.dir}" />
+		<echo message="iOS SDK on ${ios.sdk.dir}" />
+	</target>
+
+	<target name="-check-build-condition">
+		<condition property="target.device.iphone">
+			<contains string="${ios.targetDevice}" substring="1" />
+		</condition>
+
+		<condition property="target.device.ipad">
+			<contains string="${ios.targetDevice}" substring="2" />
+		</condition>
+	</target>
+
+	<target name="-prepare-ios">
+		<echo>build to ios application</echo>
+
+		<delete dir="${app.runtime.project.dir}" />
+
+		<prepare-filterset property="default.filter" />
+
+		<echo>prepare Appspresso Runtime Library...</echo>
+		<copy todir="${app.runtime.project.assets}/ax_scripts" file="${ax.keel.dir}/keel.js" />
+
+		<echo>prepare iOS Project file</echo>
+		<copy todir="${app.runtime.project.dir}">
+			<filterset refid="default.filter" />
+
+			<fileset dir="${ax.ios.templates.app.dir}/base">
+				<exclude name="project.pbxproj" />
+			</fileset>
+
+			<filtermapper>
+				<replacestring from="__APPLICATION_NAME__" to="${app.runtime.project.name}" />
+			</filtermapper>
+		</copy>
+
+		<echo>iOS resources...</echo>
+		<copy todir="${app.runtime.project.app}">
+			<fileset dir="${app.platform.dir}/resources">
+				<or>
+					<filename name="icon/**" />
+					<selector if="target.device.iphone">
+						<not>
+							<filename name="splash/**/*~ipad*" />
+						</not>
+					</selector>
+					<selector if="target.device.ipad">
+						<filename name="splash/**/*~ipad*" />
+					</selector>
+				</or>
+			</fileset>
+
+			<firstmatchmapper>
+				<mapper type="glob" from="icon/*" to="*" />
+				<mapper type="regexp" from="splash/splash\.(.*)/(.*)" to="\1.lproj/\2" />
+			</firstmatchmapper>
+		</copy>
+		<appname-gen />
+
+		<copy tofile="${app.runtime.project.app}/${app.runtime.project.name}-Info.plist"
+				file="${app.platform.dir}/Info.plist.axml">
+			<filterset refid="default.filter" />
+		</copy>
+
+		<echo>project.pbxproj...</echo>
+		<copy-pbxproj />
+
+		<axconfig-gen />
+	</target>
+
+	<target name="-copy-widget">
+		<echo>copy widget...</echo>
+		<copy todir="${app.runtime.project.assets}/ax_www">
+			<fileset file="${app.config.xml}" />
+			<fileset dir="${app.dir}/src" />
+		</copy>
+	</target>
+
+	<target name="-attach-plugin">
+		<attach-axp />
+	</target>
+
+	<target name="-debug-build" depends="init, -check-build-condition, -prepare-ios, -copy-widget, -attach-plugin">
+	    <condition property="ios.build.configuration" value="Debug" else="Release">
+	        <and>
+	            <isset property="ios.config.nessie.project" />
+	        	<isset property="ios.config.nessie.host" />
+	        	<isset property="ios.config.nessie.port" />
+	        </and>
+	    </condition>
+	    
+		<exec-xcodebuild
+			project.dir="${app.runtime.project.dir}"
+			app.name="${app.runtime.project.name}"
+			configuration="${ios.build.configuration}"
+			sdk="${ios.sdk.type}"
+			device.family="${ios.targetDevice}" />
+
+		<exec executable="chmod">
+			<arg value="755" />
+			<arg path="${app.runtime.project.out}/${app.runtime.project.name}" />
+		</exec>
+	</target>
+
+	<target name="-output-type">
+		<condition property="out.type.ipa">
+			<matches string="${app.out.path}" pattern=".*\.ipa$" />
+		</condition>
+
+		<condition property="out.type.app">
+			<matches string="${app.out.path}" pattern=".*\.app$" />
+		</condition>
+	</target>
+
+	<target name="-copy-ipa" depends="-output-type" if="out.type.ipa">
+		<echo>packaging to ${app.out.path}</echo>
+		<packaging-ipa input="${app.runtime.project.out}" output="${app.out.path}" />
+	</target>
+
+	<target name="-copy-app" depends="-output-type" if="out.type.app">
+		<echo>remove old output...</echo>
+		<delete dir="${app.out.path}" />
+
+		<copy todir="${app.out.path}">
+			<fileset dir="${app.runtime.project.out}" />
+		</copy>
+	</target>
+
+	<target name="-copy-output" depends="-copy-ipa, -copy-app">
+	</target>
+
+	<target name="build">
+		<antcall target="-debug-build">
+			<param name="ios.config.app.devel" value="true"/>
+		</antcall>
+
+		<antcall target="-copy-output" />
+	</target>
+
+	<target name="-run-init">
+		<echo message="${app.out.path} run" />
+		<echo message="target device = ${ios.targetDevice}" />
+		<echo message="Active SDK = ${ios.sdk.type}" />
+
+		<condition property="sdk.active.iphoneos">
+			<matches string="${ios.sdk.type}" pattern="^iphoneos.*$" />
+		</condition>
+
+		<condition property="sdk.active.simulator">
+			<matches string="${ios.sdk.type}" pattern="^iphonesimulator.*$" />
+		</condition>
+	</target>
+
+	<target name="-run-iphoneos" if="sdk.active.iphoneos">
+		<echo>run on iOS Device</echo>
+		
+		<echo>open itunes</echo>
+		<exec executable="open" failonerror="true" spawn="false">
+			<arg value="-b"/>
+			<arg value="com.apple.itunes"/>
+			<arg path="${app.out.path}" />
+		</exec>
+
+		<echo>sync itunes</echo>
+		<exec executable="osascript" spawn="false">
+			<arg path="${ax.ios.dir}/scripts/sync.scpt" />
+		</exec>
+	</target>
+
+	<target name="-run-iphonesimulator" if="sdk.active.simulator">
+		<echo>run on iOS Simulator</echo>
+
+		<condition property="simulator.type" else="" value="ipad">
+			<equals arg1="${ios.targetDevice}" arg2="2" trim="true"/>
+		</condition>
+
+		<script language="javascript">
+			<![CDATA[
+				var activeSDK = project.getProperty('ios.sdk.type');
+				var m = activeSDK.match('iphone[a-zA-Z]+([0-9.]+)');
+				var version = m ? m[1] : '';
+				project.setProperty('simulator.version', version);
+			]]>
+		</script>
+
+		<exec-iphonesim
+			ios.sdk.dir="${ios.sdk.dir}"
+			app.path="${app.out.path}"
+			simulator.version="${simulator.version}"
+			simulator.type="${simulator.type}"/>
+
+		<exec executable="osascript">
+			<arg line="-e 'tell application &quot;iPhone Simulator&quot; to activate'"/>
+		</exec>
+	</target>
+
+	<target name="run" depends="-run-init, -run-iphoneos, -run-iphonesimulator">
+	</target>
+
+	<target name="-release-build" depends="init, -check-build-condition, -prepare-ios, -copy-widget, -attach-plugin">
+		<exec-xcodebuild
+			project.dir="${app.runtime.project.dir}"
+			app.name="${app.runtime.project.name}"
+			sdk="iphoneos"
+			device.family="${ios.targetDevice}" />
+
+		<exec executable="chmod">
+			<arg value="755" />
+			<arg path="${app.runtime.project.out}/${app.runtime.project.name}" />
+		</exec>
+	</target>
+
+	<target name="export" depends="-release-build">
+		<echo message="target device : ${ios.sdk.type}" />
+		<packaging-ipa
+			input="${app.runtime.project.out}"
+			output="${app.out.path}" />
+	</target>
+
+	<!-- get available target devices -->
+	<target name="devices" depends="init">
+		<delete file="${redirect.output.log}" />
+		<exec executable="${ios.sdk.dir}/usr/bin/xcodebuild">
+			<arg value="-showsdks" />
+			<redirector output="${redirect.output.log}" errorproperty="redirector.err">
+				<outputfilterchain>
+					<containsregex pattern="iOS.*-sdk" />
+					<replaceregex pattern=".*-sdk.(.*)$" replace="\1" />
+				</outputfilterchain>
+			</redirector>
+		</exec>
+		<fail message="can't get available target devices">
+			<condition>
+				<not>
+					<equals arg1="${redirector.err}" arg2="" />
+				</not>
+			</condition>
+		</fail>
+	</target>
+
+	<!-- get available certificates -->
+	<target name="certificates" depends="init">
+		<delete file="${redirect.output.log}" quiet="true" />
+		<exec executable="/usr/bin/security">
+			<arg value="find-identity" />
+			<arg value="-v" />
+			<redirector output="${redirect.output.log}" errorproperty="redirector.err">
+				<outputfilterchain>
+					<containsregex pattern="[0-9]+\)" />
+					<replaceregex pattern=".*\&quot;(.*)\&quot;$" replace="\1" />
+				</outputfilterchain>
+			</redirector>
+		</exec>
+		<fail message="can't get available certificates">
+			<condition>
+				<not>
+					<equals arg1="${redirector.err}" arg2="" />
+				</not>
+			</condition>
+		</fail>
+	</target>
+
+	<target name="clean">
+		<delete dir="${app.runtime.project.dir}" quiet="true" />
+	</target>
+
+	<target name="help">
+		<echo>
+			<![CDATA[
+Appspresso App Build Script for iOS
+=======================================
+
+
+ant -f build-axp.xml clean
+	-Dapp.out.android.dir=/path/to/output/directory (default: ${app.dir}/output/android)
+	-D...
+]]>
+		</echo>
+	</target>
+
+</project>

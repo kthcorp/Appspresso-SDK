@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-axp-project-ios" default="help" basedir=".">
+	<description>Appspresso Plugin Build Script for iOS</description>
+
+	<property environment="env" />
+	<dirname property="self.dir" file="ant.file.build-axp-ios" />
+	<property file="${self.dir}/build-axp.properties" />
+
+	<!-- appspresso sdk cli -->
+	<property name="ax.sdk.dir" location="${env.AX_HOME}" />
+	<property name="ax.build-app.xml" location="${ax.sdk.dir}/build-app.xml" />
+	<property name="ax.build-axp.xml" location="${ax.sdk.dir}/build-axp.xml" />
+	<property name="ax.plugins.dir" location="${ax.sdk.dir}/plugins" />
+	<property name="ax.templates.dir" location="${ax.sdk.dir}/templates" />
+	<property name="ax.templates.app.dir" location="${ax.templates.dir}/app" />
+	<property name="ax.templates.axp.dir" location="${ax.templates.dir}/axp" />
+	<property name="ax.platforms.dir" location="${ax.sdk.dir}/platforms" />
+
+	<!-- appspresso sdk cli for ios -->
+	<property name="ax.ios.dir" location="${ax.platforms.dir}/ios" />
+	<property name="ax.ios.build-app.xml" location="${ax.ios.dir}/build-app.xml" />
+	<property name="ax.ios.build-axp.xml" location="${ax.ios.dir}/build-axp.xml" />
+	<property name="ax.ios.templates.dir" location="${ax.ios.dir}/templates" />
+	<property name="ax.ios.templates.app.dir" location="${ax.ios.templates.dir}/app" />
+	<property name="ax.ios.templates.axp.dir" location="${ax.ios.templates.dir}/axp" />
+
+	<!-- appspresso plugin ios module -->
+	<property name="axp.id" value="com.example.ax" />
+
+	<!-- ios sdk & xcode -->
+	<property name="ios.sdk.dir" location="${env.IOS_HOME}" />
+	<property name="ios.build.configuration" value="Release" />
+	<property name="ios.build.version" value="" />
+
+	<!-- appspresso plugin ios module -->
+	<property name="axp.runtime.project.dir" location="${basedir}" />
+	<property name="axp.runtime.project.name" value="MyPlugin_ios" />
+	<property name="axp.runtime.project.build.dir" location="${axp.runtime.project.dir}/build" />
+	<property name="axp.runtime.out.dir" location="${axp.runtime.project.dir}/output" />
+
+	<target name="init">
+		<tstamp />
+		<echo message="Appspresso SDK on ${ax.sdk.dir}" />
+		<echo message="Appspresso iOS Runtime on ${ax.ios.dir}" />
+		<echo message="iOS SDK on ${ios.sdk.dir}" />
+
+		<mkdir dir="${axp.runtime.out.dir}" />
+	</target>
+
+	<target name="check-opts">
+		<condition property="valid-opts">
+			<and>
+				<available file="${ios.sdk.dir}" />
+				<available file="${axp.runtime.project.dir}" />
+			</and>
+		</condition>
+	</target>
+
+	<target name="-pre-build" />
+
+	<target name="-pre-compile" />
+
+	<macrodef name="xcodebuild">
+		<attribute name="sdk.root" />
+		<attribute name="output" />
+		<attribute name="configuration" default="${ios.build.configuration}" />
+
+		<sequential>
+			<exec executable="${ios.sdk.dir}/usr/bin/xcodebuild" spawn="false" failonerror="true">
+				<arg value="-sdk" />
+				<arg value="@{sdk.root}" />
+				<arg line="OBJROOT=&quot;@{output}&quot;" />
+				<arg line="SYMROOT=&quot;@{output}&quot;" />
+				<arg value="-configuration" />
+				<arg value="@{configuration}" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<target name="compile" depends="-pre-compile" description="build axp-ios project">
+		<!-- TODO resolve build ios version -->
+
+		<xcodebuild sdk.root="iphonesimulator${ios.build.version}" output="${axp.runtime.project.build.dir}" />
+		<xcodebuild sdk.root="iphoneos${ios.build.version}" output="${axp.runtime.project.build.dir}" />
+	</target>
+
+	<target name="-post-compile" />
+
+	<target name="packaging" depends="-pre-compile, compile, -post-compile">
+		<!-- make Universal Binary... -->
+		<!-- execute shell... for wildcard(*)-->
+		<exec executable="sh" spawn="false" failonerror="true">
+			<arg value="-c" />
+			<arg value="lipo -create
+					&quot;${axp.runtime.project.build.dir}/${ios.build.configuration}-iphoneos/&quot;*.a
+					&quot;${axp.runtime.project.build.dir}/${ios.build.configuration}-iphonesimulator/&quot;*.a
+					-output &quot;${axp.runtime.out.dir}/lib${axp.id}.a&quot;" />
+
+		</exec>
+
+		<!-- copy libs -->
+		<copy todir="${axp.runtime.out.dir}">
+			<fileset dir="${axp.runtime.project.dir}/libs" erroronmissingdir="false">
+				<exclude name="**/.cvs" />
+				<exclude name="**/.svn" />
+				<exclude name="**/.git" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="-post-build" />
+
+	<target name="build" depends="init, check-opts, -pre-build, packaging, -post-build">
+	</target>
+
+	<target name="clean" depends="init" description="clean axp-ios project">
+		<echo message="clean axp-ios project... ${axp.runtime.out.dir}" />
+
+		<exec executable="${ios.sdk.dir}/usr/bin/xcodebuild" spawn="false" failonerror="false">
+			<arg value="clean" />
+		</exec>
+
+		<delete includeemptydirs="true">
+			<fileset dir="${axp.runtime.out.dir}" />
+		</delete>
+	</target>
+
+	<target name="help">
+	</target>
+</project>

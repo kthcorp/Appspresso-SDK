@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axplugin id="ax.ext.ui" version="1.1.2">
+	<description>UI Extension API Appspresso Plugin
+	</description>
+	<url>http://appspresso.com</url>
+	<author>Appspresso Dev. Team</author>
+	<license>Copyright (c) 2011, KT Hitel Co., LTD.
+	</license>
+
+	<feature id="http://appspresso.com/api/ax.ext.ui" category="Extension" />
+
+	<module platform="android" platform-version="8"
+		min-platform-version="7" max-platform-version=""
+		class="com.appspresso.screw.ui.UiPlugin">
+	</module>
+
+	<module platform="ios" platform-version="4.1"
+		min-platform-version="4.0" max-platform-version="" class="ax_ext_ui_MyPlugin">
+		<property name="framework" value="CoreGraphics.framework" />
+	</module>
+</axplugin>

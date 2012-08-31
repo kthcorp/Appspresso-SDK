@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-setup" default="setup" basedir=".">
+	<description>Appspresso SDK/CLI Post-Install Script</description>
+
+	<property environment="env" />
+	<dirname property="self.dir" file="ant.file" />
+	<property file="${self.dir}/build-app.properties" />
+
+	<!-- appspresso sdk cli -->
+	<property name="ax.sdk.dir" location="${env.AX_HOME}" />
+	<property name="ax.platforms.dir" location="${ax.sdk.dir}/platforms" />
+	<property name="ax.android.dir" location="${ax.platforms.dir}/android" />
+	<property name="ax.ios.dir" location="${ax.platforms.dir}/ios" />
+	<property name="ax.wac.dir" location="${ax.platforms.dir}/wac" />
+
+	<target name="init">
+		<tstamp />
+
+		<condition property="app.target.android">
+			<and>
+				<available file="${ax.android.dir}" />
+			</and>
+		</condition>
+
+		<condition property="app.target.ios">
+			<and>
+				<available file="${ax.ios.dir}" />
+				<os family="mac" />
+			</and>
+		</condition>
+
+		<condition property="app.target.wac">
+			<and>
+				<available file="${ax.wac.dir}" />
+			</and>
+		</condition>
+
+		<echo message="setup Appspresso SDK/CLI on ${ax.sdk.dir}..." />
+	</target>
+
+	<target name="setup" depends="init,_setup_android,_setup_ios,_setup_wac">
+	</target>
+
+	<target name="_setup_android">
+		<echo message="setup Appspresso SDK/CLI for Android on ${ax.android.dir}..." />
+	</target>
+
+	<target name="_setup_ios">
+		<echo message="setup Appspresso SDK/CLI for iOS on ${ax.ios.dir}..." />
+
+		<!-- zip file doesn't keep file permission... :-S -->
+		<chmod dir="${ax.ios.dir}" type="dir" perm="755" includes="**/*" />
+		<chmod dir="${ax.ios.dir}" type="file" perm="644" includes="**/*" />
+		<chmod perm="755">
+			<fileset dir="${ax.ios.dir}" >
+				<include name="**/*.sh" />
+				<include name="**/*.pl" />
+				<include name="**/appspressopii" />
+				<include name="**/plistbuilder" />
+				<include name="**/iphonesim" />
+			</fileset>
+		</chmod>
+	</target>
+
+	<target name="_setup_wac">
+		<echo message="setup Appspresso SDK/CLI for WAC on ${ax.wac.dir}..." />
+	</target>
+
+</project>
+

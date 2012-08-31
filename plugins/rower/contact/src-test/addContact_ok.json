@@ -1,0 +1,16 @@
+{
+    "id": 2,
+    "error": null,
+    "result": {
+        "middleName": "",
+        "lastName": "Young",
+        "nicknames": [],
+        "photoURI": null,
+        "_id": "19",
+        "phoneticName": "",
+        "phoneNumbers": undefined,
+        "emails": undefined,
+        "firstName": "Jeffrey",
+        "addresses": undefined
+    }
+}

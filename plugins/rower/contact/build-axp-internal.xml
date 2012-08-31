@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-axp-internal" default="build" basedir=".">
+    <property file="build.properties" />
+
+	<import file="../../../build/build-support-js.xml" />
+
+	<property name="src.dir" location="${basedir}/src" />
+	<property name="out.dir" location="${basedir}/output" />
+	<property name="out.report.html" location="${out.dir}/jslint-report.html" />
+	<property name="out.merged.js" location="${out.dir}/axplugin.all.js" />
+	<property name="out.compressed.js" location="${basedir}/axplugin.js" />
+
+	<fileset id="src.js.files" dir="${src.dir}" includes="**/*.js" />
+	
+	<target name="_init">
+		<tstamp />
+		<mkdir dir="${out.dir}" />
+	</target>
+		
+	<target name="clean">
+		<delete includeemptydirs="true">
+			<fileset dir="${out.dir}" />
+		</delete>
+	</target>
+	
+	<target name="verify" depends="_init">
+		<js_verify_jslint src="src.js.files" out="${out.report.html}" />
+	</target>
+	
+	<target name="merge" depends="_init">
+		<js_merge src="src.js.files" out="${out.merged.js}" />
+	</target>
+	
+	<target name="compress" depends="_init">
+		<!--
+		<js_compress_jsmin src="${out.merged.js}" out="${out.dir}" />
+		<copy file="${out.dir}/axplugin.all.min.js" tofile="${out.compressed.js}" />
+		-->
+		<js_compress_yuicompressor src="${out.merged.js}" out="${out.compressed.js}" />
+	</target>
+
+	<target name="test" depends="_init">
+		<delete dir="${out.dir}/test" />
+		<mkdir dir="${out.dir}/test" />
+
+		<!-- generate output/keel.js for test -->
+		<ant dir="../../../common/keel" target="merge" inheritAll="false" inheritRefs="false">
+			<property name="out.merged.js" location="${out.dir}/keel.js" />
+		</ant>
+		<copy file="../deviceapis/src/axplugin.js" tofile="${out.dir}/deviceapis.js" />
+
+		<js_test_driver src="${basedir}/src-test" out="${out.dir}/test" config="${basedir}/src-test/jsTestDriver.conf" />
+		<js_test_driver_coverage_report src="${out.dir}/test" out="${out.dir}/test/coverage" config="jsTestDriver.conf-coverage.dat" />
+	</target>
+
+    <target name="_test_start" depends="_init">
+        <js_test_driver_server_start src="${basedir}/src-test" out="${out.dir}/test" config="${basedir}/src-test/jsTestDriver.conf" />
+    </target>
+
+    <target name="_test_stop" depends="_init">
+        <js_test_driver_server_stop />
+    </target>
+
+    <target name="_test_capture" depends="_init">
+        <js_test_driver_capture />
+    </target>
+
+    <target name="_test_test" depends="_init">
+        <js_test_driver_tests src="${basedir}/src-test" out="${out.dir}/test" config="${basedir}/src-test/jsTestDriver.conf" />
+    </target>
+
+    <target name="docs" depends="_init">
+        <delete dir="${out.dir}/docs/api" />
+        <mkdir dir="${out.dir}/docs/api" />
+        <jsdoc src="${src.dir}" out="${out.dir}/docs/api" />
+    </target>
+
+	<target name="build" depends="verify,merge,compress">
+	</target>
+</project>

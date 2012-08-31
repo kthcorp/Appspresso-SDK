@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="build-support-java" basedir=".">
+	<description>Appspresso Java Module Build Support Script</description>
+
+	<!-- private -->
+
+	<dirname property="build.suppoprt.java.dir" file="${ant.file.build-support-java}" />
+
+	<property name="build.suppoprt.java.tools.dir" location="${build.suppoprt.java.dir}/tools" />
+
+	<path id="dummy.lib" />
+
+	<macrodef name="java.compile">
+		<attribute name="srcdir" />
+		<attribute name="destdir" />
+		<attribute name="classpathref" default="dummy.lib" />
+
+		<sequential>
+			<javac srcdir="@{srcdir}"
+					destdir="@{destdir}"
+					source="1.6" target="1.6" encoding="UTF-8" includeAntRuntime="false">
+				<classpath refid="@{classpathref}" />
+			</javac>
+		</sequential>
+	</macrodef>
+	
+	<target name="java.test">
+	</target>
+
+	<target name="java.apidoc">
+	</target>
+
+</project>

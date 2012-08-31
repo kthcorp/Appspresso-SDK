@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-homepage-doc" default="docs" basedir=".">
+    <property file="build.properties" />
+
+	<property name="jsdoc.template" value="appspresso" />
+	<import file="../build/build-support-js.xml" />
+
+	<property name="src.dir" location="${basedir}" />
+	<property name="out.dir" location="${basedir}/output" />
+
+	<target name="_init">
+		<tstamp />
+		<mkdir dir="${out.dir}" />
+	</target>
+		
+	<target name="clean">
+		<delete includeemptydirs="true">
+			<fileset dir="${out.dir}" />
+		</delete>
+	</target>
+
+    <target name="_appspresso" depends="_init">
+        <delete dir="${out.dir}/ax" />
+        <mkdir dir="${out.dir}/ax" />
+
+        <copy file="../common/keel/src/ax.js" tofile="${out.dir}/ax/ax.js" />
+        <copy file="../common/keel/src/ax_bridge.js" tofile="${out.dir}/ax/ax_bridge.js" />
+        <copy file="../common/keel/src/ax_console.js" tofile="${out.dir}/ax/ax_console.js" />
+        <copy file="../common/keel/src/ax_error.js" tofile="${out.dir}/ax/ax_error.js" />
+        <copy file="../common/keel/src/ax_plugin.js" tofile="${out.dir}/ax/ax_plugin.js" />
+        <copy file="../common/keel/src/ax_request.js" tofile="${out.dir}/ax/ax_request.js" />
+        <copy file="../common/keel/src/ax_util.js" tofile="${out.dir}/ax/ax_util.js" />
+        <copy file="../common/keel/src/w3_widget.js" tofile="${out.dir}/ax/w3_widget.js" />
+    </target>
+
+    <target name="appspresso" depends="_appspresso">
+        <mkdir dir="${out.dir}/docs/ax" />
+        <jsdoc src="${src.dir}/output/ax" out="${out.dir}/docs/ax" />
+        <delete dir="${out.dir}/ax" />
+    </target>
+
+
+
+    <target name="_extension" depends="_init">
+        <delete dir="${out.dir}/extension" />
+        <mkdir dir="${out.dir}/extension" />
+
+        <copy file="motor/ax.ext.admob/src/axplugin.js" tofile="${out.dir}/extension/ax.ext.admob.js" />
+        <copy file="motor/ax.ext.android/src/axplugin.js" tofile="${out.dir}/extension/ax.ext.android.js" />
+        <copy file="motor/ax.ext.contact/src/axplugin.js" tofile="${out.dir}/extension/ax.ext.contact.js" />
+        <copy file="motor/ax.ext.ga/src/axplugin.js" tofile="${out.dir}/extension/ax.ext.ga.js" />
+        <copy file="motor/ax.ext.ios/src/axplugin.js" tofile="${out.dir}/extension/ax.ext.ios.js" />
+        <copy file="motor/ax.ext.media/src/axplugin.js" tofile="${out.dir}/extension/ax.ext.media.js" />
+        <copy file="motor/ax.ext.net/src/axplugin.js" tofile="${out.dir}/extension/ax.ext.net.js" />
+        <copy file="motor/ax.ext.ui/src/axplugin.js" tofile="${out.dir}/extension/ax.ext.ui.js" />
+        <copy file="motor/ax.ext.zip/src/axplugin.js" tofile="${out.dir}/extension/ax.ext.zip.js" />
+    </target>
+
+    <target name="extension" depends="_extension">
+        <mkdir dir="${out.dir}/docs/extension" />
+        <jsdoc src="${src.dir}/output/extension" out="${out.dir}/docs/extension" />
+        <delete dir="${out.dir}/extension" />
+    </target>
+
+	<target name="_wac" depends="_init">
+		<delete dir="${out.dir}/wac" />
+		<mkdir dir="${out.dir}/wac" />
+
+		<copy file="rower/deviceapis/src/axplugin.js" tofile="${out.dir}/wac/deviceapis.js" />
+		<copy file="rower/accelerometer/src/axplugin.js" tofile="${out.dir}/wac/accelerometer.js" />
+		<copy file="rower/camera/src/axplugin.js" tofile="${out.dir}/wac/camera.js" />
+		<copy file="rower/contact/src/axplugin.js" tofile="${out.dir}/wac/contact.js" />
+		<copy file="rower/deviceinteraction/src/axplugin.js" tofile="${out.dir}/wac/deviceinteraction.js" />
+		<copy file="rower/devicestatus/src/axplugin.js" tofile="${out.dir}/wac/devicestatus.js" />
+		<copy file="rower/filesystem/src/axplugin.js" tofile="${out.dir}/wac/filesystem.js" />
+		<copy file="rower/geolocation/src/axplugin.js" tofile="${out.dir}/wac/geolocation.js" />
+		<copy file="rower/messaging/src/axplugin.js" tofile="${out.dir}/wac/messaging.js" />
+		<copy file="rower/orientation/src/axplugin.js" tofile="${out.dir}/wac/orientation.js" />
+		<copy file="rower/pim/src/axplugin.js" tofile="${out.dir}/wac/pim.js" />
+	</target>
+
+    <target name="wac" depends="_wac">
+        <mkdir dir="${out.dir}/docs/wac" />
+        <jsdoc src="${src.dir}/output/wac" out="${out.dir}/docs/wac" />
+        <delete dir="${out.dir}/wac" />
+    </target>
+
+    <target name="docs" depends="appspresso,extension,wac">
+    </target>
+
+</project>

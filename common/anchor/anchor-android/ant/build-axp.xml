@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-axp-android" default="help" basedir=".">
+	<description>Appspresso Plugin Build Script for Android</description>
+
+	<property environment="env" />
+	<dirname property="self.dir" file="ant.file.build-axp-android" />
+	<property file="${self.dir}/build-axp.properties" />
+
+	<!-- appspresso sdk cli -->
+	<property name="ax.sdk.dir" location="${env.AX_HOME}" />
+	<property name="ax.platforms.dir" location="${ax.sdk.dir}/platforms" />
+
+	<!-- appspresso sdk cli for android -->
+	<property name="ax.android.dir" location="${ax.platforms.dir}/android" />
+	<property name="ax.android.build-axp.xml" location="${ax.android.dir}/build-axp.xml" />
+	<property name="ax.android.templates.dir" location="${ax.android.dir}/templates" />
+	<property name="ax.android.templates.axp.dir" location="${ax.android.templates.dir}/axp" />
+
+	<!-- android sdk & java sdk -->
+	<property name="android.sdk.dir" location="${env.ANDROID_HOME}" />
+	<property name="android.target" value="8" />
+
+	<!-- appspresso plugin android module -->
+	<property name="axp.id" value="com.example.ax" />
+
+	<!-- appspresso plugin android module -->
+	<property name="axp.runtime.project.name" value="MyPluign_android" />
+	<property name="axp.runtime.project.class" value="${axp.id}.MyPlugin" />
+	<property name="axp.runtime.project.version" value="8" />
+	<property name="axp.runtime.project.dir" location="${basedir}" />
+	<property name="axp.runtime.out.dir" location="${axp.runtime.project.dir}/output" />
+	<property name="axp.template.name" location="_blank" />
+	<property name="axp.template.dir" location="${ax.android.templates.axp.dir}/_blank" />
+
+	<!-- -->
+	<property name="axp.runtime.project.jar.file" location="${axp.runtime.project.dir}/bin/classes.jar" />
+
+	<target name="init">
+		<tstamp />
+		<echo message="Appspresso SDK on ${ax.sdk.dir}" />
+		<echo message="Appspresso Android Runtime on ${ax.android.dir}" />
+		<echo message="Android SDK on ${android.sdk.dir}" />
+	</target>
+
+	<target name="check-opts">
+		<condition property="valid-opts" else="false">
+			<and>
+				<available file="${android.sdk.dir}" type="dir" />
+				<available file="${ax.android.dir}" type="dir" />
+				<isset property="axp.runtime.project.name" />
+				<isset property="axp.runtime.project.dir" />
+			</and>
+		</condition>
+		<fail unless="${valid-opts}">
+			<![CDATA[
+				Check Parameter
+				ax.android.dir = ${ax.android.dir}
+				android.sdk.dir = ${android.sdk.dir}
+				axp.runtime.project.dir = ${axp.runtime.project.dir}
+				axp.runtime.project.name = ${axp.runtime.project.name}
+			]]>
+		</fail>
+		
+		<condition property="exist.project.dir">
+			<and>
+				<available file="${axp.runtime.project.dir}" type="dir" />
+				<length length="0" when="ne">
+					<fileset dir="${axp.runtime.project.dir}" />
+				</length>
+			</and>
+		</condition>
+	</target>
+	
+	<target name="-create-project-from-template" unless="exist.project.dir" depends="init, check-opts">
+		<echo message="create new axp-android project on ${axp.runtime.project.dir}..." />
+		
+		<script language="javascript">
+			<![CDATA[
+				var klass = project.getProperty('axp.runtime.project.class');
+				var idx = klass.lastIndexOf('.');
+				var javaClass = klass.substring(idx + 1);
+				var pkgName = klass.substring(0, idx);
+		       	project.setProperty('java.class.name', javaClass);
+		       	project.setProperty('package.name', pkgName);
+
+		       	var filterset = project.createDataType("filterset");
+				filterset.addFilter('ANDROID_SDK_DIR', project.getProperty('android.sdk.dir').replaceAll('\\\\', '/'));
+				filterset.addFilter('AX_ANDROID_DIR', project.getProperty('ax.android.dir').replaceAll('\\\\', '/'));
+				project.addReference('convert.path', filterset)
+		     ]]>
+		</script>
+
+		<copy todir="${axp.runtime.project.dir}">
+			<filterset>
+				<filter token="AXP_RUNTIME_PROJECT_NAME" value="${axp.runtime.project.name}" />
+				<filter token="AXP_RUNTIME_PROJECT_VERSION" value="${axp.runtime.project.version}" />
+				<filter token="JAVA_NAME" value="${java.class.name}" />
+				<filter token="PACKAGE_NAME" value="${package.name}" />
+			</filterset>
+			<filterset refid="convert.path" />
+
+			<fileset dir="${axp.template.dir}" />
+
+			<firstmatchmapper>
+				<chainedmapper>
+					<globmapper from="src${file.separator}MyPlugin.java" to="${package.name}.${java.class.name}.java" />
+					<unpackagemapper from="*.java" to="src${file.separator}*.java" />
+				</chainedmapper>
+				<flattenmapper />
+			</firstmatchmapper>
+		</copy>
+
+		<copy todir="${axp.runtime.project.dir}/libs" file="${ax.android.dir}/lib/chronometer.jar" />
+		<copy todir="${axp.runtime.project.dir}/docs" file="${ax.android.dir}/docs/chronometer_doc.zip" />
+	</target>
+	
+	<target name="create" depends="init, check-opts, -create-project-from-template" description="create new axp-android project">
+	</target>
+
+	<target name="build">
+		<delete dir="${axp.runtime.project.dir}/bin" failonerror="false" />
+
+		<ant dir="${axp.runtime.project.dir}" antfile="build.xml" inheritall="false" target="release">
+			<property name="basedir" location="${axp.runtime.project.dir}" />
+			<property name="sdk.dir" location="${android.sdk.dir}" />
+			<property name="axp.runtime.project.jar.file" location="${axp.runtime.project.jar.file}" />
+		</ant>
+
+		<copy todir="${axp.runtime.out.dir}">
+			<fileset dir="${axp.runtime.project.dir}">
+				<include name="res/**" />
+				<include name="libs/**" />
+				<include name="assets/**" />
+				<include name="AndroidManifest.xml" />
+
+				<exclude name="bin" />
+				<exclude name="libs/chronometer.jar" />
+				<exclude name="**/.svn" />
+				<exclude name="**/.git" />
+				<exclude name="**/.cvs" />
+			</fileset>
+		</copy>
+
+		<copy tofile="${axp.runtime.out.dir}/libs/${axp.id}.jar" file="${axp.runtime.project.jar.file}" />
+
+		<mkdir dir="${axp.runtime.out.dir}/libs" />
+		<mkdir dir="${axp.runtime.out.dir}/src" />
+	</target>
+
+	<target name="clean" depends="init" description="clean axp-android project">
+		<echo message="clean axp-android project... ${axp.runtime.out.dir}" />
+
+		<ant dir="${axp.runtime.project.dir}" antfile="build.xml" inheritall="false" target="clean">
+			<property name="basedir" location="${axp.runtime.project.dir}" />
+			<property name="sdk.dir" location="${android.sdk.dir}" />
+		</ant>
+	</target>
+
+	<target name="help">
+		<echo>
+			<![CDATA[
+Appspresso Plugin Android Module Build Script
+=============================================
+
+ant -f build-axp.xml {create|build|clean|help}
+	-Daxp.runtime.project.dir=/path/to/xcode/static/library/project
+	-Daxp.runtime.out.dir=/path/to/output/directory (default: ${axp.runtime.project.dir}/output)
+	-Dax.sdk.dir=/path/to/appspresso/sdk/directory (default: $AX_HOME)
+	-Dandroid.sdk.dir=/path/to/android/sdk/directory (default: $ANDROID_HOME)
+	-D...
+
+ant -f build-axp.xml create
+	-D...
+
+ant -f build-axp.xml build
+	-D...
+
+ant -f build-axp.xml clean
+	-D...
+]]>
+		</echo>
+	</target>
+</project>

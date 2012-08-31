@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="build-support-objc" basedir=".">
+	<description>Appspresso Objective-C Module Build Support Script</description>
+
+	<exec executable="xcode-select">
+		<arg value="-print-path" />
+		<redirector outputproperty="ios.sdk.dir" />
+	</exec>
+	<property name="xcodebuild" location="${ios.sdk.dir}/usr/bin/xcodebuild" />
+
+	<macrodef name="objc.compile">
+		<attribute name="configuration" default="Release" />
+		<attribute name="sdk" />
+
+		<sequential>
+			<exec executable="xcodebuild">
+				<arg line="-configuration @{configuration}" />
+				<arg line="-sdk @{sdk}" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<!--
+objc.compile
+objc.test
+objc.apidoc
+objc.lib
+objc.app
+-->
+</project>

@@ -1,0 +1,91 @@
+<project name="anchor" default="build" basedir=".">
+
+	<property file="build.properties" />
+
+	<property name="anchor.common.dir" location="${anchor.dir}/anchor-common" />
+	<property name="anchor.android.dir" location="${anchor.dir}/anchor-android" />
+	<property name="anchor.ios.dir" location="${anchor.dir}/anchor-ios" />
+	<property name="anchor.wac.dir" location="${anchor.dir}/anchor-wac" />
+
+	<property name="out.dir" location="${basedir}/output" />
+
+	<property name="ax.sdk.dir" location="${out.dir}" />
+	<property name="out.anchor.dir" location="${ax.sdk.dir}" />
+	<property name="out.anchor.android.dir" location="${out.anchor.dir}/platforms/android" />
+	<property name="out.anchor.ios.dir" location="${out.anchor.dir}/platforms/ios" />
+	<property name="out.anchor.wac.dir" location="${out.anchor.dir}/platforms/wac" />
+
+	<condition property="is.mac">
+		<os family="mac" />
+	</condition>
+
+	<target name="init">
+		<mkdir dir="${out.dir}" />
+	</target>
+
+	<target name="-build-runtime" depends="init">
+	</target>
+
+	<target name="-build-anchor-common" depends="init">
+		<subant buildpath="${anchor.common.dir}" target="build" inheritall="false">
+			<property name="out.dir" location="${ax.sdk.dir}" />
+		</subant>
+	</target>
+
+	<target name="-build-anchor-android" depends="init">
+		<subant buildpath="${anchor.android.dir}" target="build" inheritall="false">
+			<property name="out.dir" location="${out.anchor.android.dir}" />
+		</subant>
+	</target>
+
+	<target name="-build-anchor-ios" depends="init" if="is.mac">
+		<subant buildpath="${anchor.ios.dir}" target="build" inheritall="false">
+			<property name="out.dir" location="${out.anchor.ios.dir}" />
+		</subant>
+		
+		<chmod dir="${ax.ios.dir}" type="dir" perm="755" includes="**/*" />
+		<chmod dir="${ax.ios.dir}" type="file" perm="644" includes="**/*" />
+		<chmod perm="755">
+			<fileset dir="${out.anchor.ios.dir}/scripts" >
+				<include name="**/*.scpt" />
+				<include name="**/iphonesim" />
+			</fileset>
+		</chmod>
+	</target>
+
+	<target name="-build-anchor-wac" depends="init">
+		<subant buildpath="${anchor.wac.dir}" target="build" inheritall="false">
+			<property name="out.dir" location="${out.anchor.wac.dir}" />
+		</subant>
+	</target>
+
+	<target name="-build-anchor" depends="-build-anchor-common, -build-anchor-android, -build-anchor-ios, -build-anchor-wac">
+	</target>
+
+	<target name="build" depends="init, -build-anchor">
+	</target>
+
+	<target name="test" depends="build">
+		<exec command="${basedir}/test/test.sh">
+		</exec>
+	</target>
+
+	<target name="clean">
+		<macrodef name="anchor.module.clean">
+			<attribute name="path" />
+			<attribute name="path.output" />
+
+			<sequential>
+				<subant buildpath="@{path}" target="clean" inheritall="false">
+					<property name="out.dir" location="@{path.output}" />
+				</subant>
+			</sequential>
+		</macrodef>
+
+		<anchor.module.clean path="${anchor.android.dir}" path.output="${out.anchor.android.dir}" />
+		<anchor.module.clean path="${anchor.ios.dir}" path.output="${out.anchor.ios.dir}" />
+		<anchor.module.clean path="${anchor.wac.dir}" path.output="${out.anchor.wac.dir}" />
+		<anchor.module.clean path="${anchor.common.dir}" path.output="${out.anchor.common.dir}" />
+	</target>
+
+</project>

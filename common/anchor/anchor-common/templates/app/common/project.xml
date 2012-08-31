@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project
+	xmlns="http://www.appspresso.com/ns/app"
+	version="1.1">
+
+	<!-- On this tab, you can not directly modify the source. -->
+	<widget id="@APP_WIDGET_ID@" version="@APP_WIDGET_VERSION@">
+		<name>@APP_NAME@</name>
+		<content src="index.html" />
+		<icon src="widget-icon.png" />
+		<feature name="http://wacapps.net/api/deviceapis" />
+	</widget>
+
+	<wac min-version="2.0"></wac>
+
+	<android id="@APP_ANDROID_ID@" version="@APP_ANDROID_VERSION@">
+		<preference name="activity" value="Activity" />
+		<preference name="versionCode" value="1" />
+
+		<preference name="maxSdkVersion" value="" />
+		<preference name="installLocation" value="internalOnly" />
+		<preference name="activity.theme" value="0" />
+		<preference name="orientation" value="0" />
+
+		<preference name="targetSdkVersion" value="7" />
+		<preference name="minSdkVersion" value="7" />
+
+		<preference name="webview.cache.enable" value="true" />
+		<preference name="webview.cache.clearonfinish" value="false" />
+		<preference name="defaultZoom" value="MEDIUM" />
+		<preference name="zoom.enable" value="false" />
+		<preference name="zoom.control" value="false" />
+		<preference name="splash.enable" value="true" />
+		<preference name="splash.orientation" value="0" />
+
+		<preference name="splash.duration.min" value="0" />
+		<preference name="splash.duration.max" value="0" />
+	</android>
+
+	<iphone id="@APP_IOS_ID@" version="@APP_IOS_VERSION@">
+		<preference name="buildVersionNumber" value="1" />
+		<preference name="targetDevice" value="1" />
+
+		<preference name="webview.cache.enable" value="true" />
+		<preference name="ScalesPageToFit" value="false" />
+		<preference name="application.orientation.supported" value="1,2,3,4" />
+		<preference name="exitOnSuspend" value="false" />
+		<preference name="initOrientation" value="1" />
+		<preference name="uiPrerenderedIcon" value="false" />
+		<preference name="uiStatusBarHidden" value="false" />
+		<preference name="uiStatusBarStyle" value="UIStatusBarStyleDefault" />
+		<preference name="splash.duration.max" value="0" />
+		<preference name="splash.duration.min" value="0" />
+
+		<sign_info>@IOS_CODE_SIGN@</sign_info>
+	</iphone>
+	<plugin id="deviceapis" />
+</project>

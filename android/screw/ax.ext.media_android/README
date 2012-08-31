@@ -1,0 +1,5 @@
+Appspresso Plugin Android Module
+
+src: java source files
+lib: external dependencies(jars) here(except android.jar and chronometer.jar)
+output: generated output files

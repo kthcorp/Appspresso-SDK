@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axplugin id="ax.ext.ios" version="1.1.2">
+	<description>iOS Extension API Appspresso Plugin
+	</description>
+	<url>http://appspresso.com</url>
+	<author>Appspresso Dev. Team</author>
+	<license>Copyright (c) 2011, KT Hitel Co., LTD.
+	</license>
+
+	<feature id="http://appspresso.com/api/ax.ext.ios" category="Extension" />
+
+	<module platform="ios" platform-version="4.1"
+		min-platform-version="4.0" max-platform-version="" class="ax_ext_ios_MyPlugin">
+	</module>
+</axplugin>

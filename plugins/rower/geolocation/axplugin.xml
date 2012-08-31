@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axplugin id="deviceapis.geolocation" version="1.1.2">
+	<description>WAC/Waikiki API Geolocation Feature Appspresso Plugin.
+	</description>
+	<url>http://appspresso.com</url>
+	<author>Appspresso Dev. Team</author>
+	<license>Copyright (c) 2011, KT Hitel Co., LTD.
+	</license>
+
+	<feature id="http://www.w3.org/TR/geolocation-API/" category="Standard" />
+
+	<module platform="android" platform-version="8"
+		min-platform-version="7" max-platform-version=""
+		class="com.appspresso.waikiki.geolocation.Geolocation" >
+		
+		<property name="permission"
+			value="android.permission.ACCESS_COARSE_LOCATION,android.permission.ACCESS_FINE_LOCATION" />
+	</module>
+
+	<module platform="ios" platform-version="4.1"
+		min-platform-version="4.0" max-platform-version="">
+		<property name="framework" value="CoreLocation.framework" />
+	</module>
+</axplugin>

@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'accelerometer-ios' target in the 'accelerometer-ios' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-app" default="help" basedir=".">
+	<description>Appspresso App Build Script</description>
+
+	<property environment="env" />
+	<dirname property="self.dir" file="ant.file" />
+	<property file="${self.dir}/build-app.properties" />
+
+	<!-- appspresso sdk cli -->
+	<condition property="ax.sdk.dir" value="${env.AX_HOME}" else="${self.dir}">
+		<isset property="env.AX_HOME" />
+	</condition>
+
+	<!--<property name="ax.sdk.dir" location="${env.AX_HOME}" />-->
+	<property name="ax.keel.dir" location="${ax.sdk.dir}/common/keel" />
+	<property name="ax.tools.dir" location="${ax.sdk.dir}/common/tools" />
+	<property name="ax.templates.dir" location="${ax.sdk.dir}/templates" />
+	<property name="ax.plugins.dir" location="${ax.sdk.dir}/plugins" />
+
+	<property name="ax.build-app.xml" location="${ax.sdk.dir}/build-app.xml" />
+	<property name="ax.build-axp.xml" location="${ax.sdk.dir}/build-axp.xml" />
+
+	<property name="ax.templates.app.dir" location="${ax.templates.dir}/app" />
+	<property name="ax.templates.axp.dir" location="${ax.templates.dir}/axp" />
+
+	<property name="ax.platforms.dir" location="${ax.sdk.dir}/platforms" />
+
+	<property name="ax.android.dir" location="${ax.platforms.dir}/android" />
+	<property name="ax.android.build-app.xml" location="${ax.android.dir}/build-app.xml" />
+	<property name="ax.android.build-axp.xml" location="${ax.android.dir}/build-axp.xml" />
+
+	<property name="ax.ios.dir" location="${ax.platforms.dir}/ios" />
+	<property name="ax.ios.build-app.xml" location="${ax.ios.dir}/build-app.xml" />
+	<property name="ax.ios.build-axp.xml" location="${ax.ios.dir}/build-axp.xml" />
+
+	<property name="ax.wac.dir" location="${ax.platforms.dir}/wac" />
+	<property name="ax.wac.build-app.xml" location="${ax.wac.dir}/build-app.xml" />
+	<property name="ax.wac.build-axp.xml" location="${ax.wac.dir}/build-axp.xml" />
+
+	<property name="app.template.name" value="_blank" />
+	<property name="app.template.dir" location="${ax.templates.app.dir}/${app.template.name}" />
+	<property name="app.target.platform" value="android|ios" />
+
+	<!-- appspresso app -->
+	<property name="app.dir" location="${basedir}" />
+	<property name="app.id" value="com.example.ax.app" />
+	<property name="app.version" value="1.0" />
+	<property name="app.name" value="MyApplication" />
+	<property name="app.project.name" value="${app.name}" />
+
+	<!-- android|ios|wac|... -->
+	<!--
+	// properties for android
+		app.android.id
+		app.android.version
+		app.android.target.device
+		app.android.out.path
+
+		android.*
+		...
+
+	// properties for ios
+		app.ios.id
+		app.ios.version
+		app.ios.target.device
+		app.ios.out.path
+
+		ios.*
+	-->
+
+	<!-- ... -->
+	<property name="app.plugins.dir" location="${app.dir}/plugins" />
+	<property name="app.platforms.dir" location="${app.dir}/platforms" />
+	<property name="app.platforms.android.dir" location="${app.platforms.dir}/Android" />
+	<property name="app.platforms.ios.dir" location="${app.platforms.dir}/iOS" />
+
+	<property name="app.src.dir" location="${app.dir}/src" />
+	<property name="app.project.xml" location="${app.dir}/project.xml" />
+	<property name="app.out.dir" location="${app.dir}/output" />
+	<property name="app.config.xml" location="${app.out.dir}/config.xml" />
+
+	<property name="plugins.cache.dir" location="${app.out.dir}/cache" />
+
+	<path id="anchor.libs">
+		<pathelement path="${ax.sdk.dir}/anttask/build-app.jar" />
+	</path>
+
+	<taskdef name="parse.project.xml"
+			classpathref="anchor.libs"
+		classname="com.appspresso.cli.ant.common.app.ParseProjectXMLTask">
+	</taskdef>
+
+	<target name="-init">
+		<tstamp />
+
+		<condition property="app.target.android">
+			<and>
+				<isset property="app.id" />
+				<contains string="${app.target.platform}" substring="android" />
+			</and>
+		</condition>
+
+		<condition property="app.target.ios">
+			<and>
+				<isset property="app.id" />
+				<os family="mac" />
+				<contains string="${app.target.platform}" substring="ios" />
+			</and>
+		</condition>
+
+		<condition property="app.target.wac">
+			<and>
+				<isset property="app.id" />
+				<contains string="${app.target.platform}" substring="wac" />
+			</and>
+		</condition>
+
+		<delete dir="${plugins.cache.dir}" />
+
+		<echo message="using Appspresso SDK/CLI on ${ax.sdk.dir}" />
+	</target>
+
+	<target name="-pre-create" />
+
+	<target name="-post-create" />
+
+	<target name="-create">
+		<echo message="create new app project on ${app.dir}..." />
+
+		<script language="javascript">
+			<![CDATA[
+			var wid = 'http://';
+			var p = project.getProperty('app.id').split('\\.');
+			for (var i = p.length-2; i >= 0; i--) {
+				wid += p[i];
+				if(i != 0) wid += '.';
+			}
+			wid += "/" + p[p.length - 1];
+			project.setProperty('app.widget.id', wid);
+			]]>
+		</script>
+		<property name="app.widget.version" value="${app.version}" />
+
+		<property name="app.android.id" value="${app.id}" />
+		<property name="app.android.version" value="${app.version}" />
+
+		<property name="app.ios.id" value="${app.id}" />
+		<property name="app.ios.version" value="${app.version}" />
+		<property name="ios.codeSign" value="" />
+
+		<script language="javascript">
+			<![CDATA[
+			var filterset = project.createDataType("filterset");
+			filterset.addFilter('AX_SDK_DIR', project.getProperty('ax.sdk.dir').replaceAll('\\\\', '/'));
+			project.addReference('convert.path', filterset)
+			]]>
+		</script>
+
+		<copy todir="${app.dir}" overwrite="true">
+			<fileset dir="${app.template.dir}">
+				<include name="**/*.xml" />
+				<include name="**/*.html" />
+				<include name="**/*.js" />
+				<include name="**/*.css" />
+				<include name="**/*.properties" />
+				<include name="**/*.project" />
+				<!-- execlude template metadata -->
+				<exclude name=".metadata/**" />
+			</fileset>
+			<filterset refid="convert.path" />
+
+			<filterset>
+				<filter token="APP_VERSION" value="${app.version}" />
+				<filter token="APP_ID" value="${app.id}" />
+				<filter token="APP_NAME" value="${app.name}" />
+				<filter token="APP_PROJECT_NAME" value="${app.project.name}" />
+
+				<filter token="APP_WIDGET_ID" value="${app.widget.id}" />
+				<filter token="APP_WIDGET_VERSION" value="${app.widget.version}" />
+
+				<filter token="APP_ANDROID_ID" value="${app.android.id}" />
+				<filter token="APP_ANDROID_VERSION" value="${app.android.version}" />
+
+				<filter token="APP_IOS_ID" value="${app.ios.id}" />
+				<filter token="APP_IOS_VERSION" value="${app.ios.version}" />
+				<filter token="IOS_CODE_SIGN" value="${ios.codeSign}" />
+				<!-- ... -->
+			</filterset>
+		</copy>
+
+		<copy todir="${app.dir}" overwrite="true">
+			<fileset dir="${app.template.dir}">
+				<exclude name="**/*.xml" />
+				<exclude name="**/*.html" />
+				<exclude name="**/*.js" />
+				<exclude name="**/*.css" />
+				<exclude name="**/*.properties" />
+				<exclude name="**/*.project" />
+				<!-- execlude template metadata -->
+				<exclude name=".metadata/**" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="create" depends="-init,-pre-create,-create,-create-android,-create-ios,-post-create" description="create new app project">
+	</target>
+
+	<target name="-parse-projxml">
+		<parse.project.xml
+			path="${app.dir}"
+			targetPlatform="${app.target.platform}"
+			axSdkDir="${ax.sdk.dir}"
+			config="${app.config.xml}"
+			builtinPluginsDir="${ax.plugins.dir}"
+			pluginsCacheDir="${plugins.cache.dir}" />
+	</target>
+
+	<target name="-pre-build" />
+
+	<target name="-post-build" />
+
+	<target name="build" depends="-init,-parse-projxml,-pre-build,-build-android,-build-ios,-build-wac,-post-build" description="build app project">
+	</target>
+
+	<target name="-pre-run" />
+
+	<target name="-post-run" />
+
+	<target name="run" depends="-init,-parse-projxml,-pre-run,-run-android,-run-ios,-run-wac,-post-run" description="run app project">
+	</target>
+
+	<target name="-pre-export" />
+
+	<target name="-post-export" />
+
+	<target name="export" depends="-init,-parse-projxml,-pre-export,-export-android,-export-ios,-export-wac,-post-export" description="export app project">
+	</target>
+
+	<target name="clean" depends="-init,-clean-android,-clean-ios,-clean-wac" description="clean app project">
+		<echo message="clean app project... ${app.out.dir}" />
+
+		<delete includeemptydirs="true">
+			<fileset dir="${app.out.dir}" erroronmissingdir="false"/>
+		</delete>
+	</target>
+
+	<target name="migrate.app" description="migarte app project">
+		<echo message="update appspresso applicaiton project" />
+		<java jar="${ax.tools.dir}/migration.jar" fork="true">
+			<arg value="app" />
+			<arg value="${app.dir}" />
+		</java>
+	</target>
+
+	<target name="help" description="show usage">
+		<echo>
+			<![CDATA[
+Appspresso App Build Tool
+=========================
+
+ant -f build-app.xml {create|build|run|export|clean|help} [opts...]
+	-Dax.sdk.dir=/path/to/appspresso/sdk/directory (default: $AX_HOME)
+	-D...
+
+ant -f build-app.xml create
+	-Dapp.dir=/path/to/new/app/project/directory (required)
+	-Dapp.id=APP-ID (required)
+	-Dapp.version=APP-VERSION (default: 1.0)
+	-Dapp.name=APP-NAME (default: same as app.id)
+	-D...
+
+ant -f build-app.xml build
+	-Dapp.dir=/path/to/new/axp/project/directory (required)
+	-Dapp.target.platform={android|ios|wac|...} (required)
+	-D...platform_specific_params...
+
+ant -f build-axp.xml run
+	-Dapp.dir=/path/to/new/axp/project/directory (required)
+	-Dapp.target.platform={android|ios|wac|...} (required)
+	-D...platform_specific_params...
+
+ant -f build-axp.xml export
+	-Dapp.dir=/path/to/new/axp/project/directory (required)
+	-Dapp.target.platform={android|ios|wac|...} (required)
+	-D...platform_specific_params...
+
+ant -f build-axp.xml clean
+	-D...
+]]>
+		</echo>
+	</target>
+
+	<macrodef name="create-platform">
+		<attribute name="ax.platform.dir" />
+		<attribute name="app.platform.dir" />
+		<attribute name="app.template.name" default="${app.template.name}" />
+
+		<sequential>
+			<subant buildpath="@{ax.platform.dir}" antfile="build-app.xml" target="create" inheritall="off">
+				<property name="ax.sdk.dir" location="${ax.sdk.dir}" />
+				<property name="app.name" value="${app.name}" />
+				<property name="app.platform.dir" location="@{app.platform.dir}" />
+				<property name="app.template.name" location="@{app.template.name}" />
+			</subant>
+		</sequential>
+	</macrodef>
+		
+	<!-- android -->
+	<target name="-init-android" if="app.target.android">
+		<property name="app.out.android.dir" location="${app.out.dir}/android" />
+		<property name="app.out.android.path" location="${app.out.dir}/${android.app.id}-${android.app.version}.apk" />
+
+		<propertyset id="propertyset.android">
+			<propertyref name="ax.sdk.dir" />
+			<propertyref name="app.dir" />
+			<propertyref name="app.config.xml" />
+			<propertyref name="app.out.android.dir" />
+			<propertyref name="app.out.android.path" />
+			<propertyref name="app.platforms.android.dir" />
+
+			<propertyref prefix="plugin." />
+			<propertyref prefix="android." />
+
+			<firstmatchmapper>
+				<globmapper from="app.out.android.dir" to="app.runtime.project.dir" />
+				<globmapper from="app.out.android.path" to="app.out.path" />
+				<globmapper from="app.platform.dir" to="app.platforms.android.dir" />
+			</firstmatchmapper>
+		</propertyset>
+	</target>
+
+	<target name="-create-android" if="app.target.android">
+		<create-platform ax.platform.dir="${ax.android.dir}" app.platform.dir="${app.platforms.android.dir}" />
+	</target>
+	
+	<target name="-build-android" depends="-init-android" if="app.target.android">
+		<echo message="build android app... ${app.out.android.path}" />
+
+		<ant antfile="${ax.android.build-app.xml}" target="build" inheritall="false">
+			<propertyset refid="propertyset.android" />
+		</ant>
+	</target>
+
+	<target name="-run-android" depends="-init-android" if="app.target.android">
+		<echo message="run android app... ${app.out.android.path}" />
+
+		<fail message="please SET your device serial number">
+			<condition>
+				<not>
+					<isset property="app.android.target.device" />
+				</not>
+			</condition>
+		</fail>
+
+		<ant antfile="${ax.android.build-app.xml}" target="run" inheritall="false">
+			<property name="ax.sdk.dir" location="${ax.sdk.dir}" />
+			<property name="app.out.path" location="${app.out.android.path}" />
+			<property name="app.target.device" value="${app.android.target.device}" />
+			<propertyset>
+				<propertyref prefix="android." />
+			</propertyset>
+		</ant>
+	</target>
+
+	<target name="-export-android" depends="-init-android" if="app.target.android">
+		<echo message="export android app... ${app.out.android.path}" />
+
+		<ant antfile="${ax.android.build-app.xml}" target="export" inheritall="false">
+			<propertyset refid="propertyset.android" />
+		</ant>
+	</target>
+
+	<target name="-clean-android" depends="-init-android" if="app.target.ios">
+		<echo message="clean ios app..." />
+
+		<ant antfile="${ax.android.build-app.xml}" target="clean">
+			<property name="ax.sdk.dir" location="${ax.sdk.dir}" />
+			<property name="app.runtime.project.dir" location="${app.out.android.dir}" />
+		</ant>
+	</target>
+
+	<!-- ios -->
+
+	<target name="-init-ios" if="app.target.ios">
+		<property name="app.out.ios.dir" location="${app.out.dir}/ios" />
+
+		<condition property="app.out.ios.path"
+			value="${app.out.dir}/${app.id}-${app.version}.app"
+			else="${app.out.dir}/${app.id}-${app.version}.ipa">
+
+			<contains string="${ios.sdk.type}" substring="iphonesimulator" />
+		</condition>
+
+		<propertyset id="propertyset.ios">
+			<propertyref name="ax.sdk.dir" />
+			<propertyref name="app.dir" />
+			<propertyref name="app.config.xml" />
+			<propertyref name="app.out.ios.dir" />
+			<propertyref name="app.out.ios.path" />
+			<propertyref name="app.platforms.ios.dir" />
+
+			<propertyref prefix="plugin." />
+			<propertyref prefix="ios." />
+
+			<firstmatchmapper>
+				<globmapper from="app.out.ios.dir" to="app.runtime.project.dir" />
+				<globmapper from="app.out.ios.path" to="app.out.path" />
+				<globmapper from="app.platform.dir" to="app.platforms.ios.dir" />
+			</firstmatchmapper>
+		</propertyset>
+	</target>
+
+	<target name="-create-ios" if="app.target.ios">
+		<create-platform ax.platform.dir="${ax.ios.dir}" app.platform.dir="${app.platforms.ios.dir}" />
+	</target>
+	
+	<target name="-build-ios" depends="-init-ios" if="app.target.ios">
+		<echo message="build ios app... ${app.out.ios.path}" />
+
+		<ant antfile="${ax.ios.build-app.xml}" target="build" inheritall="false">
+			<propertyset refid="propertyset.ios" />
+		</ant>
+	</target>
+
+	<target name="-run-ios" depends="-init-ios" if="app.target.ios">
+		<echo message="run ios app... ${app.out.ios.path}" />
+
+		<ant antfile="${ax.ios.build-app.xml}" target="run" inheritall="false">
+			<property name="ax.sdk.dir" location="${ax.sdk.dir}" />
+			<property name="app.out.path" location="${app.out.ios.path}" />
+			<propertyset>
+				<propertyref prefix="ios." />
+			</propertyset>
+		</ant>
+	</target>
+
+	<target name="-export-ios" depends="-init-ios" if="app.target.ios">
+		<echo message="export ios app... ${app.out.path}" />
+
+		<ant antfile="${ax.ios.build-app.xml}" target="export" inheritall="false">
+			<propertyset refid="propertyset.ios" />
+		</ant>
+	</target>
+
+	<target name="-clean-ios" depends="-init-ios" if="app.target.ios">
+		<echo message="clean ios app..." />
+
+		<ant antfile="${ax.ios.build-app.xml}" target="clean">
+			<property name="ax.sdk.dir" location="${ax.sdk.dir}" />
+			<property name="app.runtime.project.dir" location="${app.out.ios.dir}" />
+		</ant>
+	</target>
+
+	<!-- wac -->
+
+	<target name="-init-wac" if="app.target.wac">
+		<property name="app.out.wac.dir" location="${app.out.dir}/wac" />
+		<property name="app.out.wac.path" location="${app.out.dir}/${app.id}-${app.version}.wgt" />
+
+		<propertyset id="propertyset.wac">
+			<propertyref name="ax.sdk.dir" />
+			<propertyref name="app.dir" />
+			<propertyref name="app.out.wac.dir" />
+			<propertyref name="app.out.wac.path" />
+
+			<propertyref prefix="plugin." />
+			<propertyref prefix="wac." />
+
+			<firstmatchmapper>
+				<globmapper from="app.out.wac.dir" to="app.runtime.project.dir" />
+				<globmapper from="app.out.wac.path" to="app.out.path" />
+			</firstmatchmapper>
+		</propertyset>
+	</target>
+
+	<target name="-build-wac" depends="-init-wac" if="app.target.wac">
+		<echo message="build wac app... ${app.out.wac.path}" />
+
+		<ant antfile="${ax.wac.build-app.xml}" target="build">
+			<propertyset refid="propertyset.wac" />
+		</ant>
+	</target>
+
+	<target name="-run-wac" depends="-init-wac" if="app.target.wac">
+		<echo message="run wac app... ${app.out.wac.path}" />
+
+		<ant antfile="${ax.wac.build-app.xml}" target="run">
+			<property name="app.out.path" location="${app.out.wac.path}" />
+		</ant>
+	</target>
+
+	<target name="-export-wac" depends="-init-wac" if="app.target.wac">
+		<echo message="export wac app... ${app.out.wac.path}" />
+
+		<ant antfile="${ax.wac.build-app.xml}" target="export">
+			<property name="app.runtime.project.dir" location="${app.out.wac.dir}" />
+			<property name="app.out.path" location="${app.out.wac.path}" />
+		</ant>
+	</target>
+
+	<target name="-clean-wac" depends="-init-wac" if="app.target.wac">
+		<echo message="clean wac app... ${app.out.wac.dir}" />
+
+		<ant antfile="${ax.wac.build-app.xml}" target="clean">
+			<property name="app.runtime.project.dir" location="${app.out.wac.dir}" />
+		</ant>
+	</target>
+</project>

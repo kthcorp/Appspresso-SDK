@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'pim-ios' target in the 'pim-ios' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

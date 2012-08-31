@@ -1,0 +1,32 @@
+<project name="Reship" default="build">
+
+	<property name="src.dir" location="${basedir}/src" />
+	<property name="bin.dir" location="${basedir}/bin" />
+	<property name="out.dir" location="${basedir}/output" />
+
+	<property name="migration.jar" location="${out.dir}/migration.jar" />
+
+	<target name="init">
+		<echo>build appspresso migration tool</echo>
+
+		<mkdir dir="${bin.dir}" />
+		<mkdir dir="${out.dir}" />
+	</target>
+
+	<target name="build" depends="init">
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" />
+
+		<jar destfile="${migration.jar}" manifest="${basedir}/META-INF/MANIFEST.MF">
+			<fileset dir="${bin.dir}" />
+			<fileset dir="${src.dir}">
+				<exclude name="**/.svn" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="clean">
+		<delete dir="${bin.dir}" />
+		<delete dir="${out.dir}" />
+	</target>
+</project>

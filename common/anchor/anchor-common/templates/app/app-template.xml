@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template version="1.0" default="_blank">
+	<outline name="_blank" text="Hello World" />
+	<outline name="_localization" text="Hello World(Localization)" />
+</template>

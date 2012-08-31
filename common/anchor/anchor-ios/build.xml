@@ -1,0 +1,132 @@
+<project name="anchor-ios" default="build" basedir=".">
+	<property file="build.properties" />
+
+	<property name="build.dir" location="../../../build" />
+
+	<import file="${build.dir}/build-support-java.xml" />
+
+	<property name="ant.jar" location="${build.dir}/tools/ant-1.8.2.jar" />
+
+	<dirname property="self.dir" file="${ant.file.anchor-ios}" />
+
+	<property name="chronometer.dir" location="${self.dir}/../../../ios/chronometer-ios" />
+
+	<property name="java.src.dir" location="${self.dir}/anttask" />
+	<property name="java.bin.dir" location="${self.dir}/bin" />
+	<property name="java.bin.app.dir" location="${java.bin.dir}/app" />
+	<property name="java.bin.axp.dir" location="${java.bin.dir}/axp" />
+
+	<property name="iphonesim.dir" location="${self.dir}/iphonesim/" />
+
+	<property name="templates.dir" location="${self.dir}/templates" />
+	<property name="templates.app.dir" location="${templates.dir}/app" />
+	<property name="templates.axp.dir" location="${templates.dir}/axp" />
+
+	<property name="out.dir" location="${self.dir}/output" />
+	<property name="out.lib.dir" location="${out.dir}/lib" />
+	<property name="out.anttask.dir" location="${out.dir}/anttask" />
+	<property name="out.anttask.app.jar" location="${out.anttask.dir}/build-app.jar" />
+
+	<property name="out.templates.dir" location="${out.dir}/templates" />
+	<property name="out.templates.app.dir" location="${out.templates.dir}/app" />
+	<property name="out.templates.axp.dir" location="${out.templates.dir}/axp" />
+
+	<path id="libs">
+		<pathelement path="${ant.jar}" />
+		<pathelement path="${out.anttask.common.jar}" />
+	</path>
+
+	<defaultexcludes add="**/.cvs" />
+	<defaultexcludes add="**/.svn" />
+	<defaultexcludes add="**/.git" />
+
+	<target name="init">
+		<echo>build anchor-ios</echo>
+
+		<mkdir dir="${java.bin.app.dir}" />
+		<mkdir dir="${java.bin.axp.dir}" />
+
+		<mkdir dir="${out.dir}" />
+		<mkdir dir="${out.lib.dir}" />
+		<mkdir dir="${out.anttask.dir}" />
+		<mkdir dir="${out.templates.dir}" />
+	</target>
+
+	<target name="-build-app" depends="init">
+		<macrodef name="copy.template.app">
+			<attribute name="template.name" />
+			<sequential>
+				<copy todir="${out.templates.app.dir}/@{template.name}">
+					<fileset dir="${templates.app.dir}/@{template.name}" />
+
+					<fileset dir="${templates.app.dir}">
+						<include name="Info.plist.axml" />
+						<include name="README" />
+					</fileset>
+				</copy>
+			</sequential>
+		</macrodef>
+
+		<copy.template.app template.name="_blank" />
+		<copy.template.app template.name="_localization" />
+
+		<copy todir="${out.templates.app.dir}/base">
+			<fileset dir="${templates.app.dir}/base" />
+		</copy>
+
+		<java.compile srcdir="${java.src.dir}/app" destdir="${java.bin.dir}/app" classpathref="libs" />
+		<jar destfile="${out.anttask.app.jar}" basedir="${java.bin.dir}/app" />
+	</target>
+
+	<target name="-build-axp" depends="init">
+		<copy todir="${out.templates.axp.dir}">
+			<fileset dir="${templates.axp.dir}" />
+		</copy>
+	</target>
+
+	<target name="-build-iphonesim">
+		<echo>build iphonesim : ${iphonesim.dir} </echo>
+		<exec executable="xcodebuild">
+			<arg value="-project" />
+			<arg path="${iphonesim.dir}/iphonesim.xcodeproj" />
+		</exec>
+
+		<copy todir="${out.dir}/scripts" file="${iphonesim.dir}/build/Release/iphonesim" />
+	</target>
+
+	<target name="-build-ant" depends="init">
+		<copy todir="${out.dir}">
+			<fileset dir="${self.dir}/ant" />
+		</copy>
+	</target>
+
+	<target name="-build-libs" depends="init">
+		<copy todir="${out.lib.dir}">
+			<fileset file="${chronometer.a}" />
+			<fileset file="${sail.a}" />
+		</copy>
+
+		<copy todir="${out.lib.dir}/headers">
+			<fileset dir="${chronometer.dir}">
+				<include name="*.h" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="-copy-scripts">
+		<copy todir="${out.dir}/scripts">
+			<fileset dir="${self.dir}/scripts" />
+		</copy>
+	</target>
+
+	<target name="build" depends="init, -build-app, -build-axp, -build-ant, -build-libs, -build-iphonesim, -copy-scripts">
+	</target>
+
+	<target name="clean">
+		<delete includeemptydirs="true">
+			<fileset dir="${java.bin.dir}" erroronmissingdir="false" />
+			<fileset dir="${out.dir}" erroronmissingdir="false" />
+			<fileset dir="${iphonesim.dir}/build" erroronmissingdir="false" />
+		</delete>
+	</target>
+</project>

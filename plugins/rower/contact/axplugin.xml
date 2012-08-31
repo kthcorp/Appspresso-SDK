@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axplugin id="deviceapis.pim.contact" version="1.1.2">
+	<description>WAC/Waikiki API Contact Feature Appspresso Plugin
+	</description>
+	<url>http://appspresso.com</url>
+	<author>Appspresso Dev. Team</author>
+	<license>Copyright (c) 2011, KT Hitel Co., LTD.
+	</license>
+
+	<feature id="http://wacapps.net/api/pim.contact.read" category="Standard" />
+	<feature id="http://wacapps.net/api/pim.contact.write" category="Standard" />
+	<feature id="http://wacapps.net/api/pim.contact" category="Standard" />
+
+	<module platform="android" platform-version="8"
+		min-platform-version="7" max-platform-version=""
+		class="com.appspresso.waikiki.contact.ContactManager">
+		<property name="permission"
+			value="android.permission.READ_CONTACTS,android.permission.WRITE_CONTACTS" />
+		<!--android.permission.GET_ACCOUNTS-->
+	</module>
+
+	<module platform="ios" platform-version="4.1"
+		min-platform-version="4.0" max-platform-version=""
+		class="KthWaikikiContactManager">
+		<property name="framework" value="AddressBook.framework,AddressBookUI.framework" />
+	</module>
+</axplugin>

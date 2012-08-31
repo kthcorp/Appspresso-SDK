@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="build-support-js" basedir=".">
+	<description>Appspresso Javascript Module Build Support Script</description>
+
+	<!-- private -->
+
+	<dirname property="self.dir" file="${ant.file.build-support-js}" />
+	<property file="${self.dir}/build.properties" />
+
+	<property name="tools.dir" location="${self.dir}/tools" />
+
+	<!-- public -->
+
+	<property name="js.encoding" value="UTF-8" />
+	<property name="js.copyright" value="Copyright (c) 2011 KT Hitel Co., Ltd." />
+
+	<!-- rhino -->
+
+	<property name="js.jar" location="${tools.dir}/js-1.7R2.jar" />
+
+	<!-- jslint4java -->
+
+	<property name="jslint4java.jar" location="${tools.dir}/jslint4java-2.0.0.jar" />
+
+	<property name="jslint.js" value="${tools.dir}/jslint.js" />
+	<property name="jslint.options" value="browser,confusion,debug,devel,nomen,plusplus,vars,white" />
+	<property name="jslint.predef" value="window,$,deviceapis,ax" />
+	<property name="jslint.haltOnFailure" value="false" />
+
+	<path id="jslint.classpath">
+		<pathelement location="${jslint4java.jar}" />
+	</path>
+
+	<taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask" classpathref="jslint.classpath" />
+
+	<!-- yuicompressor -->
+
+	<property name="yuicompressor.jar" location="${tools.dir}/yuicompressor-2.4.6.jar" />
+	<property name="yui-compressor-ant-task.jar" location="${tools.dir}/yui-compressor-ant-task-0.5.jar" />
+
+	<path id="yuicompressor.classpath">
+		<pathelement location="${yuicompressor.jar}" />
+		<pathelement location="${yui-compressor-ant-task.jar}" />
+	</path>
+
+	<property name="yuicompressor.mainclass" value="com.yahoo.platform.yui.compressor.YUICompressor" />
+
+	<taskdef name="yui-compressor" classname="net.noha.tools.ant.yuicompressor.tasks.YuiCompressorTask">
+		<classpath refid="yuicompressor.classpath" />
+	</taskdef>
+
+	<!-- jsmin -->
+
+	<property name="jsmin.jar" location="${tools.dir}/jsmin-0.2.4.jar" />
+
+	<path id="jsmin.classpath">
+		<pathelement location="${jsmin.jar}" />
+	</path>
+
+	<taskdef name="jsmin" classname="net.matthaynes.jsmin.JSMin_Task" classpathref="jsmin.classpath" />
+
+	<!-- jsdoc -->
+
+	<property name="jsdoc.dir" location="${tools.dir}/jsdoc-toolkit-2.4.0" />
+	<property name="jsdoc.template" value="codeview" />
+	<property name="jsdoc-toolkit-ant-task.jar" location="${tools.dir}/jsdoc-toolkit-ant-task-1.1.2.jar" />
+
+	<path id="jsdoc.classpath">
+		<pathelement location="${js.jar}" />
+		<pathelement location="${jsdoc-toolkit-ant-task.jar}" />
+	</path>
+
+	<taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit" classpathref="jsdoc.classpath" />
+
+	<!-- js-test-driver -->
+
+	<property name="jstd.jar" location="${tools.dir}/JsTestDriver-1.3.2.jar" />
+    <property name="jstd.host" value="localhost" />
+	<property name="jstd.port" value="9876" />
+	<property name="jstd.runnerMode" value="INFO" />
+	<property name="jstd.browser" value="open" />
+	<property name="jstd.tests" value="all" />
+    <property name="jstd.capture.strict" value="false" />
+
+	<macrodef name="js_verify_jslint">
+		<attribute name="src" />
+		<attribute name="out" />
+		<attribute name="encoding" default="${js.encoding}" />
+		<attribute name="options" default="${jslint.options}" />
+		<attribute name="predef" default="${jslint.predef}" />
+		<attribute name="haltOnFailure" default="${jslint.haltOnFailure}" />
+
+		<sequential>
+			<echo message="verify js with jslint..." />
+			<jslint encoding="@{encoding}" options="@{options}" haltOnFailure="@{haltOnFailure}">
+				<predef>@{predef}</predef>
+				<formatter type="plain" />
+				<formatter type="report" destfile="@{out}" />
+				<resources refid="@{src}" />
+			</jslint>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="js_merge">
+		<attribute name="src" />
+		<attribute name="out" />
+		<attribute name="encoding" default="${js.encoding}" />
+
+		<sequential>
+			<echo message="merge... into @{out}" />
+			<concat destfile="@{out}" encoding="@{encoding}" outputencoding="@{encoding}" fixlastline="no" eol="unix">
+				<resources refid="@{src}" />
+				<filterchain>
+					<deletecharacters chars="&#xFEFF;" />
+					<!-- remove UTF-8 BOM -->
+				</filterchain>
+			</concat>
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="js_compress_yuicompressor">
+		<attribute name="src" />
+		<attribute name="out" />
+		<attribute name="encoding" default="${js.encoding}" />
+
+		<sequential>
+			<echo message="compress js with yuicompressor... @{src} to @{out}" />
+			<java classname="${yuicompressor.mainclass}" classpathref="yuicompressor.classpath" fork="true">
+				<arg value="--verbose" />
+				<arg value="--charset" />
+				<arg value="@{encoding}" />
+				<arg value="--type" />
+				<arg value="js" />
+				<arg value="-o" />
+				<arg file="@{out}" />
+				<arg file="@{src}" />
+			</java>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="js_compress_jsmin">
+		<attribute name="src" />
+		<attribute name="out" />
+		<attribute name="copyright" default="${js.copyright}" />
+
+		<sequential>
+			<echo message="compress js with jsmin... @{src} to @{out}" />
+			<jsmin srcfile="@{src}" destdir="@{out}" suffix="true" force="true" copyright="@{copyright}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="jsdoc">
+		<attribute name="src" />
+		<attribute name="out" />
+
+		<sequential>
+			<echo message="generate js doc... @{src} to @{out}" />
+			<jsdoctoolkit jsdochome="${jsdoc.dir}/" template="${jsdoc.template}" outputdir="@{out}" inputdir="@{src}" encoding="${js.encoding}" verbose="true" log="@{out}/jsdoc.log">
+				<arg name="noGlobal" value="true" />
+			</jsdoctoolkit>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="js_test_driver">
+		<attribute name="src" />
+		<attribute name="out" />
+		<attribute name="config" />
+		<attribute name="tests" default="${jstd.tests}" />
+
+		<sequential>
+			<echo message="test with js-test-driver..." />
+			<java jar="${jstd.jar}" fork="true">
+				<jvmarg value="-Dfile.encoding=UTF-8" />
+				<arg value="--basePath" />
+				<arg value="@{src}" />
+				<arg value="--testOutput" />
+				<arg value="@{out}" />
+				<arg value="--config" />
+				<arg value="@{config}" />
+				<arg value="--tests" />
+				<arg value="@{tests}" />
+				<arg value="--port" />
+				<arg value="${jstd.port}" />
+				<arg value="--browser" />
+				<arg value="${jstd.browser}" />
+				<arg value="--runnerMode" />
+				<arg value="${jstd.runnerMode}" />
+				<arg value="--captureConsole" />
+				<arg value="--verbose" />
+			</java>
+			<junitreport todir="@{out}">
+				<fileset dir="@{out}" includes="TEST-*.xml" />
+				<report format="frames" todir="@{out}/report" />
+			</junitreport>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="js_test_driver_server_start">
+		<attribute name="src" />
+		<attribute name="out" />
+		<attribute name="config" />
+
+		<sequential>
+			<echo message="starting js-test-driver server..." />
+			<java jar="${jstd.jar}" fork="true" spawn="true">
+				<jvmarg value="-Dfile.encoding=UTF-8" />
+				<arg value="--basePath" />
+				<arg value="@{src}" />
+				<arg value="--testOutput" />
+				<arg value="@{out}" />
+				<arg value="--config" />
+				<arg value="@{config}" />
+				<arg value="--port" />
+				<arg value="${jstd.port}" />
+				<arg value="--runnerMode" />
+				<arg value="${jstd.runnerMode}" />
+				<arg value="--captureConsole" />
+				<arg value="--verbose" />
+			</java>
+			<echo message="js-test-driver server is running on http://${jstd.host}:${jstd.port}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="js_test_driver_server_stop">
+		<sequential>
+			<property name="jps.executable" value="jps" />
+			<condition property="kill.executable" value="pskill">
+				<os family="windows" />
+			</condition>
+			<condition property="kill.executable" value="kill">
+				<not><os family="windows" /></not>
+			</condition>
+			<echo message="stopping js-test-driver server..." />
+			<exec executable="${jps.executable}">
+				<redirector outputproperty="jstd.pid">
+					<outputfilterchain>
+						<linecontains>
+                            <contains value="JsTestDriver"/>
+                        </linecontains>
+						<tokenfilter>
+							<replaceregex pattern="^([0-9]+).*" replace="\1" />
+						</tokenfilter>
+					</outputfilterchain>
+				</redirector>
+			</exec>
+			<fail if="${jstd.pid}" message="no js-test-driver server is running!" />
+			<exec executable="${kill.executable}">
+				<arg value="${jstd.pid}" />
+			</exec>
+			<echo message="js-test-driver server is stopped." />
+		</sequential>
+	</macrodef>
+
+    <macrodef name="js_test_driver_capture">
+        <attribute name="browser" default="${jstd.browser}" />
+        <attribute name="strict" default="${jstd.capture.strict}" />
+        <sequential>
+            <condition property="jstd.capture.url" value="http://${jstd.host}:${jstd.port}/capture?capture">
+                <istrue value="@{strict}" />
+            </condition>
+            <condition property="jstd.capture.url" value="http://${jstd.host}:${jstd.port}/capture">
+                <isfalse value="@{strict}" />
+            </condition>
+            <echo message="capturing browser for js-test-driver..." />
+            <exec executable="@{browser}">
+                <arg value="${jstd.capture.url}" />
+            </exec>
+        </sequential>
+    </macrodef>
+
+	<macrodef name="js_test_driver_tests">
+		<attribute name="src" />
+		<attribute name="out" />
+		<attribute name="config" />
+		<attribute name="tests" default="${jstd.tests}" />
+		<sequential>
+			<echo message="starting js-test-driver server..." />
+			<java jar="${jstd.jar}" fork="true">
+				<jvmarg value="-Dfile.encoding=UTF-8" />
+				<arg value="--basePath" />
+				<arg value="@{src}" />
+				<arg value="--testOutput" />
+				<arg value="@{out}" />
+				<arg value="--config" />
+				<arg value="@{config}" />
+				<arg value="--tests" />
+				<arg value="@{tests}" />
+				<arg value="--runnerMode" />
+				<arg value="${jstd.runnerMode}" />
+				<arg value="--captureConsole" />
+				<arg value="--verbose" />
+			</java>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="js_test_driver_coverage_report">
+		<attribute name="src" />
+		<attribute name="out" />
+		<attribute name="config" />
+		<sequential>
+			<property name="genhtml.executable" value="genhtml" />
+			<basename property="config.basename" file="@{config}" />
+			<echo message="generating js-test-driver code coverage report..." />
+			<exec executable="${genhtml.executable}" dir="@{src}">
+				<arg value="@{config}" />
+				<arg value="-o" />
+				<arg value="@{out}" />
+			</exec>
+		</sequential>
+	</macrodef>
+</project>

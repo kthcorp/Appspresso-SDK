@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="pragma" content="no-cache" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<script src="/appspresso/appspresso.js"></script>
+		<script src="locale-example.js"></script>
+		<script>
+			//activate ax.log(), comment out when you release app
+			ax.runMode = ax.MODE_DEBUG;
+			ax.log("Hello World");
+		</script>
+	</head>
+	<body>
+		<h1 id="title"></h1>
+		<h3>@APP_ID@</h3>
+		<!--
+		/platforms			  ... Metafile, icon, application name FOR PLATFORM(Android, iOS, ...)
+		/src
+		   /appspresso
+		      /appspresso.js  ... AUTO-GENERATED FILE.
+		   /locales           ... Directory for Localized content.
+		                          SEE ALSO, http://www.w3.org/TR/widgets/#folder-based-localization
+		      /en
+		         /locale.js
+		      /ko
+		      /...
+		   /index.html        ... this page
+		   /locale-example.js ... sample javascript
+		   /widget-icon.png   ... icon for widget.
+		                          IF YOU WANT TO CHANGE ICON FOR ANDROID or IOS,
+		                          YOU CAN DO IT in 'platforms' DIRECTORY.
+		/project.xml          ... application configuration file
+		 -->
+	</body>
+</html>

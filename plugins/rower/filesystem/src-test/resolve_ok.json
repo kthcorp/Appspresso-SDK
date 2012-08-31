@@ -1,0 +1,16 @@
+{
+    "id": 6,
+    "error": null,
+    "result": {
+        "fullPath": "wgt-package",
+        "path": "wgt-package",
+        "_handle": "wgt-package",
+        "isFile": false,
+        "name": "",
+        "isDirectory": true,
+        "readOnly": true,
+        "length": 47,
+        "created": 1321268526000,
+        "modified": 1321268527000
+    }
+}

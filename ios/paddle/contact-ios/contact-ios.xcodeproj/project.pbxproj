@@ -1,0 +1,296 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		638FF98C13B0258E0048CB47 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638FF98B13B0258E0048CB47 /* Foundation.framework */; };
+		638FF99B13B0259D0048CB47 /* ABContact.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FF99513B0259D0048CB47 /* ABContact.h */; };
+		638FF99C13B0259D0048CB47 /* ABContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FF99613B0259D0048CB47 /* ABContact.m */; };
+		638FF99D13B0259D0048CB47 /* ABContactsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FF99713B0259D0048CB47 /* ABContactsHelper.h */; };
+		638FF99E13B0259D0048CB47 /* ABContactsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FF99813B0259D0048CB47 /* ABContactsHelper.m */; };
+		638FF99F13B0259D0048CB47 /* ABGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FF99913B0259D0048CB47 /* ABGroup.h */; };
+		638FF9A013B0259D0048CB47 /* ABGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FF99A13B0259D0048CB47 /* ABGroup.m */; };
+		638FF9A713B025A50048CB47 /* KthWaikikiContact.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FF9A113B025A50048CB47 /* KthWaikikiContact.h */; };
+		638FF9A813B025A50048CB47 /* KthWaikikiContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FF9A213B025A50048CB47 /* KthWaikikiContact.m */; };
+		638FF9A913B025A50048CB47 /* KthWaikikiContactManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FF9A313B025A50048CB47 /* KthWaikikiContactManager.h */; };
+		638FF9AA13B025A50048CB47 /* KthWaikikiContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FF9A413B025A50048CB47 /* KthWaikikiContactManager.m */; };
+		E239442D13EBB3D600707762 /* ContactPhotoFileSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = E239442B13EBB3D600707762 /* ContactPhotoFileSystem.h */; };
+		E239442E13EBB3D600707762 /* ContactPhotoFileSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = E239442C13EBB3D600707762 /* ContactPhotoFileSystem.m */; };
+		E239443613EBB4F100707762 /* ContactPhotoFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E239443413EBB4F100707762 /* ContactPhotoFile.h */; };
+		E239443713EBB4F100707762 /* ContactPhotoFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E239443513EBB4F100707762 /* ContactPhotoFile.m */; };
+		E2732C4F13F504AB00559B72 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2732C4D13F504AB00559B72 /* AddressBook.framework */; };
+		E2732C5013F504AB00559B72 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2732C4E13F504AB00559B72 /* AddressBookUI.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		638FF98813B0258E0048CB47 /* libcontact-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcontact-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		638FF98B13B0258E0048CB47 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		638FF98F13B0258E0048CB47 /* contact-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "contact-ios-Prefix.pch"; sourceTree = "<group>"; };
+		638FF99513B0259D0048CB47 /* ABContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABContact.h; sourceTree = "<group>"; };
+		638FF99613B0259D0048CB47 /* ABContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABContact.m; sourceTree = "<group>"; };
+		638FF99713B0259D0048CB47 /* ABContactsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABContactsHelper.h; sourceTree = "<group>"; };
+		638FF99813B0259D0048CB47 /* ABContactsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABContactsHelper.m; sourceTree = "<group>"; };
+		638FF99913B0259D0048CB47 /* ABGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABGroup.h; sourceTree = "<group>"; };
+		638FF99A13B0259D0048CB47 /* ABGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABGroup.m; sourceTree = "<group>"; };
+		638FF9A113B025A50048CB47 /* KthWaikikiContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiContact.h; sourceTree = "<group>"; };
+		638FF9A213B025A50048CB47 /* KthWaikikiContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiContact.m; sourceTree = "<group>"; };
+		638FF9A313B025A50048CB47 /* KthWaikikiContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiContactManager.h; sourceTree = "<group>"; };
+		638FF9A413B025A50048CB47 /* KthWaikikiContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiContactManager.m; sourceTree = "<group>"; };
+		E239442B13EBB3D600707762 /* ContactPhotoFileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactPhotoFileSystem.h; sourceTree = "<group>"; };
+		E239442C13EBB3D600707762 /* ContactPhotoFileSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactPhotoFileSystem.m; sourceTree = "<group>"; };
+		E239443413EBB4F100707762 /* ContactPhotoFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactPhotoFile.h; sourceTree = "<group>"; };
+		E239443513EBB4F100707762 /* ContactPhotoFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactPhotoFile.m; sourceTree = "<group>"; };
+		E2732C4D13F504AB00559B72 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		E2732C4E13F504AB00559B72 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		638FF98513B0258E0048CB47 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2732C4F13F504AB00559B72 /* AddressBook.framework in Frameworks */,
+				E2732C5013F504AB00559B72 /* AddressBookUI.framework in Frameworks */,
+				638FF98C13B0258E0048CB47 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		638FF97D13B0258E0048CB47 = {
+			isa = PBXGroup;
+			children = (
+				638FF98D13B0258E0048CB47 /* contact-ios */,
+				638FF98A13B0258E0048CB47 /* Frameworks */,
+				638FF98913B0258E0048CB47 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		638FF98913B0258E0048CB47 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				638FF98813B0258E0048CB47 /* libcontact-ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		638FF98A13B0258E0048CB47 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E2732C4D13F504AB00559B72 /* AddressBook.framework */,
+				E2732C4E13F504AB00559B72 /* AddressBookUI.framework */,
+				638FF98B13B0258E0048CB47 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		638FF98D13B0258E0048CB47 /* contact-ios */ = {
+			isa = PBXGroup;
+			children = (
+				638FF99513B0259D0048CB47 /* ABContact.h */,
+				638FF99613B0259D0048CB47 /* ABContact.m */,
+				638FF99713B0259D0048CB47 /* ABContactsHelper.h */,
+				638FF99813B0259D0048CB47 /* ABContactsHelper.m */,
+				638FF99913B0259D0048CB47 /* ABGroup.h */,
+				638FF99A13B0259D0048CB47 /* ABGroup.m */,
+				638FF9A113B025A50048CB47 /* KthWaikikiContact.h */,
+				638FF9A213B025A50048CB47 /* KthWaikikiContact.m */,
+				638FF9A313B025A50048CB47 /* KthWaikikiContactManager.h */,
+				638FF9A413B025A50048CB47 /* KthWaikikiContactManager.m */,
+				638FF98E13B0258E0048CB47 /* Supporting Files */,
+				E239442B13EBB3D600707762 /* ContactPhotoFileSystem.h */,
+				E239442C13EBB3D600707762 /* ContactPhotoFileSystem.m */,
+				E239443413EBB4F100707762 /* ContactPhotoFile.h */,
+				E239443513EBB4F100707762 /* ContactPhotoFile.m */,
+			);
+			path = "contact-ios";
+			sourceTree = "<group>";
+		};
+		638FF98E13B0258E0048CB47 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				638FF98F13B0258E0048CB47 /* contact-ios-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		638FF98613B0258E0048CB47 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638FF99B13B0259D0048CB47 /* ABContact.h in Headers */,
+				638FF99D13B0259D0048CB47 /* ABContactsHelper.h in Headers */,
+				638FF99F13B0259D0048CB47 /* ABGroup.h in Headers */,
+				638FF9A713B025A50048CB47 /* KthWaikikiContact.h in Headers */,
+				638FF9A913B025A50048CB47 /* KthWaikikiContactManager.h in Headers */,
+				E239442D13EBB3D600707762 /* ContactPhotoFileSystem.h in Headers */,
+				E239443613EBB4F100707762 /* ContactPhotoFile.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		638FF98713B0258E0048CB47 /* contact-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 638FF99213B0258E0048CB47 /* Build configuration list for PBXNativeTarget "contact-ios" */;
+			buildPhases = (
+				638FF98413B0258E0048CB47 /* Sources */,
+				638FF98513B0258E0048CB47 /* Frameworks */,
+				638FF98613B0258E0048CB47 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "contact-ios";
+			productName = "contact-ios";
+			productReference = 638FF98813B0258E0048CB47 /* libcontact-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		638FF97F13B0258E0048CB47 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = KTH;
+			};
+			buildConfigurationList = 638FF98213B0258E0048CB47 /* Build configuration list for PBXProject "contact-ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 638FF97D13B0258E0048CB47;
+			productRefGroup = 638FF98913B0258E0048CB47 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				638FF98713B0258E0048CB47 /* contact-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		638FF98413B0258E0048CB47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638FF99C13B0259D0048CB47 /* ABContact.m in Sources */,
+				638FF99E13B0259D0048CB47 /* ABContactsHelper.m in Sources */,
+				638FF9A013B0259D0048CB47 /* ABGroup.m in Sources */,
+				638FF9A813B025A50048CB47 /* KthWaikikiContact.m in Sources */,
+				638FF9AA13B025A50048CB47 /* KthWaikikiContactManager.m in Sources */,
+				E239442E13EBB3D600707762 /* ContactPhotoFileSystem.m in Sources */,
+				E239443713EBB4F100707762 /* ContactPhotoFile.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		638FF99013B0258E0048CB47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		638FF99113B0258E0048CB47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		638FF99313B0258E0048CB47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/contact_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "contact-ios/contact-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		638FF99413B0258E0048CB47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/contact_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "contact-ios/contact-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		638FF98213B0258E0048CB47 /* Build configuration list for PBXProject "contact-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638FF99013B0258E0048CB47 /* Debug */,
+				638FF99113B0258E0048CB47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		638FF99213B0258E0048CB47 /* Build configuration list for PBXNativeTarget "contact-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638FF99313B0258E0048CB47 /* Debug */,
+				638FF99413B0258E0048CB47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 638FF97F13B0258E0048CB47 /* Project object */;
+}

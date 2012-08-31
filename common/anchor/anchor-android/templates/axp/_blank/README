@@ -1,0 +1,26 @@
+Android Java Library for Appspresso Plugin
+============================================
+
+Copyright (c) 2011 KT Hitel Corp.
+
+Appspresso is a trademark of KT Hitel Corp.
+Java is a trademark or registered trademark of Oracle, Inc.
+Android is a trademark of Google Inc.
+All other product names mentioned herein are the trademarks of their respective owners.
+
+CONTENTS
+--------
+
+/src
+	/...
+		<plugin_id>.java - plugin java source file  
+/res - 
+/assets - 
+/libs - external dependencies(jars) here(except android.jar and chronometer.jar)
+/build.xml - ant build script(Do *NOT* touch this)
+/build.properties - ant build properties(Do NOT touch this)
+/.classpath - eclipse project classpath setting file
+/.project - dummy eclipse project setting file
+
+For more information,
+See http://appspresso.com

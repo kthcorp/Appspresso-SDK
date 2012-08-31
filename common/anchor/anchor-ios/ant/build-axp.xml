@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-axp-ios" default="help" basedir=".">
+	<description>Appspresso Plugin Build Script for iOS</description>
+
+	<property environment="env" />
+	<dirname property="self.dir" file="ant.file.build-axp-ios" />
+	<property file="${self.dir}/build-axp.properties" />
+
+	<!-- appspresso sdk cli -->
+	<property name="ax.sdk.dir" location="${env.AX_HOME}" />
+	<property name="ax.plugins.dir" location="${ax.sdk.dir}/plugins" />
+	<property name="ax.platforms.dir" location="${ax.sdk.dir}/platforms" />
+
+	<!-- appspresso sdk cli for ios -->
+	<property name="ax.ios.dir" location="${ax.platforms.dir}/ios" />
+	<property name="ax.ios.lib.dir" location="${ax.ios.dir}/lib" />
+	<property name="ax.ios.lib.headers.dir" location="${ax.ios.lib.dir}/headers" />
+	<property name="ax.ios.build-axp.xml" location="${ax.ios.dir}/build-axp.xml" />
+	<property name="ax.ios.templates.dir" location="${ax.ios.dir}/templates" />
+	<property name="ax.ios.templates.axp.dir" location="${ax.ios.templates.dir}/axp" />
+
+	<!-- ios sdk & xcode sdk -->
+	<property name="ios.sdk.dir" location="${env.IOS_HOME}" />
+
+	<!-- appspresso plugin ios module -->
+	<property name="axp.runtime.project.dir" location="${basedir}" />
+	<property name="axp.runtime.project.name" value="MyPlugin_ios" />
+	<property name="axp.runtime.project.class" value="${axp.name}Class" />
+	<property name="axp.runtime.out.dir" location="${axp.runtime.project.dir}/output" />
+	<property name="axp.template.name" location="_blank" />
+	<property name="axp.template.dir" location="${ax.ios.templates.axp.dir}/_blank" />
+
+	<target name="init">
+		<tstamp />
+		<echo message="Appspresso SDK on ${ax.sdk.dir}" />
+		<echo message="Appspresso iOS Runtime on ${ax.ios.dir}" />
+		<echo message="iOS SDK on ${ios.sdk.dir}" />
+	</target>
+
+	<target name="check-opts">
+		<condition property="valid-opts">
+			<and>
+				<available file="${ax.ios.dir}" type="dir" />
+				<available file="${ios.sdk.dir}" type="dir" />
+				<isset property="axp.runtime.project.dir" />
+				<isset property="axp.runtime.project.name" />
+			</and>
+		</condition>
+
+		<fail unless="${valid-opts}">
+			<![CDATA[
+				Check Parameter
+				ax.ios.dir = ${ax.ios.dir}
+				ios.sdk.dir = ${ios.sdk.dir}
+				axp.runtime.project.dir = ${axp.runtime.project.dir}
+				axp.runtime.project.name = ${axp.runtime.project.name}
+			]]>
+		</fail>
+
+		<condition property="exist.project.dir">
+			<and>
+				<available file="${axp.runtime.project.dir}" type="dir" />
+				<length length="0" when="ne">
+					<fileset dir="${axp.runtime.project.dir}" />
+				</length>
+			</and>
+		</condition>
+	</target>
+
+	<target name="-create-project-from-template" unless="exist.project.dir" depends="init, check-opts">
+		<echo message="create new axp-iOS project on ${axp.runtime.project.dir}..." />
+
+		<filterset id="axp.filter">
+			<filter token="AX_IOS_DIR" value="${ax.ios.dir}" />
+			<filter token="AXP_RUNTIME_PROJECT_NAME" value="${axp.runtime.project.name}" />
+			<filter token="AXP_RUNTIME_PROJECT_VERSION" value="${axp.runtime.project.version}" />
+			<filter token="IOS_CLASS" value="${axp.runtime.project.class}" />
+			<filter token="IOS_SDK_DIR" value="${ios.sdk.dir}" />
+		</filterset>
+
+		<copy todir="${axp.runtime.project.dir}">
+			<fileset dir="${axp.template.dir}" />
+
+			<filterset refid="axp.filter" />
+			<firstmatchmapper>
+				<globmapper from="MyPlugin.xcodeproj*" to="${axp.runtime.project.name}.xcodeproj*" />
+				<globmapper from="MyPlugin.*" to="${axp.ios.module.class}.*" />
+				<identitymapper />
+			</firstmatchmapper>
+		</copy>
+
+		<copy todir="${axp.runtime.project.dir}/chronometer">
+			<fileset dir="${ax.ios.lib.headers.dir}" />
+		</copy>
+	</target>
+
+	<target name="create" depends="init,check-opts,-create-project-from-template" description="create new axp-iOS project">
+	</target>
+
+	<target name="build">
+		<ant dir="${axp.runtime.project.dir}" antfile="build.xml" target="build" inheritall="false">
+			<property name="ax.ios.dir" location="${ax.ios.dir}" />
+			<property name="basedir" location="${axp.runtime.project.dir}" />
+		</ant>
+	</target>
+
+	<target name="clean" depends="init" description="clean axp-ios project">
+		<echo message="clean axp-ios project... ${axp.runtime.out.dir}" />
+
+		<ant dir="${axp.runtime.project.dir}" antfile="build.xml" target="clean" inheritall="false">
+			<property name="ax.ios.dir" location="${ax.ios.dir}" />
+			<property name="basedir" location="${axp.runtime.project.dir}" />
+		</ant>
+	</target>
+
+	<target name="help">
+		<echo>
+			<![CDATA[
+Appspresso Plugin iOS Module Build Script
+=============================================
+
+ant -f build-axp.xml {create|build|clean|help}
+	-Daxp.runtime.project.dir=/path/to/xcode/static/library/project
+	-Daxp.runtime.out.dir=/path/to/output/directory (default: ${axp.runtime.project.dir}/output)
+	-Dax.sdk.dir=/path/to/appspresso/sdk/directory (default: $AX_HOME)
+	-Dios.sdk.dir=/path/to/android/sdk/directory (default: $ANDROID_HOME)
+	-Djava.sdk.dir=/path/to/java/sdk/directory (default: $JAVA_HOME)
+	-D...
+
+ant -f build-axp.xml create
+	-D...
+
+ant -f build-axp.xml build
+	-D...
+
+ant -f build-axp.xml clean
+	-D...
+]]>
+		</echo>
+	</target>
+</project>

@@ -1,0 +1,16 @@
+{
+    "id": 8,
+    "error": null,
+    "result": {
+        "fullPath": "documents/streamNote.txt",
+        "path": "documents/",
+        "_handle": "documents/streamNote.txt",
+        "isFile": true,
+        "name": "streamNote.txt",
+        "isDirectory": false,
+        "readOnly": false,
+        "fileSize": 0,
+        "created": 1321364568000,
+        "modified": 1321364568000
+    }
+}

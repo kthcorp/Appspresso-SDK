@@ -1,0 +1,2 @@
+//_APPSPRESSO_DEBUG=true;
+_APPSPRESSO_TEST=true;

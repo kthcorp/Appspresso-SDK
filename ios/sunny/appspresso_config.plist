@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ax.log.level</key>
+	<string>0</string>
+	<key>hydra.host</key>
+	<string>localhost</string>
+	<key>hydra.port</key>
+	<string>50020</string>
+	<key>app.devel</key>
+	<string>true</string>
+	<!--
+	<key>nessie.project</key>
+	<string></string>
+	<key>nessie.host</key>
+	<string></string>
+	<key>nessie.port</key>
+	<string></string>
+	-->
+</dict>
+</plist>

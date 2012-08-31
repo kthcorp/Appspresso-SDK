@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axplugin id="deviceapis.camera" version="1.1.2">
+	<description>WAC/Waikiki API Camera Feature Appspresso Plugin
+	</description>
+	<url>http://appspresso.com</url>
+	<author>Appspresso Dev. Team</author>
+	<license>Copyright (c) 2011, KT Hitel Co., LTD.
+	</license>
+
+	<feature id="http://wacapps.net/api/camera.show" category="Standard" />
+	<feature id="http://wacapps.net/api/camera.capture" category="Standard" />
+	<feature id="http://wacapps.net/api/camera" category="Standard" />
+	
+<!-- serialized into:
+plugin.1.id=deviceapis.camera
+plugin.1.version=1.0 
+plugin.1.permission=android.permission.CAMERA,android.permission.RECORD_AUDIO,android.permission.WRITE_EXTERNAL_STORAGE 
+-->
+	<module platform="android" platform-version="8"
+		min-platform-version="7" max-platform-version=""
+		class="com.appspresso.waikiki.camera.CameraManager">
+		<property name="permission"
+			value="android.permission.CAMERA,android.permission.RECORD_AUDIO,android.permission.WRITE_EXTERNAL_STORAGE" />
+	</module>
+
+	<module platform="ios" platform-version="4.1"
+		min-platform-version="4.0" max-platform-version=""
+		class="KthWaikikiCameramanager">
+		<property name="framework" value="AVFoundation.framework, AssetsLibrary.framework, MobileCoreServices.framework" />
+	</module>
+</axplugin>

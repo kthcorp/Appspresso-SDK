@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget id="id" version="version" width="320" height="480">
+    <name short="shortName">name</name>
+    <author email="authorEmail" href="authorHref">author</author>
+    <description>description</description>
+</widget>

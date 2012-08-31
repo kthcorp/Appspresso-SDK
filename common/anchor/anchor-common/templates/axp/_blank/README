@@ -1,0 +1,6 @@
+Appspresso Plugin Project
+
+axplugin.xml: plugin descriptor
+axplugin.js: javascript stub
+res: plugin specific resources
+overlay: platform specific overlay resources

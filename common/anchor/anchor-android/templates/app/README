@@ -1,0 +1,160 @@
+Localization manual / 다국어 지원 설명서
+
+Developer can edit appspresso project path like "platforms/Android/" that make app name, icon, splash image internationally.
+You can see localization folder example when making new Project and Choose project template "Hello World (localization)".
+And we can provide contents localization support that follows W3C Widget specification.
+If you want to know how to do this, please visit our web site. http://www.appspresso.com
+
+1. Application name
+
+If you want to give a name each-other language then edit "platforms/Android/resources/appName.xml"
+Please see below example. Language code follows ISO 639-1 specification and Android also follows that specification.
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <app-name>My App</app-name> <!-- Default App Name -->
+   <app-name lang="en">My Application</app-name>
+   <app-name lang="ko">내 응용 프로그램</app-name>
+   <app-name lang="ja">私のアプリケーション</app-name>
+</resources>
+
+App name created without language code will be a default name.
+Follow that example, choose the language except on en, ko and ja, app name will be a "My App".
+So you want to make your app has only one name, please create only one app name on this file.
+
+2. Icon
+
+You can make a icon for each language(or DPI) to edit folder like "platforms/Android/resources/icon".
+Make folder "icon" , "icon.LANGUAGE_CODE" , "icon.DPI" or "icon.LANGUAGE_CODE-DPI" under "platforms/Android/resources/icon".
+Language code follows ISO 639-1 specification and Android also follows that specification.
+DPI was made up ldpi(low), mdpi(medium), hdpi(high) and xhdpi(extra high).
+Copy icon file to created folder using language code (or DPI).
+Icon file must be png file type and name must be "icon.png".
+Please see below.
+
+    platforms/Android/resources/icon/icon/icon.png
+    platforms/Android/resources/icon/icon.en/icon.png
+    platforms/Android/resources/icon/icon.ldpi/icon.png
+    platforms/Android/resources/icon/icon.ko/icon.png
+    platforms/Android/resources/icon/icon.ko-mdpi/icon.png
+    platforms/Android/resources/icon/icon.ja/icon.png
+    platforms/Android/resources/icon/icon.ja-hdpi/icon.png
+
+If you want to know more detailed information about icon, Please read below link from Android development reference.
+http://developer.android.com/guide/practices/ui_guidelines/icon_design_launcher.html
+Language code has higher priority than DPI.
+If there is two folders named "icon.en" and "icon.hdpi" when device language is en and device dpi is hdpi, then Android shows icon of "icon.en".
+Icon file in "icon" folder created without language code and DPI will be a default thing.
+Follow that example, choose the language(or DPI) different from example, icon will use "platforms/Android/resources/icon/icon/icon.png".
+So you want to make your app has only one icon, please delete another language (or DPI) icon folder and create only "platforms/Android/resources/icon/icon/icon.png"
+
+3. Splash image
+
+You can make a splash image for each language(or DPI) to edit folder like "platforms/Android/resources/splash".
+Make folder "splash","splash.LANGUAGE_CODE","splash.DPI" or "splash.LANGUAGE_CODE-DPI" under "platforms/Android/resources/splash".
+Language code follows ISO 639-1 specification and Android also follows that specification.
+DPI was made up ldpi(low), mdpi(medium), hdpi(high) and xhdpi(extra high).
+Copy splash file to created folder using language code (or DPI)
+Splash file must be png file type and name must be "splash.png" or "splash.9.png"(9 patch image type).
+Please see below.
+
+    platforms/Android/resources/splash/splash/splash.9.png
+    platforms/Android/resources/splash/splash.en/splash.png
+    platforms/Android/resources/splash/splash.ldpi/splash.png
+    platforms/Android/resources/splash/splash.ko/splash.png
+    platforms/Android/resources/splash/splash.ko-mdpi/splash.png
+    platforms/Android/resources/splash/splash.ja/splash.png
+    platforms/Android/resources/splash/splash.ja-hdpi/splash.png
+
+Language code has higher priority than DPI.
+If there is two folders named "splash.en" and "splash.hdpi" when device language is en and device dpi is hdpi, then Android shows splash image of "splash.en".
+Splash file in "splash" folder created without language code (or DPI) will be a default thing.
+Follow that example, choose the language(or DPI) different from example , splash will use "platforms/Android/resources/splash/splash/splash.png".
+So you want to make your app has only one splash image, please delete another language (or DPI) splash folder and create only "platforms/Android/resources/splash/splash/splash.png"
+
+Appspresso stretch the splash image to fit screen size.
+So it may occur splash image to strange thing that we seem.
+If you want to avoid this happen then you should make splash image using 9 patch image type.
+Please see below link from Android development reference, there's more information about 9 patch image.
+
+http://developer.android.com/guide/developing/tools/draw9patch.html
+
+
+
+Localization manual / 다국어 지원 설명서
+
+platforms/Android 폴더를 구성하여 어플리케이션의 이름, 아이콘, 스플래시 이미지를 언어별로 설정할 수 있습니다.
+새로운 프로젝트를 생성할 때 "Hello World (localization)" 템플릿을 선택하여 프로젝트를 생성하면 구성 예를 볼 수 있습니다.
+어플리케이션 이름, 아이콘, 스플래시 이미지 외에 어플리케이션의 컨텐츠에 대한 다국어 지원은 W3C Widget 규격에 따라 구성할 수 있으며 Appspresso 사이트의 별도 문서에서 설명합니다.
+
+1. 어플리케이션 이름
+
+언어별로 어플리케이션의 이름을 지정하려면 platforms/Android/resources/appName.xml 파일을 편집합니다.
+아래의 예와 같이 언어코드별로 어플리케이션의 이름을 지정합니다.
+언어코드는 Android가 준수하고 있는 ISO 639-1 규격에 정의된 언어코드를 사용합니다.
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <app-name>My App</app-name> <!-- Default App Name -->
+   <app-name lang="en">My Application</app-name>
+   <app-name lang="ko">내 응용 프로그램</app-name>
+   <app-name lang="ja">私のアプリケーション</app-name>
+</resources>
+
+언어코드 없이 지정한 어플리케이션 이름이 기본 어플리케이션 이름이 됩니다.
+위 예의 경우 en, ko, ja 이외의 언어 환경에서 어플리케이션의 이름은 기본 어플리케이션 이름인 "My App"이 됩니다.
+따라서 언어에 관계없이 단일한 어플리케이션 이름을 사용할 경우에는 기본 어플리케이션 이름 하나만 정의하면 됩니다.
+
+2. 아이콘
+
+platforms/Android/resources/icon 폴더를 구성하여 언어와 DPI별로 아이콘을 지정할 수 있습니다.
+platforms/Android/resources/icon 폴더 아래에 다음과 같은 명명규칙을 따라 언어별, DPI별 폴더를 생성합니다.
+"icon"(기본), "icon.언어코드", "icon.DPI", "icon.언어코드-DPI"
+언어코드는 Android가 준수하고 있는 ISO 639-1 규격에 정의된 언어코드를 사용합니다.
+DPI는 "ldpi"(low), "mdpi"(medium), "hdpi"(high), "xhdpi"(extra high)로 구분됩니다.
+
+생성한 언어별, DPI별 폴더에 아이콘 파일을 복사해 넣습니다.
+아이콘 파일의 형식은 반드시 png 형식이어야 하며 이름은 반드시 "icon.png"이어야 합니다.
+예를들면 아래와 같습니다.
+
+    platforms/Android/resources/icon/icon/icon.png
+    platforms/Android/resources/icon/icon.en/icon.png
+    platforms/Android/resources/icon/icon.ldpi/icon.png
+    platforms/Android/resources/icon/icon.ko/icon.png
+    platforms/Android/resources/icon/icon.ko-mdpi/icon.png
+    platforms/Android/resources/icon/icon.ja/icon.png
+    platforms/Android/resources/icon/icon.ja-hdpi/icon.png
+
+아이콘에 대한 보다 자세한 정보는 아래 링크의 Android 문서를 참조하시기 바랍니다.
+http://developer.android.com/guide/practices/ui_guidelines/icon_design_launcher.html
+언어코드와 DPI가 생략된 "icon" 폴더에 저장된 아이콘 파일이 기본 아이콘이 됩니다.
+단말기의 언어와 단말기의 DPI에 대응되는 폴더가 없을 경우 "icon" 폴더에 저장된 기본 아이콘이 사용됩니다.
+따라서 언어와 DPI에 관계없이 하나의 아이콘 파일을 사용하는 경우에는 다른 아이콘 폴더가 있다면 삭제하고 platforms/Android/resources/icon/icon/icon.png 파일 하나만 저장합니다.
+
+3. 스플래시 이미지
+
+platforms/Android/resources/splash 폴더를 구성하여 언어와 DPI별로 스플래시 이미지를 지정할 수 있습니다.
+platforms/Android/resources/splash 폴더 아래에 다음과 같은 명명규칙을 따라 언어별, DPI별 폴더를 생성합니다.
+"splash"(기본), "splash.언어코드", "splash.DPI", "splash.언어코드-DPI"
+언어코드는 Android가 준수하고 있는 ISO 639-1 규격에 정의된 언어코드를 사용합니다.
+DPI는 "ldpi"(low), "mdpi"(medium), "hdpi"(high), "xhdpi"(extra high)로 구분됩니다.
+
+생성한 언어별, DPI별 폴더에 스플래시 이미지 파일을 복사해 넣습니다.
+스플래시 이미지 파일의 형식은 반드시 png 형식이어야 하며 이름은 반드시 "splash.png" 혹은 "splash.9.png"(9 패치 이미지인 경우)이어야 합니다.
+예를들면 아래와 같습니다.
+
+    platforms/Android/resources/splash/splash/splash.9.png
+    platforms/Android/resources/splash/splash.en/splash.png
+    platforms/Android/resources/splash/splash.ldpi/splash.png
+    platforms/Android/resources/splash/splash.ko/splash.png
+    platforms/Android/resources/splash/splash.ko-mdpi/splash.png
+    platforms/Android/resources/splash/splash.ja/splash.png
+    platforms/Android/resources/splash/splash.ja-hdpi/splash.png
+
+언어코드와 DPI가 생략된 "splash" 폴더에 저장된 스플래시 이미지 파일이 기본 스플래시 이미지가 됩니다.
+단말기의 언어와 단말기의 DPI에 대응되는 폴더가 없을 경우 "splash" 폴더에 저장된 기본 스플래시 이미지 파일이 사용됩니다.
+따라서 언어와 DPI에 관계없이 하나의 스플래시 파일을 사용하는 경우에는 다른 스플래시 폴더가 있다면 삭제하고 platforms/Android/resources/splash/splash/splash.png 파일 하나만 저장합니다.
+스플래시 이미지는 스크린에 꽉차도록 확대/축소되어 보여지게 되므로 스크린의 종횡비에 따라 스플래시 이미지가 왜곡될 수 있습니다.
+종횡비에 따른 이미지 왜곡 현상을 피하려면 스플래시 이미지를 9 패치 이미지로 만드시기 바랍니다.
+9 패치 이미지에 대한 자세한 정보는 아래 링크의 Android 문서를 참조하시기 바랍니다.
+http://developer.android.com/guide/developing/tools/draw9patch.html

@@ -1,0 +1,43 @@
+<project name="sail-ios" default="build" basedir=".">
+	<property file="build.properties" />
+
+	<import file="../../build/build-support-objc.xml" />
+
+	<property name="src.dir" location="${basedir}" />
+	<property name="out.dir" location="${src.dir}/output" />
+	<property name="out.sail.a" location="${out.dir}/libsail.a" />
+
+	<property name="compile.configuration" value="Release" />
+
+	<property name="build.dir" location="${src.dir}/build" />
+
+	<target name="init">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${out.dir}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<objc.compile configuration="${compile.configuration}" sdk="iphoneos" />
+		<objc.compile configuration="${compile.configuration}" sdk="iphonesimulator" />
+	</target>
+
+	<target name="universal.make">
+		<exec executable="sh" spawn="false" failonerror="true">
+			<arg value="-c" />
+			<arg value="lipo -create
+				${build.dir}/${compile.configuration}-iphoneos/*.a
+				${build.dir}/${compile.configuration}-iphonesimulator/*.a
+				-output ${out.sail.a}" />
+		</exec>
+	</target>
+
+	<target name="build" depends="compile, universal.make">
+	</target>
+
+	<target name="clean">
+		<delete includeemptydirs="true">
+			<fileset dir="${build.dir}" erroronmissingdir="false" />
+			<fileset dir="${out.dir}" erroronmissingdir="false" />
+		</delete>
+	</target>
+</project>

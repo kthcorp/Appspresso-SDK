@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<app-name lang="en">@APP_NAME@</app-name>
+	<app-name lang="es">@APP_NAME@</app-name>
+	<app-name lang="ja">@APP_NAME@</app-name>
+	<app-name lang="ko">@APP_NAME@</app-name>
+	<app-name lang="zh-Hans">@APP_NAME@</app-name>
+</resources>

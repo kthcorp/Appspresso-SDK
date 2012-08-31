@@ -1,0 +1,264 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		638582A013B0462600C316B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6385829F13B0462600C316B8 /* Foundation.framework */; };
+		638582AE13B0463800C316B8 /* A440AudioQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 638582A913B0463800C316B8 /* A440AudioQueue.h */; };
+		638582AF13B0463800C316B8 /* A440AudioQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 638582AA13B0463800C316B8 /* A440AudioQueue.m */; };
+		638582B013B0463800C316B8 /* A440Player.h in Headers */ = {isa = PBXBuildFile; fileRef = 638582AB13B0463800C316B8 /* A440Player.h */; };
+		638582B113B0463800C316B8 /* A440SineWaveGenerator.c in Sources */ = {isa = PBXBuildFile; fileRef = 638582AC13B0463800C316B8 /* A440SineWaveGenerator.c */; };
+		638582B213B0463800C316B8 /* A440SineWaveGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 638582AD13B0463800C316B8 /* A440SineWaveGenerator.h */; };
+		638582B513B0464400C316B8 /* KthWaikikiDeviceinteraction.h in Headers */ = {isa = PBXBuildFile; fileRef = 638582B313B0464400C316B8 /* KthWaikikiDeviceinteraction.h */; };
+		638582B613B0464400C316B8 /* KthWaikikiDeviceinteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 638582B413B0464400C316B8 /* KthWaikikiDeviceinteraction.m */; };
+		E21A5D7413F508B6006F3576 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E21A5D7313F508B6006F3576 /* AudioToolbox.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6385829C13B0462600C316B8 /* libdeviceinteraction-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libdeviceinteraction-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6385829F13B0462600C316B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		638582A313B0462600C316B8 /* deviceinteraction-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "deviceinteraction-ios-Prefix.pch"; sourceTree = "<group>"; };
+		638582A913B0463800C316B8 /* A440AudioQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A440AudioQueue.h; sourceTree = "<group>"; };
+		638582AA13B0463800C316B8 /* A440AudioQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A440AudioQueue.m; sourceTree = "<group>"; };
+		638582AB13B0463800C316B8 /* A440Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A440Player.h; sourceTree = "<group>"; };
+		638582AC13B0463800C316B8 /* A440SineWaveGenerator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = A440SineWaveGenerator.c; sourceTree = "<group>"; };
+		638582AD13B0463800C316B8 /* A440SineWaveGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A440SineWaveGenerator.h; sourceTree = "<group>"; };
+		638582B313B0464400C316B8 /* KthWaikikiDeviceinteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiDeviceinteraction.h; sourceTree = "<group>"; };
+		638582B413B0464400C316B8 /* KthWaikikiDeviceinteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiDeviceinteraction.m; sourceTree = "<group>"; };
+		E21A5D7313F508B6006F3576 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6385829913B0462600C316B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E21A5D7413F508B6006F3576 /* AudioToolbox.framework in Frameworks */,
+				638582A013B0462600C316B8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6385829113B0462600C316B8 = {
+			isa = PBXGroup;
+			children = (
+				638582A113B0462600C316B8 /* deviceinteraction-ios */,
+				6385829E13B0462600C316B8 /* Frameworks */,
+				6385829D13B0462600C316B8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6385829D13B0462600C316B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6385829C13B0462600C316B8 /* libdeviceinteraction-ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6385829E13B0462600C316B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E21A5D7313F508B6006F3576 /* AudioToolbox.framework */,
+				6385829F13B0462600C316B8 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		638582A113B0462600C316B8 /* deviceinteraction-ios */ = {
+			isa = PBXGroup;
+			children = (
+				638582A913B0463800C316B8 /* A440AudioQueue.h */,
+				638582AA13B0463800C316B8 /* A440AudioQueue.m */,
+				638582AB13B0463800C316B8 /* A440Player.h */,
+				638582AC13B0463800C316B8 /* A440SineWaveGenerator.c */,
+				638582AD13B0463800C316B8 /* A440SineWaveGenerator.h */,
+				638582B313B0464400C316B8 /* KthWaikikiDeviceinteraction.h */,
+				638582B413B0464400C316B8 /* KthWaikikiDeviceinteraction.m */,
+				638582A213B0462600C316B8 /* Supporting Files */,
+			);
+			path = "deviceinteraction-ios";
+			sourceTree = "<group>";
+		};
+		638582A213B0462600C316B8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				638582A313B0462600C316B8 /* deviceinteraction-ios-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6385829A13B0462600C316B8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638582AE13B0463800C316B8 /* A440AudioQueue.h in Headers */,
+				638582B013B0463800C316B8 /* A440Player.h in Headers */,
+				638582B213B0463800C316B8 /* A440SineWaveGenerator.h in Headers */,
+				638582B513B0464400C316B8 /* KthWaikikiDeviceinteraction.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6385829B13B0462600C316B8 /* deviceinteraction-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 638582A613B0462600C316B8 /* Build configuration list for PBXNativeTarget "deviceinteraction-ios" */;
+			buildPhases = (
+				6385829813B0462600C316B8 /* Sources */,
+				6385829913B0462600C316B8 /* Frameworks */,
+				6385829A13B0462600C316B8 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "deviceinteraction-ios";
+			productName = "deviceinteraction-ios";
+			productReference = 6385829C13B0462600C316B8 /* libdeviceinteraction-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6385829313B0462600C316B8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = KTH;
+			};
+			buildConfigurationList = 6385829613B0462600C316B8 /* Build configuration list for PBXProject "deviceinteraction-ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6385829113B0462600C316B8;
+			productRefGroup = 6385829D13B0462600C316B8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6385829B13B0462600C316B8 /* deviceinteraction-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6385829813B0462600C316B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638582AF13B0463800C316B8 /* A440AudioQueue.m in Sources */,
+				638582B113B0463800C316B8 /* A440SineWaveGenerator.c in Sources */,
+				638582B613B0464400C316B8 /* KthWaikikiDeviceinteraction.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		638582A413B0462600C316B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		638582A513B0462600C316B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		638582A713B0462600C316B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/deviceinteraction_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "deviceinteraction-ios/deviceinteraction-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		638582A813B0462600C316B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/deviceinteraction_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "deviceinteraction-ios/deviceinteraction-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6385829613B0462600C316B8 /* Build configuration list for PBXProject "deviceinteraction-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638582A413B0462600C316B8 /* Debug */,
+				638582A513B0462600C316B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		638582A613B0462600C316B8 /* Build configuration list for PBXNativeTarget "deviceinteraction-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638582A713B0462600C316B8 /* Debug */,
+				638582A813B0462600C316B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6385829313B0462600C316B8 /* Project object */;
+}

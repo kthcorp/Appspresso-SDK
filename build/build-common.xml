@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-common" default="build" basedir=".">
+	<description>Appspresso Common Build Script</description>
+
+	<property environment="env" />
+	<property file="build.properties" />
+
+	<target name="init">
+		<tstamp />
+		<mkdir dir="${out.keel.dir}" />
+		<mkdir dir="${out.report.dir}" />
+	</target>
+
+	<target name="-build-keel">
+		<echo message="build keel to... ${out.keel.dir}" />
+		<ant dir="${keel.dir}" target="build" inheritall="false">
+			<property name="out.dir" location="${keel.dir}/output" />
+			<property name="out.report.dir" location="${out.report.dir}" />
+		</ant>
+
+		<copy tofile="${out.keel.dir}/keel.js" file="${keel.dir}/output/keel.min.js" />
+		<copy tofile="${out.keel.dir}/keel.wac.js" file="${keel.dir}/output/keel.wac.min.js" />
+	</target>
+
+	<target name="build" depends="init, -build-keel">
+		<echo message="build appspresso common..." />
+	</target>
+
+	<target name="clean">
+		<ant dir="${keel.dir}" target="clean" inheritall="false">
+			<property name="out.dir" location="${keel.dir}/output" />
+		</ant>
+
+		<delete>
+			<fileset dir="${out.keel.dir}" erroronmissingdir="false" />
+		</delete>
+	</target>
+
+	<!--
+0. prepare
+1. build keel
+
+final result:
+${out.keel.dir}/keel.js
+-->
+</project>

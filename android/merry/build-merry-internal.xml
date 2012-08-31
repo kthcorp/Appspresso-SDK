@@ -1,0 +1,85 @@
+<project name="build-merry-internal" default="copy-all" basedir=".">
+	<property name="common.dir" location="../../common" />
+	<property name="keel.dir" location="${common.dir}/keel" />
+	<property name="plugin.dir" location="../../plugins" />
+	<property name="plugin.rower.dir" location="${plugin.dir}/rower/" />
+	<property name="plugin.motor.dir" location="${plugin.dir}/motor/" />
+
+	<property name="src.dir" location="${basedir}" />
+
+	<property name="assets.dir" location="${src.dir}/assets" />
+	<property name="ax.www.dir" location="${assets.dir}/ax_www" />
+	<property name="ax.scripts.dir" location="${assets.dir}/ax_scripts" />
+	<property name="ax.plugins.dir" location="${assets.dir}/ax_plugins" />
+	<property name="ax.res.dir" location="${assets.dir}/ax_res" />
+
+	<property name="ax.keel.js" location="${ax.scripts.dir}/keel.js" />
+
+	<target name="init">
+		<mkdir dir="${ax.www.dir}" />
+		<mkdir dir="${ax.res.dir}" />
+		<mkdir dir="${ax.scripts.dir}" />
+		<mkdir dir="${ax.plugins.dir}" />
+	</target>
+
+	<target name="build-keel">
+		<ant antfile="${keel.dir}/build.xml" target="build" inheritall="false" />
+	</target>
+
+	<target name="copy-keel.js" depends="init, build-keel">
+		<copy file="${keel.dir}/output/keel.js" tofile="${ax.keel.js}" />
+	</target>
+
+	<macrodef name="copy-plugin">
+		<attribute name="plugin.name" />
+		<attribute name="plugin.dir" />
+		<sequential>
+			<concat destfile="${ax.scripts.dir}/@{plugin.name}.js" encoding="UTF-8" outputencoding="UTF-8" fixlastline="no" eol="unix">
+				<fileset dir="@{plugin.dir}/src" includes="**/*.js" />
+				<filterchain>
+					<deletecharacters chars="&#xFEFF;" />
+					<!-- remove UTF-8 BOM -->
+				</filterchain>
+			</concat>
+			<copy tofile="${ax.plugins.dir}/@{plugin.name}.xml" file="@{plugin.dir}/axplugin.xml" />
+
+			<copy todir="${ax.res.dir}/@{plugin.name}">
+				<fileset dir="@{plugin.dir}/res" defaultexcludes="true" erroronmissingdir="false" />
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<target name="copy-standard-plugins" depends="init">
+		<copy-plugin plugin.name="deviceapis" plugin.dir="${plugin.rower.dir}/deviceapis" />
+		<copy-plugin plugin.name="deviceapis.accelerometer" plugin.dir="${plugin.rower.dir}/accelerometer" />
+		<copy-plugin plugin.name="deviceapis.camera" plugin.dir="${plugin.rower.dir}/camera" />
+		<copy-plugin plugin.name="deviceapis.pim" plugin.dir="${plugin.rower.dir}/pim" />
+		<copy-plugin plugin.name="deviceapis.pim.contact" plugin.dir="${plugin.rower.dir}/contact" />
+		<copy-plugin plugin.name="deviceapis.deviceinteraction" plugin.dir="${plugin.rower.dir}/deviceinteraction" />
+		<copy-plugin plugin.name="deviceapis.devicestatus" plugin.dir="${plugin.rower.dir}/devicestatus" />
+		<copy-plugin plugin.name="deviceapis.filesystem" plugin.dir="${plugin.rower.dir}/filesystem" />
+		<copy-plugin plugin.name="deviceapis.messaging" plugin.dir="${plugin.rower.dir}/messaging" />
+		<copy-plugin plugin.name="deviceapis.orientation" plugin.dir="${plugin.rower.dir}/orientation" />
+	</target>
+
+	<target name="copy-extension-plugins" depends="init">
+		<copy-plugin plugin.name="ax.ext.admob" plugin.dir="${plugin.motor.dir}/ax.ext.admob" />
+		<copy-plugin plugin.name="ax.ext.android" plugin.dir="${plugin.motor.dir}/ax.ext.android" />
+		<copy-plugin plugin.name="ax.ext.contact" plugin.dir="${plugin.motor.dir}/ax.ext.contact" />
+		<copy-plugin plugin.name="ax.ext.ga" plugin.dir="${plugin.motor.dir}/ax.ext.ga" />
+		<copy-plugin plugin.name="ax.ext.ios" plugin.dir="${plugin.motor.dir}/ax.ext.ios" />
+		<copy-plugin plugin.name="ax.ext.media" plugin.dir="${plugin.motor.dir}/ax.ext.media" />
+		<copy-plugin plugin.name="ax.ext.net" plugin.dir="${plugin.motor.dir}/ax.ext.net" />
+		<copy-plugin plugin.name="ax.ext.ui" plugin.dir="${plugin.motor.dir}/ax.ext.ui" />
+		<copy-plugin plugin.name="ax.ext.zip" plugin.dir="${plugin.motor.dir}/ax.ext.zip" />
+	</target>
+
+	<target name="copy-all" depends="copy-keel.js, copy-standard-plugins, copy-extension-plugins">
+	</target>
+
+	<target name="clean">
+		<delete dir="${ax.res.dir}" />
+		<delete dir="${ax.scripts.dir}" />
+		<delete dir="${ax.plugins.dir}" />
+	</target>
+</project>

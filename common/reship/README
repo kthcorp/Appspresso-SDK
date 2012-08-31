@@ -1,0 +1,5 @@
+This project is a tool for migrate and update appspresso project.
+
+Usage : java -jar migartion.jar [type] [path]
+  type  project type. 'app' or 'axp'
+  path  project path.

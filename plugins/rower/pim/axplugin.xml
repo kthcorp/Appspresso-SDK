@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axplugin id="deviceapis.pim" version="1.1.2">
+	<description>WAC/Waikiki API Pim Feature Appspresso Plugin
+	</description>
+	<url>http://appspresso.com</url>
+	<author>Appspresso Dev. Team</author>
+	<license>Copyright (c) 2011, KT Hitel Co., LTD.
+	</license>
+
+	<feature id="http://wacapps.net/api/pim" category="Standard" />
+
+	<module platform="android" platform-version="8"
+		min-platform-version="7" max-platform-version=""
+		class="com.appspresso.waikiki.pim.Pim">
+	</module>
+
+	<module platform="ios" platform-version="4.1"
+		min-platform-version="4.0" max-platform-version=""
+		class="KthWaikikiPim">
+	</module>
+</axplugin>

@@ -1,0 +1,66 @@
+<project name="chronomter-ios" default="build" basedir=".">
+	<property file="build.properties" />
+
+	<import file="../../build/build-support-objc.xml" />
+
+	<property name="src.dir" location="${basedir}" />
+	<property name="out.dir" location="${src.dir}/output" />
+	<property name="out.chronometer.a" location="${out.dir}/libchronometer.a" />
+
+	<property name="compile.configuration" value="Release" />
+
+	<property name="build.dir" location="${src.dir}/build" />
+
+	<target name="init">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${out.dir}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<objc.compile configuration="${compile.configuration}" sdk="iphoneos" />
+		<objc.compile configuration="${compile.configuration}" sdk="iphonesimulator" />
+	</target>
+
+	<target name="universal.make">
+		<exec executable="sh" spawn="false" failonerror="true">
+			<arg value="-c" />
+			<arg value="lipo -create
+				${build.dir}/${compile.configuration}-iphoneos/*.a
+				${build.dir}/${compile.configuration}-iphonesimulator/*.a
+				-output ${out.chronometer.a}" />
+		</exec>
+	</target>
+
+	<target name="build" depends="compile, universal.make">
+	</target>
+
+	<target name="clean">
+		<delete includeemptydirs="true">
+			<fileset dir="${build.dir}" erroronmissingdir="false" />
+			<fileset dir="${out.dir}" erroronmissingdir="false" />
+		</delete>
+	</target>
+
+	<target name="headerdoc.gen">
+		<property name="out.chronometer.doc.dir" location="${out.dir}/doc" />
+		<property name="out.chronometer.doc.zip" location="${out.dir}/chronometer_doc.zip" />
+
+		<mkdir dir="${out.chronometer.doc.dir}"/>
+		<exec executable="headerdoc2html">
+			<arg value="-o" />
+			<arg path="${out.chronometer.doc.dir}" />
+			<arg value="${src.dir}" />
+		</exec>
+
+		<exec executable="gatherheaderdoc">
+			<arg path="${out.chronometer.doc.dir}" />
+			<arg value="index.html" />
+		</exec>
+
+		<!--
+		<zip destfile="${chronometer.doc.file}">
+			<fileset dir="${chronometer.doc.dir}" />
+		</zip>
+		-->
+	</target>
+</project>

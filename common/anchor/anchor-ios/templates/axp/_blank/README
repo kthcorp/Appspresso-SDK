@@ -1,0 +1,25 @@
+iOS Static Library for Appspresso Plugin
+========================================
+
+Copyright (c) 2011 KT Hitel Corp.
+
+Appspresso is a trademark of KT Hitel Corp.
+iOS and Xcode are trademarks or registered trademarks of Apple, Inc.
+All other product names mentioned herein are the trademarks of their respective owners.
+
+CONTENTS
+--------
+
+/<plugin_id>.h - plugin header source file
+/<plugin_id>.m - plugin implementation source file
+/Prefix.pch - pre-compiled header file
+/<plugin_id>.xcodeproj
+	/project.pbxproj - Xcode project setting file
+/libs - static libraries to link(Do *NOT* add files in this directory to your Xcode project)
+/build.xml - ant build script(Do *NOT* touch this)
+/build.properties - ant build properties(Do NOT touch this)
+/.project - dummy eclipse project setting file
+
+
+For more information,
+See http://appspresso.com

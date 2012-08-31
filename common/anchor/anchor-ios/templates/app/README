@@ -1,0 +1,151 @@
+Localization manual / 다국어 지원 설명서
+
+Developer can edit appspresso project path like "platforms/iOS/" that make app name, icon, splash image internationally.
+You can see localization folder example when making new Project and Choose project template "Hello World (localization)".
+And we can provide contents localization support that follows W3C Widget specification.
+If you want to know how to do this, please visit our web site. http://www.appspresso.com
+
+1. Application name
+
+If you want to give a name each-other language then edit "platforms/iOS/resources/appName.xml"
+Please see below example. Language code follows ISO 639-1 specification and iOS also follows that specification.
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <app-name lang="en">My Application</app-name>
+   <app-name lang="ko">내 응용 프로그램</app-name>
+   <app-name lang="ja">私のアプリケーション</app-name>
+</resources>
+
+App name created with language code ,that value of key named CFBundleDevelopmentRegion on "platforms/iOS/Info.plist.axml", will be a default name.
+Default value of CFBundleDevelopmentRegion is 'en' like below. (You can edit this value to open "platforms/iOS/Info.plist.axml")
+
+<key>CFBundleDevelopmentRegion</key>
+
+<string>en</string>
+
+Follow that example, choose the language except on en, ko and ja, app name will be a "My Application".
+So you want to make your app has only one name, please create only one app name on this file.
+There's no app name, iOS use app name from value of key named CFBundleDisplayName on "platforms/iOS/Info.plist.axml"
+
+2. Icon
+You can make a icon to edit folder like "platforms/iOS/resources/icon".
+Icon file must be png file type and name were reserved.
+Please see below.
+
+    Icon.png: 57 * 57 pixel. for iPhone 3GS and under version devices.
+    Icon@2x.png: 114 * 114 pixel. for iPhone 4 and upper version devices. for Retina display.
+    Icon-72.png: 72 * 72 pixel. for iPad2 and under version devices.
+    Icon@2x-72.png: 144 * 144 pixel. for new iPad and upper version devices. for Retina display.
+
+iOS did not support icon for each language.
+
+3. Splash image
+
+You can make a splash image for each language to edit folder like "platforms/iOS/resources/splash".
+Make folder "splash.LANGUAGE_CODE" under "platforms/iOS/resources/splash".
+Language code follows ISO 639-1 and BCP 47 specification. Also Android follows this specification.
+Copy splash file to created folder using language code.
+Splash file must be png file type and name were reserved for device.
+Please see below.
+
+    Default.png : 320*480 pixel. for iPhone 3GS and under version devices.
+    Default@2x.png : 640*960 pixel. for iPhone 4 and upper version devices. for Retina display.
+    Default-Landscape~ipad.png : 1024*748 pixel. for Landscpae. for iPad2 and under version devices.
+    Default-Landscape@2x~ipad.png : 2048*1496 pixel. for Landscape for new iPad and upper version devices. for Retina display.
+    Default-Portrait~ipad.png : 768*1004 pixel. for iPad2 and under version devices.
+    Default-Portrait@2x~ipad.png : 1536*2008 pixel. for Portrait. for new iPad and upper version devices. for Retina display.
+
+For example, see below and use like this.
+
+    platforms/iOS/resources/splash/splash.en/Default.png
+    platforms/iOS/resources/splash/splash.en/Default@2x.png
+    platforms/iOS/resources/splash/splash.en/Default-Landscape~ipad.png
+    platforms/iOS/resources/splash/splash.en/Default-Landscape@2x~ipad.png
+    platforms/iOS/resources/splash/splash.en/Default-Portrait~ipad.png
+    platforms/iOS/resources/splash/splash.en/Default-Portrait@2x~ipad.png
+    platforms/iOS/resources/splash/splash.ko/Default.png
+    platforms/iOS/resources/splash/splash.ko/Default@2x.png
+    platforms/iOS/resources/splash/splash.ko/Default-Landscape~ipad.png
+    platforms/iOS/resources/splash/splash.ko/Default-Landscape@2x~ipad.png
+    platforms/iOS/resources/splash/splash.ko/Default-Portrait~ipad.png
+    platforms/iOS/resources/splash/splash.ko/Default-Portrait@2x~ipad.png
+
+Splash files in folder created with language code from value of key named CFBundleDevelopmentRegion on "platforms/iOS/Info.plist.axml" will be default splash images.
+So you want to make your app has unique splash images , please delete another language splash folder and save default language splash folder and splash images.
+
+
+
+Localization manual / 다국어 지원 설명서
+
+platforms/iOS 폴더를 구성하여 어플리케이션의 이름, 아이콘, 스플래시 이미지를 언어별로 설정할 수 있습니다.
+새로운 프로젝트를 생성할 때 "Hello World (localization)" 템플릿을 선택하여 프로젝트를 생성하면 구성 예를 볼 수 있습니다.
+어플리케이션 이름, 아이콘, 스플래시 이미지 외에 어플리케이션의 컨텐츠에 대한 다국어 지원은 W3C Widget 규격에 따라 구성할 수 있으며 Appspresso 사이트의 별도 문서에서 설명합니다.
+
+1. 어플리케이션 이름
+
+언어별로 어플리케이션의 이름을 지정하려면 platforms/iOS/resources/appName.xml 파일을 편집합니다.
+아래의 예와 같이 언어코드별로 어플리케이션의 이름을 지정합니다.
+언어코드는 iOS가 준수하고 있는 ISO 639-1 규격에 정의된 언어코드를 사용합니다.
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <app-name lang="en">My Application</app-name>
+   <app-name lang="ko">내 응용 프로그램</app-name>
+   <app-name lang="ja">私のアプリケーション</app-name>
+</resources>
+
+platforms/iOS/Info.plist.axml 파일의 CFBundleDevelopmentRegion 키의 값으로 지정한 언어코드에 해당하는 어플리케이션 이름이 기본 어플리케이션 이름이 됩니다.
+CFBundleDevelopmentRegion의 초기 값은 아래와 같이 en입니다. (platforms/iOS/Info.plist.axml 파일을 열고 원하는 언어코드로 수정할 수 있습니다.)
+
+<key>CFBundleDevelopmentRegion</key>
+<string>en</string>
+
+따라서 위 예의 경우 ko, ja 이외의 언어 환경에서 어플리케이션의 이름은 기본 어플리케이션 이름인 "My Application"이 됩니다.
+언어에 관계없이 단일한 어플리케이션 이름을 사용할 경우에는 기본 어플리케이션 이름 하나만 정의하면 됩니다.
+기본 어플리케이션 이름이 존재하지 않을 경우에는 platforms/iOS/Info.plist.axml 파일의 CFBundleDisplayName 키의 값으로 지정한 이름이 사용됩니다.
+
+2. 아이콘
+
+platforms/iOS/resources/icon 폴더를 구성하여 아이콘을 지정할 수 있습니다.
+아이콘 파일의 형식은 반드시 png 형식이어야 하며 아이콘 파일의 이름은 용도에 따라 아래와 같이 예약되어 있습니다.
+
+    Icon.png: 57 * 57 pixel. 레티나 디스플레이를 사용하지 않는 iPhone 3GS 이하의 모델을 위한 아이콘 파일입니다.
+    Icon@2x.png: 114 * 114 pixel. 레티나 디스플레이를 사용하는 iPhone 4 이상의 모델을 위한 아이콘 파일입니다.
+    Icon-72.png: 72 * 72 pixel. 레티나 디스플레이를 사용하지 않는 iPad 2 이하의 모델을 위한 아이콘 파일입니다.
+    Icon@2x-72.png: 144 * 144 pixel. 레티나 디스플레이를 사용하는 New iPad 이상의 모델을 위한 아이콘 파일입니다.
+
+iOS는 아이콘을 언어별로 지정하는 것을 지원하지 않습니다.
+
+3. 스플래시 이미지
+
+platforms/iOS/resources/splash 폴더를 구성하여 언어별로 스플래시 이미지를 지정할 수 있습니다.
+platforms/iOS/resources/splash 폴더 아래에 "splash.언어코드" 형식으로 언어별 폴더를 생성합니다.
+언어코드는 iOS가 준수하고 있는 ISO 639-1과 BCP 47 규격에 정의된 언어코드를 사용합니다.
+생성한 언어별 폴더에 스플래시 이미지 파일을 복사해 넣습니다.
+스플래시 이미지 파일의 형식은 반드시 png 형식이어야 하며 이름은 용도에 따라 아래와 같이 예약되어 있습니다.
+
+    Default.png: 320 * 480 pixel. 레티나 디스플레이를 사용하지 않는 iPhone 3GS 이하의 모델을 위한 스플래시 이미지 파일입니다.
+    Default@2x.png: 640 * 960 pixel. 레티나 디스플레이를 사용하는 iPhone 4 이상의 모델을 위한 스플래시 이미지 파일입니다.
+    Default-Landscape~ipad.png: 1024 * 748 pixel. 레티나 디스플레이를 사용하지 않는 iPad 2 이하의 모델을 위한 스플래시 이미지 파일이며, iPad가 가로 방향일 때 표시됩니다.
+    Default-Landscape@2x~ipad.png: 2048 * 1496 pixel. 레티나 디스플레이를 사용하는 New iPad 이상의 모델을 위한 스플래시 이미지 파일이며, iPad가 가로 방향일 때 표시됩니다.
+    Default-Portrait~ipad.png: 768 * 1004 pixel. 레티나 디스플레이를 사용하지 않는 iPad 2 이하의 모델을 위한 스플래시 이미지 파일이며, iPad가 세로 방향일 때 표시됩니다.
+    Default-Portrait@2x~ipad.png : 1536 * 2008 pixel. 레티나 디스플레이를 사용하는 New iPad 이상의 모델을 위한 스플래시 이미지 파일이며, iPad가 세로 방향일 때 표시됩니다.
+
+예를들면 다음과 같습니다.
+
+    platforms/iOS/resources/splash/splash.en/Default.png
+    platforms/iOS/resources/splash/splash.en/Default@2x.png
+    platforms/iOS/resources/splash/splash.en/Default-Landscape~ipad.png
+    platforms/iOS/resources/splash/splash.en/Default-Landscape@2x~ipad.png
+    platforms/iOS/resources/splash/splash.en/Default-Portrait~ipad.png
+    platforms/iOS/resources/splash/splash.en/Default-Portrait@2x~ipad.png
+    platforms/iOS/resources/splash/splash.ko/Default.png
+    platforms/iOS/resources/splash/splash.ko/Default@2x.png
+    platforms/iOS/resources/splash/splash.ko/Default-Landscape~ipad.png
+    platforms/iOS/resources/splash/splash.ko/Default-Landscape@2x~ipad.png
+    platforms/iOS/resources/splash/splash.ko/Default-Portrait~ipad.png
+    platforms/iOS/resources/splash/splash.ko/Default-Portrait@2x~ipad.png
+
+platforms/iOS/Info.plist.axml 파일의 CFBundleDevelopmentRegion 키의 값으로 지정한 언어코드에 해당하는 스플래시 이미지 파일들이 기본 스플래시 이미지가 됩니다.
+언어에 관계없이 단일한 스플래시 이미지 파일을 사용할 경우에는 기본 스플래시 이미지 파일들만 저장하면 됩니다.

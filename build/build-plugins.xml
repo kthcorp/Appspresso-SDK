@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-plugins" default="build" basedir=".">
+	<description>Appspresso Plugins Build Script</description>
+
+	<property environment="env" />
+	<property file="build.properties" />
+
+	<import file="build-support-js.xml" />
+
+	<macrodef name="clean-axp">
+		<attribute name="dir" default="${rower.dir}" />
+		<attribute name="name" />
+		<sequential>
+			<ant dir="@{dir}/@{name}" target="clean" inheritAll="false">
+				<property name="ax.sdk.dir" location="${ax.sdk.dir}" />
+			</ant>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build-axp">
+		<attribute name="dir" default="${rower.dir}" />
+		<attribute name="name" />
+		<sequential>
+			<fileset id="src.js.files" dir="@{dir}/@{name}/src" includes="**/*.js" />
+
+			<!-- verify js files -->
+			<js_verify_jslint src="src.js.files" out="${out.report.dir}/jslint-report-plugins-@{name}.html" />
+
+			<!-- merge js files -->
+			<js_merge src="src.js.files" out="@{dir}/@{name}/axplugin.all.js" />
+
+			<!-- compress merged js file -->
+			<js_compress_yuicompressor src="@{dir}/@{name}/axplugin.all.js" out="@{dir}/@{name}/axplugin.js" />
+
+			<!-- delete merged js file -->
+			<delete file="@{dir}/@{name}/axplugin.all.js" />
+
+			<!-- copy js files to docs/src directory to generate jsdoc -->
+			<copy todir="${out.docs.plugins.src.dir}/@{name}">
+				<fileset dir="@{dir}/@{name}/src" includes="**/*.js" />
+			</copy>
+
+			<ant dir="@{dir}/@{name}" target="build" inheritAll="false">
+				<property name="ax.sdk.dir" location="${ax.sdk.dir}" />
+				<property name="out.report.dir" location="${out.report.dir}" />
+			</ant>
+
+			<copy todir="${out.plugins.dir}">
+				<fileset dir="@{dir}/@{name}/output">
+					<include name="*.axp" />
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<target name="_init">
+		<tstamp />
+
+		<mkdir dir="${out.dir}" />
+		<mkdir dir="${out.report.dir}" />
+		<mkdir dir="${out.docs.dir}" />
+
+		<mkdir dir="${out.docs.plugins.src.dir}" />
+		<mkdir dir="${out.docs.plugins.jsdoc.dir}" />
+
+		<mkdir dir="${out.plugins.dir}" />
+	</target>
+
+	<target name="_build_rower">
+		<echo message="build standard plugins in ${rower.dir} into ${out.plugins.dir}" />
+
+		<build-axp name="accelerometer" />
+		<build-axp name="camera" />
+		<build-axp name="contact" />
+		<build-axp name="deviceapis" />
+		<build-axp name="deviceinteraction" />
+		<build-axp name="devicestatus" />
+		<build-axp name="filesystem" />
+		<build-axp name="geolocation" />
+		<build-axp name="messaging" />
+		<build-axp name="orientation" />
+		<build-axp name="pim" />
+	</target>
+
+	<target name="_build_motor">
+		<echo message="build extension plugins in ${motor.dir} into ${out.plugins.dir}" />
+
+		<build-axp dir="${motor.dir}" name="ax.ext.admob" />
+		<build-axp dir="${motor.dir}" name="ax.ext.android" />
+		<build-axp dir="${motor.dir}" name="ax.ext.contact" />
+		<build-axp dir="${motor.dir}" name="ax.ext.ga" />
+		<build-axp dir="${motor.dir}" name="ax.ext.ios" />
+		<build-axp dir="${motor.dir}" name="ax.ext.media" />
+		<build-axp dir="${motor.dir}" name="ax.ext.net" />
+		<build-axp dir="${motor.dir}" name="ax.ext.ui" />
+		<build-axp dir="${motor.dir}" name="ax.ext.zip" />
+	</target>
+
+	<target name="_build_jsdoc">
+		<echo message="generating jsdoc... ${out.docs.plugins.jsdoc.dir}" />
+		<jsdoc src="${out.docs.plugins.src.dir}" out="${out.docs.dir}/plugins/jsdoc" />
+	</target>
+
+	<target name="build" depends="_init,_build_rower,_build_motor,_build_jsdoc">
+	</target>
+
+	<target name="_clean_rower">
+		<clean-axp name="accelerometer" />
+		<clean-axp name="camera" />
+		<clean-axp name="contact" />
+		<clean-axp name="deviceapis" />
+		<clean-axp name="deviceinteraction" />
+		<clean-axp name="devicestatus" />
+		<clean-axp name="filesystem" />
+		<clean-axp name="geolocation" />
+		<clean-axp name="messaging" />
+		<clean-axp name="orientation" />
+		<clean-axp name="pim" />
+	</target>
+
+	<target name="_clean_motor">
+		<clean-axp dir="${motor.dir}" name="ax.ext.admob" />
+		<clean-axp dir="${motor.dir}" name="ax.ext.android" />
+		<clean-axp dir="${motor.dir}" name="ax.ext.contact" />
+		<clean-axp dir="${motor.dir}" name="ax.ext.ga" />
+		<clean-axp dir="${motor.dir}" name="ax.ext.ios" />
+		<clean-axp dir="${motor.dir}" name="ax.ext.media" />
+		<clean-axp dir="${motor.dir}" name="ax.ext.net" />
+		<clean-axp dir="${motor.dir}" name="ax.ext.ui" />
+		<clean-axp dir="${motor.dir}" name="ax.ext.zip" />
+	</target>
+
+	<target name="clean" depends="_clean_rower,_clean_motor">
+		<delete includeemptydirs="true">
+			<fileset dir="${out.plugins.dir}" erroronmissingdir="false" />
+		</delete>
+	</target>
+
+	<!--
+0. prepare
+
+1. build & copy *.axp ==> ${out.dir}
+	1.1 build axp with rower/motor using ${ax.sdk.dir}/build-axp.xml
+		1.1.1 build paddle/screw android module using ${ax.sdk.dir}/platforms/android/build-axp.xml
+		1.1.2 build paddle/screw ios module using ${ax.sdk.dir}/platforms/ios/build-axp.xml
+
+2. build merry/sunny
+	2.1 test!!!
+
+3. ...
+
+
+final result:
+/${out.plugins.dir}
+	/deviceapis-1.0.axp
+	/deviceapis.filesystem-1.0.axp
+	/ax.ext.ui-1.0.axp
+	/... *.axp
+-->
+</project>

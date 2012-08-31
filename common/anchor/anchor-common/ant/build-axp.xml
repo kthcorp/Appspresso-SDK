@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-axp" default="help" basedir=".">
+	<description>Appspresso Plugin Build Script</description>
+
+	<property environment="env" />
+	<dirname property="self.dir" file="ant.file" />
+	<property file="${self.dir}/build-axp.properties" />
+
+	<!-- appspresso sdk cli -->
+	<property name="ax.sdk.dir" location="${env.AX_HOME}" />
+	<property name="android.sdk.dir" location="${env.ANDROID_HOME}"/>
+	<property name="ios.sdk.dir" location="${env.IOS_HOME}" />
+
+	<property name="ax.build-axp.xml" location="${ax.sdk.dir}/build-axp.xml" />
+	<property name="ax.plugins.dir" location="${ax.sdk.dir}/plugins" />
+	<property name="ax.templates.dir" location="${ax.sdk.dir}/templates" />
+	<property name="ax.templates.axp.dir" location="${ax.templates.dir}/axp" />
+	<property name="ax.platforms.dir" location="${ax.sdk.dir}/platforms" />
+
+	<property name="ax.android.dir" location="${ax.platforms.dir}/android" />
+	<property name="ax.ios.dir" location="${ax.platforms.dir}/ios" />
+
+	<property name="ax.android.build-axp.xml" location="${ax.android.dir}/build-axp.xml" />
+	<property name="ax.ios.build-axp.xml" location="${ax.ios.dir}/build-axp.xml" />
+
+	<property name="axp.target.platform" value="android,ios" />
+
+	<path id="anchor.libs">
+		<pathelement path="${ax.sdk.dir}/anttask/build-utils.jar" />
+	</path>
+
+	<taskdef name="xpath"
+				classpathref="anchor.libs"
+				classname="com.appspresso.cli.ant.utils.XPathTask">
+	</taskdef>
+
+	<!-- create axp project -->
+	<target name="-init-create">
+		<tstamp />
+
+		<property name="axp.id" value="com.example.axp" />
+		<property name="axp.version" value="1.0" />
+		<property name="axp.name" value="${axp.id}" />
+		<property name="axp.feature" value="" />
+		<property name="axp.category" value="Custom" />
+
+		<property name="axp.dir" location="${basedir}" />
+		<property name="axp.out.dir" location="${axp.dir}/output" />
+		<property name="axp.axplugin.xml" location="${axp.dir}/axplugin.xml" />
+
+		<property name="axp.android.module.name" value="${axp.name}_android" />
+		<property name="axp.android.module.class" value="${axp.id}.MyPlugin" />
+		<property name="axp.android.module.platform.version" value="8" />
+		<property name="axp.android.module.platform.version.min" value="7" />
+		<property name="axp.android.module.platform.version.max" value="" />
+
+		<property name="axp.ios.module.name" value="${axp.name}_ios" />
+		<property name="axp.ios.module.class" value="MyPlugin" />
+		<property name="axp.ios.module.platform.version" value="4.3" />
+		<property name="axp.ios.module.platform.version.min" value="4.3" />
+		<property name="axp.ios.module.platform.version.max" value="" />
+
+		<property name="axp.template.name" value="_blank" />
+		<property name="axp.template.dir" value="${ax.templates.axp.dir}/_blank" />
+		<property name="axp.project.name" value="${axp.name}" />
+
+		<condition property="create.android">
+			<and>
+				<isset property="ax.sdk.dir" />
+				<isset property="axp.id" />
+				<isset property="axp.android.module.name"/>
+				<contains string="${axp.target.platform}" substring="android" />
+			</and>
+		</condition>
+
+		<condition property="create.ios">
+			<and>
+				<os family="mac" />
+				<isset property="axp.id" />
+				<isset property="ax.sdk.dir" />
+				<isset property="axp.ios.module.name" />
+				<contains string="${axp.target.platform}" substring="ios" />
+			</and>
+		</condition>
+	</target>
+
+	<target name="-pre-create" />
+
+	<target name="-post-create" />
+
+	<target name="-create" depends="-create-android,-create-ios">
+		<echo message="create new axp project on ${axp.dir}..." />
+
+		<!-- may be defined in -create-android target -->
+		<property name="axp.android.module.def" value="" />
+		<property name="axp.android.module.rel.dir" value="" />
+
+		<!-- may be defined in -create-ios target -->
+		<property name="axp.ios.module.def" value="" />
+		<property name="axp.ios.module.rel.dir" value="" />
+
+		<condition property="axp.feature.def" value="&lt;feature id=&quot;${axp.feature}&quot; category=&quot;${axp.category}&quot; /&gt;">
+			<isset property="axp.feature" />
+		</condition>
+		<property name="axp.feature.def" value="" />
+
+		<script language="javascript">
+			<![CDATA[
+			var filterset = project.createDataType("filterset");
+			var androidRel = project.getProperty('axp.android.module.rel.dir');
+			var iosRel = project.getProperty('axp.ios.module.rel.dir');
+
+			var windowFileSep = '\\\\';
+			filterset.addFilter('AX_SDK_DIR', project.getProperty('ax.sdk.dir').replaceAll(windowFileSep, '/'));
+			filterset.addFilter('AXP_ANDROID_MODULE_DIR', androidRel != null ? androidRel.replaceAll(windowFileSep, '/') : '');
+			filterset.addFilter('AXP_IOS_MODULE_DIR', iosRel != null ? iosRel.replaceAll(windowFileSep, '/') : '');
+
+			project.addReference('convert.path', filterset)
+			]]>
+		</script>
+
+		<copy todir="${axp.dir}" >
+			<fileset dir="${axp.template.dir}" />
+			<filterset>
+				<filter token="AXP_PROJECT_NAME" value="${axp.project.name}" />
+				<filter token="AXP_ID" value="${axp.id}" />
+				<filter token="AXP_VERSION" value="${axp.version}" />
+				<filter token="AXP_NAME" value="${axp.name}" />
+				<filter token="AXP_FEATURE" value="${axp.feature.def}" />
+
+				<filter token="AXP_ANDROID_MODULE" value="${axp.android.module.def}" />
+				<filter token="AXP_ANDROID_CLASS" value="${axp.android.module.class}" />
+				<filter token="AXP_ANDROID_PLATFORM_VERSION" value="${axp.android.module.platform.version}" />
+				<filter token="AXP_ANDROID_MIN_PLATFORM_VERSION" value="${axp.android.module.platform.version.min}" />
+				<filter token="AXP_ANDROID_MAX_PLATFORM_VERSION" value="${axp.android.module.platform.version.max}" />
+
+				<filter token="AXP_IOS_MODULE" value="${axp.ios.module.def}" />
+				<filter token="AXP_IOS_CLASS" value="${axp.ios.module.class}" />
+				<filter token="AXP_IOS_PLATFORM_VERSION" value="${axp.ios.module.platform.version}" />
+				<filter token="AXP_IOS_MIN_PLATFORM_VERSION" value="${axp.ios.module.platform.version.min}" />
+				<filter token="AXP_IOS_MAX_PLATFORM_VERSION" value="${axp.ios.module.platform.version.max}" />
+				<!-- ... -->
+			</filterset>
+			<filterset refid="convert.path" />
+		</copy>
+	</target>
+
+	<target name="create" depends="-init-create,-pre-create,-create,-post-create" description="create new axp project">
+	</target>
+
+	<target name="create-android" depends="-init-create,-create-android" description="create new axp Android module project" />
+	<target name="create-ios" depends="-init-create,-create-ios" description="create new axp iOS module project" />
+
+	<macrodef name="available.module.project">
+		<sequential>
+			<condition property="available.android">
+				<and>
+					<isset property="axp.id" />
+					<isset property="ax.sdk.dir" />
+					<isset property="android.sdk.dir"/>
+					<not>
+						<equals arg1="" arg2="${axp.android.module.dir}" />
+					</not>
+					<available file="${axp.android.module.dir}" type="dir"/>
+					<contains string="${axp.target.platform}" substring="android" />
+				</and>
+			</condition>
+
+			<condition property="available.ios">
+				<and>
+					<os family="mac" />
+					<isset property="axp.id" />
+					<isset property="ax.sdk.dir" />
+					<isset property="ios.sdk.dir" />
+					<not>
+						<equals arg1="" arg2="${axp.ios.module.dir}" />
+					</not>
+					<available file="${axp.ios.module.dir}" type="dir"/>
+					<contains string="${axp.target.platform}" substring="ios" />
+				</and>
+			</condition>
+		</sequential>
+	</macrodef>
+
+	<!-- build axp project -->
+	<target name="-init-build">
+		<tstamp />
+
+		<property name="axp.dir" location="${basedir}" />
+		<property name="axp.axplugin.xml" location="${axp.dir}/axplugin.xml" />
+
+		<xpath document="${axp.axplugin.xml}" expression="axplugin/@id" property="axp.id" />
+		<xpath document="${axp.axplugin.xml}" expression="axplugin/@version" property="axp.version" />
+
+		<property name="axp.out.dir" location="${axp.dir}/output" />
+
+		<!-- intermediate output -->
+		<property name="axp.out.android.dir" location="${axp.out.dir}/android" />
+		<property name="axp.out.ios.dir" location="${axp.out.dir}/ios" />
+
+		<!-- final output file -->
+		<property name="axp.out.path" location="${axp.out.dir}/${axp.id}-${axp.version}.axp" />
+
+		<available.module.project />
+	</target>
+
+	<target name="-pre-build" />
+
+	<target name="-post-build" />
+
+	<target name="-build" depends="-build-android,-build-ios">
+		<echo message="build axp project... ${axp.dir} to ${axp.out.path}" />
+
+		<mkdir dir="${axp.out.dir}" />
+
+		<zip destfile="${axp.out.path}">
+			<fileset dir="${axp.dir}">
+				<include name="axplugin.xml" />
+				<include name="*.js" />
+				<include name="overlay/**/*" />
+				<include name="res/**/*" />
+				<exclude name="**/.svn" />
+				<exclude name="**/.git" />
+				<exclude name="**/.cvs" />
+			</fileset>
+
+			<zipfileset dir="${axp.out.android.dir}" prefix="lib/android" erroronmissingdir="false">
+				<selector if="available.android">
+					<filename name="**/*" />
+				</selector>
+			</zipfileset>
+
+			<zipfileset dir="${axp.out.ios.dir}" prefix="lib/ios" erroronmissingdir="false">
+				<selector if="available.ios">
+					<filename name="**/*" />
+				</selector>
+			</zipfileset>
+		</zip>
+	</target>
+
+	<target name="build" depends="-init-build,-pre-build,-build,-post-build" description="build axp project">
+	</target>
+
+	<!-- clean axp project -->
+	<target name="-init-clean">
+		<property name="axp.dir" location="${basedir}" />
+		<property name="axp.axplugin.xml" location="${axp.dir}/axplugin.xml" />
+
+		<xpath document="${axp.axplugin.xml}" expression="axplugin/@id" property="axp.id" />
+		<xpath document="${axp.axplugin.xml}" expression="axplugin/@version" property="axp.version" />
+
+		<property name="axp.out.dir" location="${axp.dir}/output" />
+
+		<!-- intermediate output -->
+		<property name="axp.out.android.dir" location="${axp.out.dir}/android" />
+		<property name="axp.out.ios.dir" location="${axp.out.dir}/ios" />
+
+		<!-- final output file -->
+		<property name="axp.out.path" location="${axp.out.dir}/${axp.id}-${axp.version}.axp" />
+
+		<available.module.project />
+	</target>
+
+	<target name="clean" depends="-init-clean,-clean-android,-clean-ios" description="clean axp project">
+		<property name="axp.dir" location="${basedir}" />
+		<property name="axp.out.dir" location="${axp.dir}/output" />
+
+		<echo message="clean axp project... ${axp.out.dir}" />
+
+		<delete includeemptydirs="true">
+			<fileset dir="${axp.out.dir}" erroronmissingdir="false"/>
+		</delete>
+	</target>
+
+	<target name="help" description="show usage">
+		<echo>
+			<![CDATA[
+Appspresso Plugin Build Tool
+============================
+
+ant -f build-axp.xml {create|build|clean|help} [opts...]
+	-Dax.sdk.dir=/path/to/appspresso/sdk/directory (default: $AX_HOME)
+	-D...
+
+ant -f build-axp.xml create
+	-Daxp.dir=/path/to/new/axp/project/directory (required)
+	-Daxp.id=PLUGIN-ID (required)
+	-Dandroid.sdk.dir (default: $ANDROID_HOME)
+	-Dios.sdk.dir(default:$IOS_HOME)
+	-Daxp.version=PLUGIN-VERSION (default: 1.0)
+	-Daxp.name=PLUGIN-NAME (default: same as axp.id)
+	-Daxp.feature=FEATURE-ID(URI) (default: none)
+	-Daxp.category=feature-category (default: custom)
+	-Daxp.android.module.create=true|false (default: false)
+	-Daxp.android.module.dir=/path/to/axp/android/module/directory (default: none)
+	-Daxp.android.module.name=android_module_name (default: ${axp.name}_android)
+	-Daxp.android.module.class=FQCN (default: ${axp.id}.MyPlugin)
+	-Daxp.android.module.platform.version (default:none)
+	-Daxp.android.module.platform.version.min (default:none)
+	-Daxp.android.module.platform.version.max (default:none)
+	-Daxp.ios.module.create=true|false (default: false)
+	-Daxp.ios.module.dir=/path/to/axp/ios/module/directory (default: none)
+	-Daxp.ios.module.name=ios_module_name (default: ${axp.name}_ios)
+	-Daxp.ios.module.class=FQCN (default: MyPlugin)
+	-Daxp.ios.module.platform.version (default:none)
+	-Daxp.ios.module.platform.version.min (default:none)
+	-Daxp.ios.module.platform.version.max (default:none)
+	-D...
+
+ant -f build-axp.xml build
+	-Daxp.dir=/path/to/axp/project/directory (required)
+	-Daxp.out.dir=/path/to/output/directory (default: ${axp.dir}/output)
+	-D...
+
+ant -f build-axp.xml clean
+	-Daxp.out.dir=/path/to/output/directory (default: ${axp.dir}/output)
+	-D...
+]]>
+		</echo>
+	</target>
+
+	<!-- android -->
+	<target name="-prpare-create-android" if="create.android">
+	</target>
+
+	<target name="-create-android" if="create.android" depends="-prpare-create-android">
+		<property name="axp.android.module.dir" location="${axp.dir}/../${axp.name}_android" />
+		<property name="axp.android.module.def" value="&lt;module platform=&quot;android&quot; platform-version=&quot;@AXP_ANDROID_PLATFORM_VERSION@&quot;&#10;
+							min-platform-version=&quot;@AXP_ANDROID_MIN_PLATFORM_VERSION@&quot; max-platform-version=&quot;@AXP_ANDROID_MAX_PLATFORM_VERSION@&quot; class=&quot;@AXP_ANDROID_CLASS@&quot;&gt; &lt;/module&gt;" />
+		<property name="axp.android.module.rel.dir" location="${axp.android.module.dir}" relative="true" basedir="${axp.dir}" />
+
+		<echo message="create new axp android module... ${axp.android.module.dir}" />
+		<subant buildpath="${ax.android.dir}" antfile="build-axp.xml" target="create" failonerror="true">
+			<property name="axp.runtime.project.dir" location="${axp.android.module.dir}" />
+			<property name="axp.runtime.project.name" value="${axp.android.module.name}" />
+			<property name="axp.runtime.project.class" value="${axp.android.module.class}" />
+			<property name="axp.runtime.project.version" value="${axp.android.module.platform.version}" />
+			<property name="axp.template.name" value="${axp.template.name}" />
+		</subant>
+	</target>
+
+	<target name="-build-android" if="available.android">
+		<fail message="[ERROR] bad or missing axp android module directory: ${axp.android.module.dir}">
+			<condition>
+				<not>
+					<available file="${axp.android.module.dir}/build.xml" />
+				</not>
+			</condition>
+		</fail>
+
+		<echo message="build axp android module... ${axp.android.module.dir}" />
+
+		<subant buildpath="${ax.android.dir}" antfile="build-axp.xml" target="build" failonerror="true">
+			<property name="axp.id" value="${axp.id}" />
+			<property name="axp.version" value="${axp.version}" />
+
+			<property name="axp.runtime.project.dir" location="${axp.android.module.dir}" />
+			<property name="axp.runtime.out.dir" location="${axp.out.android.dir}" />
+		</subant>
+	</target>
+
+	<target name="-clean-android" if="available.android">
+		<echo message="clean axp android module... ${axp.android.module.dir}" />
+
+		<subant buildpath="${ax.android.dir}" antfile="build-axp.xml" target="clean">
+			<property name="axp.runtime.project.dir" location="${axp.android.module.dir}" />
+			<property name="axp.runtime.out.dir" location="${axp.out.android.dir}" />
+		</subant>
+	</target>
+
+	<!-- ios -->
+
+	<target name="-create-ios" if="create.ios">
+		<property name="axp.ios.module.dir" location="${axp.dir}/../${axp.name}_ios" />
+		<property name="axp.ios.module.def" value="&lt;module platform=&quot;ios&quot; platform-version=&quot;@AXP_IOS_PLATFORM_VERSION@&quot;&#10; min-platform-version=&quot;@AXP_IOS_MIN_PLATFORM_VERSION@&quot; max-platform-version=&quot;@AXP_IOS_MAX_PLATFORM_VERSION@&quot; class=&quot;@AXP_IOS_CLASS@&quot;&gt; &lt;/module&gt;" />
+		<property name="axp.ios.module.rel.dir" location="${axp.ios.module.dir}" relative="true" basedir="${axp.dir}" />
+
+		<echo message="create new axp ios module... ${axp.ios.module.dir}" />
+		<subant buildpath="${ax.ios.dir}" antfile="build-axp.xml" target="create" failonerror="true">
+			<property name="axp.runtime.project.dir" location="${axp.ios.module.dir}" />
+			<property name="axp.runtime.project.name" value="${axp.ios.module.name}" />
+			<property name="axp.runtime.project.class" value="${axp.ios.module.class}" />
+			<property name="axp.runtime.project.version" value="${axp.ios.module.platform.version}" />
+			<property name="axp.template.name" value="${axp.template.name}" />
+		</subant>
+	</target>
+
+	<target name="-build-ios" if="available.ios">
+		<fail message="[ERROR] bad or missing axp ios module directory: ${axp.ios.module.dir}">
+			<condition>
+				<not>
+					<available file="${axp.ios.module.dir}/build.xml" />
+				</not>
+			</condition>
+		</fail>
+
+		<echo message="build axp ios module... ${axp.ios.module.dir}" />
+
+		<subant buildpath="${ax.ios.dir}" antfile="build-axp.xml" target="build" failonerror="true">
+			<property name="axp.id" value="${axp.id}" />
+			<property name="axp.version" value="${axp.version}" />
+			<property name="axp.runtime.project.dir" location="${axp.ios.module.dir}" />
+			<property name="axp.runtime.out.dir" location="${axp.out.ios.dir}" />
+		</subant>
+	</target>
+
+	<target name="-clean-ios" if="available.ios">
+		<echo message="clean axp project ios module... ${axp.ios.module.dir}" />
+
+		<subant buildpath="${ax.ios.dir}" antfile="build-axp.xml" target="clean">
+			<property name="axp.runtime.project.dir" location="${axp.ios.module.dir}" />
+			<property name="axp.runtime.out.dir" location="${axp.out.ios.dir}" />
+		</subant>
+	</target>
+</project>

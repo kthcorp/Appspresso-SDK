@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'ax.ext.contact' target in the 'ax.ext.contact' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

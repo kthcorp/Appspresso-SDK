@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:sunny/sunny.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:sail-ios/sail-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:chronometer-ios/chronometer-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:paddle/accelerometer-ios/accelerometer-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:paddle/cameramanager-ios/cameramanager-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:paddle/contact-ios/contact-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:paddle/deviceapis-ios/deviceapis-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:paddle/deviceinteraction-ios/deviceinteraction-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:paddle/devicestatus-ios/devicestatus-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:paddle/filesystem-ios/filesystem-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:paddle/messaging-ios/messaging-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:paddle/orientation-ios/orientation-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:paddle/pim-ios/pim-ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:screw/ax.ext.admob_ios/ax.ext.admob_ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:screw/ax.ext.contact_ios/ax.ext.contact_ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:screw/ax.ext.ga_ios/ax.ext.ga_ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:screw/ax.ext.ios_ios/ax.ext.ios_ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:screw/ax.ext.media_ios/ax.ext.media_ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:screw/ax.ext.net_ios/ax.ext.net_ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:screw/ax.ext.ui_ios/ax.ext.ui_ios.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:screw/ax.ext.zip_ios/ax.ext.zip_ios.xcodeproj">
+   </FileRef>
+</Workspace>

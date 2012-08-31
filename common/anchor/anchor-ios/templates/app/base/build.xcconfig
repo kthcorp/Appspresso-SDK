@@ -1,0 +1,7 @@
+AX_FRAMEWORK = -framework Foundation -framework UIKit -framework CFNetwork -framework Security -framework CoreGraphics
+AX_LIB = -L@AX_IOS_LIB@ -lsqlite3 -lz -lchronometer -lsail
+PLUGIN_DYLIB = @PLUGIN_DYLIB@
+PLUGIN_FRAMEWORK = @PLUGIN_FRAMEWORK@
+PLUGIN_LIB = @PLUGIN_LIB@
+PLUGIN_LIB_DIR = @PLUGIN_LIB_DIR@
+OTHER_LDFLAGS = -ObjC $(AX_FRAMEWORK) $(AX_LIB) $(PLUGIN_DYLIB) $(PLUGIN_FRAMEWORK) $(PLUGIN_LIB) $(PLUGIN_LIB_DIR)

@@ -1,0 +1,242 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA644B3E13A6042900789A50 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA644B3D13A6042900789A50 /* Foundation.framework */; };
+		FA644B4F13A6048300789A50 /* KthWaikikiDeviceapis.h in Headers */ = {isa = PBXBuildFile; fileRef = FA644B4A13A6048300789A50 /* KthWaikikiDeviceapis.h */; };
+		FA644B5013A6048300789A50 /* KthWaikikiDeviceapis.m in Sources */ = {isa = PBXBuildFile; fileRef = FA644B4B13A6048300789A50 /* KthWaikikiDeviceapis.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FA644B3A13A6042900789A50 /* libdeviceapis-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libdeviceapis-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA644B3D13A6042900789A50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FA644B4113A6042900789A50 /* deviceapis-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "deviceapis-ios-Prefix.pch"; sourceTree = "<group>"; };
+		FA644B4A13A6048300789A50 /* KthWaikikiDeviceapis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiDeviceapis.h; sourceTree = "<group>"; };
+		FA644B4B13A6048300789A50 /* KthWaikikiDeviceapis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiDeviceapis.m; sourceTree = "<group>"; };
+		FAEEA1E113AE1BAC000761B9 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA644B3713A6042900789A50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA644B3E13A6042900789A50 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA644B2F13A6042900789A50 = {
+			isa = PBXGroup;
+			children = (
+				FAEEA1E113AE1BAC000761B9 /* README */,
+				FA644B3F13A6042900789A50 /* deviceapis-ios */,
+				FA644B3C13A6042900789A50 /* Frameworks */,
+				FA644B3B13A6042900789A50 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FA644B3B13A6042900789A50 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA644B3A13A6042900789A50 /* libdeviceapis-ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA644B3C13A6042900789A50 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA644B3D13A6042900789A50 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA644B3F13A6042900789A50 /* deviceapis-ios */ = {
+			isa = PBXGroup;
+			children = (
+				FA644B4A13A6048300789A50 /* KthWaikikiDeviceapis.h */,
+				FA644B4B13A6048300789A50 /* KthWaikikiDeviceapis.m */,
+				FA644B4013A6042900789A50 /* Supporting Files */,
+			);
+			path = "deviceapis-ios";
+			sourceTree = "<group>";
+		};
+		FA644B4013A6042900789A50 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FA644B4113A6042900789A50 /* deviceapis-ios-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		FA644B3813A6042900789A50 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA644B4F13A6048300789A50 /* KthWaikikiDeviceapis.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		FA644B3913A6042900789A50 /* deviceapis-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA644B4413A6042900789A50 /* Build configuration list for PBXNativeTarget "deviceapis-ios" */;
+			buildPhases = (
+				FA644B3613A6042900789A50 /* Sources */,
+				FA644B3713A6042900789A50 /* Frameworks */,
+				FA644B3813A6042900789A50 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "deviceapis-ios";
+			productName = "deviceapis-ios";
+			productReference = FA644B3A13A6042900789A50 /* libdeviceapis-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA644B3113A6042900789A50 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "KTH Corp.";
+			};
+			buildConfigurationList = FA644B3413A6042900789A50 /* Build configuration list for PBXProject "deviceapis-ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FA644B2F13A6042900789A50;
+			productRefGroup = FA644B3B13A6042900789A50 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA644B3913A6042900789A50 /* deviceapis-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA644B3613A6042900789A50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA644B5013A6048300789A50 /* KthWaikikiDeviceapis.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FA644B4213A6042900789A50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		FA644B4313A6042900789A50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		FA644B4513A6042900789A50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/deviceapis_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "deviceapis-ios/deviceapis-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		FA644B4613A6042900789A50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/deviceapis_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "deviceapis-ios/deviceapis-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA644B3413A6042900789A50 /* Build configuration list for PBXProject "deviceapis-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA644B4213A6042900789A50 /* Debug */,
+				FA644B4313A6042900789A50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA644B4413A6042900789A50 /* Build configuration list for PBXNativeTarget "deviceapis-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA644B4513A6042900789A50 /* Debug */,
+				FA644B4613A6042900789A50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA644B3113A6042900789A50 /* Project object */;
+}

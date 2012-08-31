@@ -1,0 +1,9 @@
+Appspresso Runtime for iOS
+
+Internal Dependencies
+    * chronometer-ios
+External Dependencies
+    * CocoaHttpServer: http://code.google.com/p/cocoahttpserver/
+        * CocoaAsyncSocket: http://code.google.com/p/cocoaasyncsocket/
+        * CocoaLumberjack: http://code.google.com/p/cocoalumberjack/
+    * JSONKit: https://github.com/johnezang/JSONKit

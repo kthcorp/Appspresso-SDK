@@ -1,0 +1,6 @@
+{
+    "result": [
+        { "uri":"http://feature1", "required":true, "params":{ "param1":"value1", "param2":"value2" } },
+        { "uri":"http://feature2", "required":false, "params":{ } }
+    ]
+}

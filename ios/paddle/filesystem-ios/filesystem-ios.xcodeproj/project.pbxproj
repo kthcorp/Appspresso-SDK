@@ -1,0 +1,360 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		638FF9C413B027B10048CB47 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638FF9C313B027B10048CB47 /* Foundation.framework */; };
+		638FF9CF13B027CC0048CB47 /* Base64Codec.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FF9CD13B027CC0048CB47 /* Base64Codec.h */; };
+		638FF9D013B027CC0048CB47 /* Base64Codec.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FF9CE13B027CC0048CB47 /* Base64Codec.m */; };
+		638FFA0913B028DE0048CB47 /* KthWaikikiFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FFA0113B028DE0048CB47 /* KthWaikikiFile.h */; };
+		638FFA0A13B028DE0048CB47 /* KthWaikikiFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FFA0213B028DE0048CB47 /* KthWaikikiFile.m */; };
+		638FFA0B13B028DE0048CB47 /* KthWaikikiFileStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FFA0313B028DE0048CB47 /* KthWaikikiFileStream.h */; };
+		638FFA0C13B028DE0048CB47 /* KthWaikikiFileStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FFA0413B028DE0048CB47 /* KthWaikikiFileStream.m */; };
+		638FFA0D13B028DE0048CB47 /* KthWaikikiFilesystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FFA0513B028DE0048CB47 /* KthWaikikiFilesystem.h */; };
+		638FFA0E13B028DE0048CB47 /* KthWaikikiFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FFA0613B028DE0048CB47 /* KthWaikikiFilesystem.m */; };
+		63FD7DE613B06A3F00E94D3D /* KthWaikikiDocumentsFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD7DCD13B06A3F00E94D3D /* KthWaikikiDocumentsFile.h */; };
+		63FD7DE713B06A3F00E94D3D /* KthWaikikiDocumentsFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DCE13B06A3F00E94D3D /* KthWaikikiDocumentsFile.m */; };
+		63FD7DE813B06A3F00E94D3D /* KthWaikikiDocumentsFileStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD7DCF13B06A3F00E94D3D /* KthWaikikiDocumentsFileStream.h */; };
+		63FD7DE913B06A3F00E94D3D /* KthWaikikiDocumentsFileStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DD013B06A3F00E94D3D /* KthWaikikiDocumentsFileStream.m */; };
+		63FD7DEC13B06A3F00E94D3D /* KthWaikikiRealPathTypeFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD7DD413B06A3F00E94D3D /* KthWaikikiRealPathTypeFile.h */; };
+		63FD7DED13B06A3F00E94D3D /* KthWaikikiRealPathTypeFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DD513B06A3F00E94D3D /* KthWaikikiRealPathTypeFile.m */; };
+		63FD7DEE13B06A3F00E94D3D /* KthWaikikiRealPathTypeFileStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD7DD613B06A3F00E94D3D /* KthWaikikiRealPathTypeFileStream.h */; };
+		63FD7DEF13B06A3F00E94D3D /* KthWaikikiRealPathTypeFileStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DD713B06A3F00E94D3D /* KthWaikikiRealPathTypeFileStream.m */; };
+		63FD7DF013B06A3F00E94D3D /* KthWaikikiWgtPackageFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD7DD913B06A3F00E94D3D /* KthWaikikiWgtPackageFile.h */; };
+		63FD7DF113B06A3F00E94D3D /* KthWaikikiWgtPackageFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DDA13B06A3F00E94D3D /* KthWaikikiWgtPackageFile.m */; };
+		63FD7DF213B06A3F00E94D3D /* KthWaikikiWgtPackageFileStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD7DDB13B06A3F00E94D3D /* KthWaikikiWgtPackageFileStream.h */; };
+		63FD7DF313B06A3F00E94D3D /* KthWaikikiWgtPackageFileStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DDC13B06A3F00E94D3D /* KthWaikikiWgtPackageFileStream.m */; };
+		63FD7DF613B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD7DE013B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFile.h */; };
+		63FD7DF713B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DE113B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFile.m */; };
+		63FD7DF813B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFileStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD7DE213B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFileStream.h */; };
+		63FD7DF913B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFileStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD7DE313B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFileStream.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		638FF9C013B027B10048CB47 /* libfilesystem-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libfilesystem-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		638FF9C313B027B10048CB47 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		638FF9C713B027B10048CB47 /* filesystem-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "filesystem-ios-Prefix.pch"; sourceTree = "<group>"; };
+		638FF9CD13B027CC0048CB47 /* Base64Codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Codec.h; sourceTree = "<group>"; };
+		638FF9CE13B027CC0048CB47 /* Base64Codec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64Codec.m; sourceTree = "<group>"; };
+		638FFA0113B028DE0048CB47 /* KthWaikikiFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiFile.h; sourceTree = "<group>"; };
+		638FFA0213B028DE0048CB47 /* KthWaikikiFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiFile.m; sourceTree = "<group>"; };
+		638FFA0313B028DE0048CB47 /* KthWaikikiFileStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiFileStream.h; sourceTree = "<group>"; };
+		638FFA0413B028DE0048CB47 /* KthWaikikiFileStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiFileStream.m; sourceTree = "<group>"; };
+		638FFA0513B028DE0048CB47 /* KthWaikikiFilesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiFilesystem.h; sourceTree = "<group>"; };
+		638FFA0613B028DE0048CB47 /* KthWaikikiFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiFilesystem.m; sourceTree = "<group>"; };
+		63FD7DCD13B06A3F00E94D3D /* KthWaikikiDocumentsFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiDocumentsFile.h; sourceTree = "<group>"; };
+		63FD7DCE13B06A3F00E94D3D /* KthWaikikiDocumentsFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiDocumentsFile.m; sourceTree = "<group>"; };
+		63FD7DCF13B06A3F00E94D3D /* KthWaikikiDocumentsFileStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiDocumentsFileStream.h; sourceTree = "<group>"; };
+		63FD7DD013B06A3F00E94D3D /* KthWaikikiDocumentsFileStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiDocumentsFileStream.m; sourceTree = "<group>"; };
+		63FD7DD413B06A3F00E94D3D /* KthWaikikiRealPathTypeFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiRealPathTypeFile.h; sourceTree = "<group>"; };
+		63FD7DD513B06A3F00E94D3D /* KthWaikikiRealPathTypeFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiRealPathTypeFile.m; sourceTree = "<group>"; };
+		63FD7DD613B06A3F00E94D3D /* KthWaikikiRealPathTypeFileStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiRealPathTypeFileStream.h; sourceTree = "<group>"; };
+		63FD7DD713B06A3F00E94D3D /* KthWaikikiRealPathTypeFileStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiRealPathTypeFileStream.m; sourceTree = "<group>"; };
+		63FD7DD913B06A3F00E94D3D /* KthWaikikiWgtPackageFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiWgtPackageFile.h; sourceTree = "<group>"; };
+		63FD7DDA13B06A3F00E94D3D /* KthWaikikiWgtPackageFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiWgtPackageFile.m; sourceTree = "<group>"; };
+		63FD7DDB13B06A3F00E94D3D /* KthWaikikiWgtPackageFileStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiWgtPackageFileStream.h; sourceTree = "<group>"; };
+		63FD7DDC13B06A3F00E94D3D /* KthWaikikiWgtPackageFileStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiWgtPackageFileStream.m; sourceTree = "<group>"; };
+		63FD7DE013B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiWgtPrivateTmpFile.h; sourceTree = "<group>"; };
+		63FD7DE113B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiWgtPrivateTmpFile.m; sourceTree = "<group>"; };
+		63FD7DE213B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFileStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiWgtPrivateTmpFileStream.h; sourceTree = "<group>"; };
+		63FD7DE313B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFileStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiWgtPrivateTmpFileStream.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		638FF9BD13B027B10048CB47 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638FF9C413B027B10048CB47 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		638FF9B513B027B10048CB47 = {
+			isa = PBXGroup;
+			children = (
+				638FF9C513B027B10048CB47 /* filesystem-ios */,
+				638FF9C213B027B10048CB47 /* Frameworks */,
+				638FF9C113B027B10048CB47 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		638FF9C113B027B10048CB47 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				638FF9C013B027B10048CB47 /* libfilesystem-ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		638FF9C213B027B10048CB47 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				638FF9C313B027B10048CB47 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		638FF9C513B027B10048CB47 /* filesystem-ios */ = {
+			isa = PBXGroup;
+			children = (
+				63FD7DCC13B06A3F00E94D3D /* documents */,
+				63FD7DD313B06A3F00E94D3D /* realPathType */,
+				63FD7DD813B06A3F00E94D3D /* wgt-package */,
+				63FD7DDF13B06A3F00E94D3D /* wgt-private-tmp */,
+				638FFA0113B028DE0048CB47 /* KthWaikikiFile.h */,
+				638FFA0213B028DE0048CB47 /* KthWaikikiFile.m */,
+				638FFA0313B028DE0048CB47 /* KthWaikikiFileStream.h */,
+				638FFA0413B028DE0048CB47 /* KthWaikikiFileStream.m */,
+				638FFA0513B028DE0048CB47 /* KthWaikikiFilesystem.h */,
+				638FFA0613B028DE0048CB47 /* KthWaikikiFilesystem.m */,
+				638FF9CD13B027CC0048CB47 /* Base64Codec.h */,
+				638FF9CE13B027CC0048CB47 /* Base64Codec.m */,
+				638FF9C613B027B10048CB47 /* Supporting Files */,
+			);
+			path = "filesystem-ios";
+			sourceTree = "<group>";
+		};
+		638FF9C613B027B10048CB47 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				638FF9C713B027B10048CB47 /* filesystem-ios-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		63FD7DCC13B06A3F00E94D3D /* documents */ = {
+			isa = PBXGroup;
+			children = (
+				63FD7DCD13B06A3F00E94D3D /* KthWaikikiDocumentsFile.h */,
+				63FD7DCE13B06A3F00E94D3D /* KthWaikikiDocumentsFile.m */,
+				63FD7DCF13B06A3F00E94D3D /* KthWaikikiDocumentsFileStream.h */,
+				63FD7DD013B06A3F00E94D3D /* KthWaikikiDocumentsFileStream.m */,
+			);
+			path = documents;
+			sourceTree = "<group>";
+		};
+		63FD7DD313B06A3F00E94D3D /* realPathType */ = {
+			isa = PBXGroup;
+			children = (
+				63FD7DD413B06A3F00E94D3D /* KthWaikikiRealPathTypeFile.h */,
+				63FD7DD513B06A3F00E94D3D /* KthWaikikiRealPathTypeFile.m */,
+				63FD7DD613B06A3F00E94D3D /* KthWaikikiRealPathTypeFileStream.h */,
+				63FD7DD713B06A3F00E94D3D /* KthWaikikiRealPathTypeFileStream.m */,
+			);
+			path = realPathType;
+			sourceTree = "<group>";
+		};
+		63FD7DD813B06A3F00E94D3D /* wgt-package */ = {
+			isa = PBXGroup;
+			children = (
+				63FD7DD913B06A3F00E94D3D /* KthWaikikiWgtPackageFile.h */,
+				63FD7DDA13B06A3F00E94D3D /* KthWaikikiWgtPackageFile.m */,
+				63FD7DDB13B06A3F00E94D3D /* KthWaikikiWgtPackageFileStream.h */,
+				63FD7DDC13B06A3F00E94D3D /* KthWaikikiWgtPackageFileStream.m */,
+			);
+			path = "wgt-package";
+			sourceTree = "<group>";
+		};
+		63FD7DDF13B06A3F00E94D3D /* wgt-private-tmp */ = {
+			isa = PBXGroup;
+			children = (
+				63FD7DE013B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFile.h */,
+				63FD7DE113B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFile.m */,
+				63FD7DE213B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFileStream.h */,
+				63FD7DE313B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFileStream.m */,
+			);
+			path = "wgt-private-tmp";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		638FF9BE13B027B10048CB47 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638FF9CF13B027CC0048CB47 /* Base64Codec.h in Headers */,
+				638FFA0913B028DE0048CB47 /* KthWaikikiFile.h in Headers */,
+				638FFA0B13B028DE0048CB47 /* KthWaikikiFileStream.h in Headers */,
+				638FFA0D13B028DE0048CB47 /* KthWaikikiFilesystem.h in Headers */,
+				63FD7DE613B06A3F00E94D3D /* KthWaikikiDocumentsFile.h in Headers */,
+				63FD7DE813B06A3F00E94D3D /* KthWaikikiDocumentsFileStream.h in Headers */,
+				63FD7DEC13B06A3F00E94D3D /* KthWaikikiRealPathTypeFile.h in Headers */,
+				63FD7DEE13B06A3F00E94D3D /* KthWaikikiRealPathTypeFileStream.h in Headers */,
+				63FD7DF013B06A3F00E94D3D /* KthWaikikiWgtPackageFile.h in Headers */,
+				63FD7DF213B06A3F00E94D3D /* KthWaikikiWgtPackageFileStream.h in Headers */,
+				63FD7DF613B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFile.h in Headers */,
+				63FD7DF813B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFileStream.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		638FF9BF13B027B10048CB47 /* filesystem-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 638FF9CA13B027B10048CB47 /* Build configuration list for PBXNativeTarget "filesystem-ios" */;
+			buildPhases = (
+				638FF9BC13B027B10048CB47 /* Sources */,
+				638FF9BD13B027B10048CB47 /* Frameworks */,
+				638FF9BE13B027B10048CB47 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "filesystem-ios";
+			productName = "filesystem-ios";
+			productReference = 638FF9C013B027B10048CB47 /* libfilesystem-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		638FF9B713B027B10048CB47 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = KTH;
+			};
+			buildConfigurationList = 638FF9BA13B027B10048CB47 /* Build configuration list for PBXProject "filesystem-ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 638FF9B513B027B10048CB47;
+			productRefGroup = 638FF9C113B027B10048CB47 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				638FF9BF13B027B10048CB47 /* filesystem-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		638FF9BC13B027B10048CB47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638FF9D013B027CC0048CB47 /* Base64Codec.m in Sources */,
+				638FFA0A13B028DE0048CB47 /* KthWaikikiFile.m in Sources */,
+				638FFA0C13B028DE0048CB47 /* KthWaikikiFileStream.m in Sources */,
+				638FFA0E13B028DE0048CB47 /* KthWaikikiFilesystem.m in Sources */,
+				63FD7DE713B06A3F00E94D3D /* KthWaikikiDocumentsFile.m in Sources */,
+				63FD7DE913B06A3F00E94D3D /* KthWaikikiDocumentsFileStream.m in Sources */,
+				63FD7DED13B06A3F00E94D3D /* KthWaikikiRealPathTypeFile.m in Sources */,
+				63FD7DEF13B06A3F00E94D3D /* KthWaikikiRealPathTypeFileStream.m in Sources */,
+				63FD7DF113B06A3F00E94D3D /* KthWaikikiWgtPackageFile.m in Sources */,
+				63FD7DF313B06A3F00E94D3D /* KthWaikikiWgtPackageFileStream.m in Sources */,
+				63FD7DF713B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFile.m in Sources */,
+				63FD7DF913B06A3F00E94D3D /* KthWaikikiWgtPrivateTmpFileStream.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		638FF9C813B027B10048CB47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		638FF9C913B027B10048CB47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		638FF9CB13B027B10048CB47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/filesystem_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "filesystem-ios/filesystem-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		638FF9CC13B027B10048CB47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/filesystem_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "filesystem-ios/filesystem-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		638FF9BA13B027B10048CB47 /* Build configuration list for PBXProject "filesystem-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638FF9C813B027B10048CB47 /* Debug */,
+				638FF9C913B027B10048CB47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		638FF9CA13B027B10048CB47 /* Build configuration list for PBXNativeTarget "filesystem-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638FF9CB13B027B10048CB47 /* Debug */,
+				638FF9CC13B027B10048CB47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 638FF9B713B027B10048CB47 /* Project object */;
+}

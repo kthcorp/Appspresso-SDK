@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-appspresso" default="build" basedir=".">
+	<description>Appspresso Build Script</description>
+
+	<property environment="env" />
+	<property file="build.properties" />
+
+	<target name="init">
+		<tstamp />
+		<mkdir dir="${out.dir}" />
+		<mkdir dir="${ax.sdk.dir}" />
+		<mkdir dir="${out.report.dir}" />
+	</target>
+
+	<target name="clean">
+		<ant antfile="build-plugins.xml" target="clean" />
+
+		<ant antfile="build-common.xml" target="clean" />
+		<ant antfile="build-ios-runtime.xml" target="clean" />
+		<ant antfile="build-android-runtime.xml" target="clean" />
+		<ant antfile="build-anchor.xml" target="clean" />
+
+		<delete dir="${out.dir}" />
+	</target>
+
+	<target name="build" depends="init">
+		<echo message="build appspresso... ${out.dir}" />
+
+		<ant antfile="build-common.xml" target="build" />
+		<ant antfile="build-android-runtime.xml" target="build" />
+		<ant antfile="build-ios-runtime.xml" target="build" />
+		<ant antfile="build-anchor.xml" target="build" />
+
+		<ant antfile="build-plugins.xml" target="build" />
+	</target>
+
+	<target name="packaging" depends="build">
+		<tstamp>
+			<format property="current.time" pattern="yyyyMMddHHmmss" />
+		</tstamp>
+		<zip destfile="${out.dir}/ax_sdk_${current.time}.zip">
+			<zipfileset dir="${ax.sdk.dir}" />
+		</zip>
+	</target>
+	<!--
+0. prepare
+1. build common
+2. build android runtime/cli
+3. build ios runtime/cli
+4. build anchor
+5. build plugin
+-->
+</project>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="anchor-common" default="build">
+
+	<property name="build.dir" location="../../../build" />
+
+	<import file="${build.dir}/build-support-java.xml" />
+
+	<dirname property="self.dir" file="${ant.file.anchor-common}" />
+
+	<property name="java.src.dir" location="${self.dir}/anttask" />
+
+	<property name="java.bin.dir" location="${self.dir}/bin" />
+	<property name="java.bin.utils.dir" location="${java.bin.dir}/utils" />
+	<property name="java.bin.app.dir" location="${java.bin.dir}/app" />
+	<property name="java.bin.axp.dir" location="${java.bin.dir}/axp" />
+
+	<property name="templates.dir" location="${self.dir}/templates" />
+	<property name="templates.app.dir" location="${templates.dir}/app" />
+	<property name="templates.axp.dir" location="${templates.dir}/axp" />
+
+	<property name="out.dir" location="${basedir}/output" />
+	<property name="out.app.dir" location="${out.dir}/app" />
+	<property name="out.axp.dir" location="${out.dir}/axp" />
+
+	<property name="out.templates.dir" location="${out.dir}/templates" />
+	<property name="out.templates.app.dir" location="${out.templates.dir}/app" />
+	<property name="out.templates.axp.dir" location="${out.templates.dir}/axp" />
+
+	<property name="out.lib.dir" location="${out.dir}/anttask" />
+	<property name="out.lib.utils.jar" location="${out.lib.dir}/build-utils.jar" />
+	<property name="out.lib.app.jar" location="${out.lib.dir}/build-app.jar" />
+
+	<property name="ant.jar" location="${build.dir}/tools/ant-1.8.2.jar" />
+
+	<path id="java.libs">
+		<pathelement path="${ant.jar}" />
+	</path>
+
+	<defaultexcludes add="**/.cvs" />
+	<defaultexcludes add="**/.svn" />
+	<defaultexcludes add="**/.git" />
+
+	<target name="init">
+		<mkdir dir="${out.dir}" />
+
+		<mkdir dir="${java.bin.utils.dir}" />
+		<mkdir dir="${java.bin.app.dir}" />
+		<mkdir dir="${java.bin.axp.dir}" />
+	</target>
+
+	<target name="-build-utils">
+		<java.compile srcdir="${java.src.dir}/utils" destdir="${java.bin.utils.dir}" classpathref="java.libs" />
+		<jar basedir="${java.bin.utils.dir}" destfile="${out.lib.utils.jar}" />
+	</target>
+
+	<target name="-build-app">
+		<java.compile srcdir="${java.src.dir}/app" destdir="${java.bin.app.dir}" classpathref="java.libs" />
+		<jar basedir="${java.bin.app.dir}" destfile="${out.lib.app.jar}" />
+
+		<macrodef name="copy.template.app">
+			<attribute name="template.name" />
+
+			<sequential>
+				<copy todir="${out.templates.app.dir}/@{template.name}">
+					<fileset dir="${templates.app.dir}/@{template.name}" />
+					<fileset dir="${templates.app.dir}/common" />
+				</copy>
+			</sequential>
+		</macrodef>
+
+		<copy.template.app template.name="_blank" />
+		<copy.template.app template.name="_localization" />
+
+		<copy file="${templates.app.dir}/app-template.xml" todir="${out.templates.app.dir}" />
+	</target>
+
+	<target name="-build-axp">
+		<copy todir="${out.templates.axp.dir}">
+			<fileset dir="${templates.axp.dir}" />
+		</copy>
+	</target>
+
+	<target name="-build-ant">
+		<copy todir="${out.dir}">
+			<fileset dir="${self.dir}/ant" />
+		</copy>
+	</target>
+
+	<target name="build" depends="init, -build-utils, -build-app, -build-axp, -build-ant">
+	</target>
+
+	<target name="clean">
+		<delete includeemptydirs="true">
+			<fileset dir="${java.bin.dir}" erroronmissingdir="false" />
+			<fileset dir="${out.dir}" erroronmissingdir="false" />
+		</delete>
+	</target>
+</project>

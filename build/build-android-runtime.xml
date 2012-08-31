@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-android-runtime" default="build" basedir=".">
+	<description>Appspresso Android Runtime Build Script</description>
+
+	<property environment="env" />
+	<property file="build.properties" />
+
+	<property name="android.sdk.dir" location="${env.ANDROID_HOME}" />
+
+	<target name="init">
+		<tstamp />
+		
+		<mkdir dir="${out.platforms.android.lib.dir}" />
+	</target>
+
+	<target name="-build-chronometer" depends="init">
+		<ant dir="${android.chronometer.dir}" target="build" inheritall="false">
+			<property name="sdk.dir" location="${android.sdk.dir}" />
+			<property name="out.chronometer.jar" location="${out.android.chronometer.jar}" />
+			<property name="out.chronometer.doc.zip" location="${out.android.chronometer.doc}" />
+		</ant>
+	</target>
+
+	<target name="-build-sail" depends="init">
+		<ant dir="${android.sail.dir}" target="build" inheritall="false">
+			<property name="out.report.dir" location="${out.report.dir}" />
+
+			<property name="sdk.dir" location="${android.sdk.dir}" />
+			<property name="chronometer.jar" location="${out.android.chronometer.jar}" />
+			<property name="out.sail.jar" location="${out.android.sail.jar}" />
+		</ant>
+	</target>
+
+	<target name="build" depends="-build-chronometer, -build-sail">
+		<echo message="build appspresso android runtime... ${out.dir}" />
+	</target>
+
+	<target name="clean">
+		<subant buildpath="${android.chronometer.dir}" target="clean">
+			<property name="sdk.dir" location="${android.sdk.dir}" />
+		</subant>
+
+		<subant buildpath="${android.sail.dir}" target="clean">
+			<property name="sdk.dir" location="${android.sdk.dir}" />
+		</subant>
+	</target>
+
+	<!--
+TODO:
+
+0. prepare
+
+1. build android/anchor-android
+	1.1 copy build-app.xml/properties ==> ${out.dir}
+	1.2 copy app templates ==>  ${out.dir}/templates/app
+		1.2.1 copy build-common/output/keel-all.min.js ==> ${out.dir}templates/app/com/appspresso/js/keel.js
+	1.3 copy build-axp.xml/properties ==> ${out.dir}
+	1.4 copy axp templates ==> ${out.dir}/templates/axp
+
+2. build android/chronometer-android
+	2.1 copy chronometer.jar ==> ${out.dir}/lib
+	2.2 build & copy api docs ==> ${out.dir}/docs/api (javadoc)
+
+3. build android/sail-android
+	3.1 copy sail.jar ==> ${out.dir}/lib
+
+/* XXX: these steps were moved to build-plugins
+4. build android/paddle/* and android/screw/* and ...
+	1.1 copy *.jar ==> ${out.dir}/lib
+
+5. build android/merry(?)
+*/
+
+final result:
+/${out.dir}
+	/build-app.xml, ... (<== anchor)
+	/build-axp.xml, ... (<== anchor)
+	/lib
+		/chronometer.jar (<== chronometer)
+		/sail.jar (<== sail)
+		/*.jar (<== paddle/*)
+		/*.jar (<== screw/*)
+	/docs
+		/api (<== chronometer)
+	/templates
+		/app (<== anchor)
+			/...
+		/axp (<== anchor)
+			/...
+-->
+</project>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="@PACKAGE@"
+    android:installLocation="@INSTALL_LOCATION@"
+    android:versionCode="@VERSION_CODE@"
+    android:versionName="@VERSION_NAME@" >
+
+    <application
+        android:icon="@drawable/ax_icon"
+        android:label="@string/ax_name" >
+        <activity
+            android:name="@ACTIVITY@"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:screenOrientation="@ACTIVITY_ORIENTATION@"
+            android:theme="@ACTIVITY_THEME@" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <!-- If you want to add another android components, please let them be here. -->
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    @USES_PERMISSION@
+
+   	@USES_SDK@
+
+</manifest>

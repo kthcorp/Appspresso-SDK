@@ -1,0 +1,98 @@
+<project name="anchor-android" default="build" basedir=".">
+	<property file="build.properties" />
+
+	<property name="build.dir" location="../../../build" />
+
+	<import file="${build.dir}/build-support-java.xml" />
+
+	<property name="ant.jar" location="${build.dir}/tools/ant-1.8.2.jar" />
+
+	<dirname property="self.dir" file="${ant.file.anchor-android}" />
+
+	<property name="java.src.dir" location="${self.dir}/anttask" />
+	<property name="java.bin.dir" location="${self.dir}/bin" />
+	<property name="java.bin.app.dir" location="${java.bin.dir}/app" />
+
+	<property name="templates.dir" location="${self.dir}/templates" />
+	<property name="templates.app.dir" location="${templates.dir}/app" />
+	<property name="templates.axp.dir" location="${templates.dir}/axp" />
+
+	<property name="out.dir" location="${self.dir}/output" />
+	<property name="out.lib.dir" location="${out.dir}/lib" />
+	<property name="out.docs.dir" location="${out.dir}/docs" />
+	<property name="out.anttask.dir" location="${out.dir}/anttask" />
+	<property name="out.anttask.app.jar" location="${out.anttask.dir}/build-app.jar" />
+
+	<property name="out.templates.dir" location="${out.dir}/templates" />
+	<property name="out.templates.app.dir" location="${out.templates.dir}/app" />
+	<property name="out.templates.axp.dir" location="${out.templates.dir}/axp" />
+
+	<path id="libs">
+		<pathelement path="${ant.jar}" />
+	</path>
+
+	<defaultexcludes add="**/.cvs" />
+	<defaultexcludes add="**/.svn" />
+	<defaultexcludes add="**/.git" />
+
+	<target name="init">
+		<echo>build anchor-android</echo>
+
+		<mkdir dir="${java.bin.app.dir}" />
+
+		<mkdir dir="${out.dir}" />
+		<mkdir dir="${out.lib.dir}" />
+		<mkdir dir="${out.docs.dir}" />
+		<mkdir dir="${out.anttask.dir}" />
+		<mkdir dir="${out.templates.dir}" />
+	</target>
+
+	<target name="-build-app" depends="init">
+		<macrodef name="copy.template.app">
+			<attribute name="template.name" />
+			<sequential>
+				<copy todir="${out.templates.app.dir}/@{template.name}">
+					<fileset dir="${templates.app.dir}/@{template.name}" />
+
+					<fileset dir="${templates.app.dir}">
+						<include name="AndroidManifest.axml" />
+						<include name="README" />
+					</fileset>
+				</copy>
+			</sequential>
+		</macrodef>
+
+		<copy.template.app template.name="_blank" />
+		<copy.template.app template.name="_localization" />
+
+		<copy todir="${out.templates.app.dir}/base">
+			<fileset dir="${templates.app.dir}/base" />
+		</copy>
+
+		<java.compile srcdir="${java.src.dir}/app" destdir="${java.bin.dir}/app" classpathref="libs" />
+		<jar destfile="${out.anttask.app.jar}" basedir="${java.bin.dir}/app" />
+	</target>
+
+	<target name="-build-axp" depends="init">
+		<copy todir="${out.templates.axp.dir}">
+			<fileset dir="${templates.axp.dir}" />
+		</copy>
+	</target>
+
+	<target name="-build-ant" depends="init">
+		<copy todir="${out.dir}">
+			<fileset dir="${self.dir}/ant" />
+		</copy>
+	</target>
+
+	<target name="build" depends="init, -build-app, -build-axp, -build-ant">
+	</target>
+
+	<target name="clean">
+		<delete includeemptydirs="true">
+			<fileset dir="${java.bin.dir}" erroronmissingdir="false" />
+			<fileset dir="${out.dir}" erroronmissingdir="false" />
+		</delete>
+	</target>
+
+</project>

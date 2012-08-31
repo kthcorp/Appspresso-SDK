@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axplugin id="@AXP_ID@" version="@AXP_VERSION@">
+	<description></description>
+	<url></url>
+	<author></author>
+	<license></license>
+	@AXP_FEATURE@
+	@AXP_ANDROID_MODULE@
+	@AXP_IOS_MODULE@
+</axplugin>

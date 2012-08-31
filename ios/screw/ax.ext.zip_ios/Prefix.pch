@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'ax.ext.zip' target in the 'ax.ext.zip' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-app-wac" default="help" basedir=".">
+	<description>Appspresso App Build Script for WAC</description>
+
+	<property environment="env" />
+	<dirname property="self.dir" file="ant.file.build-app-wac" />
+	<property file="${self.dir}/build-app.properties" />
+
+	<!-- appspresso sdk cli -->
+	<property name="ax.sdk.dir" location="${env.AX_HOME}" />
+	<property name="ax.keel.dir" location="${ax.sdk.dir}/common/keel" />
+	<property name="ax.plugins.dir" location="${ax.sdk.dir}/plugins" />
+	<property name="ax.platforms.dir" location="${ax.sdk.dir}/platforms" />
+
+	<property name="app.config.xml" location="" />
+	<property name="app.config.regen" location="" />
+
+	<!-- appspresso sdk cli for wac -->
+	<property name="ax.wac.dir" location="${ax.platforms.dir}/wac" />
+
+	<path id="anchor.libs">
+		<pathelement path="${ax.wac.dir}/anttask/build-app.jar" />
+	</path>
+
+	<defaultexcludes add=".cvs" />
+	<defaultexcludes add=".svn" />
+	<defaultexcludes add=".git" />
+
+	<taskdef name="regen.config" classpathref="anchor.libs" classname="com.appspresso.cli.ant.wac.app.RegenConfig" />
+
+	<target name="init">
+		<tstamp />
+		<echo message="Appspresso SDK on ${ax.sdk.dir}" />
+		<echo message="Appspresso WAC Anchor on ${ax.wac.dir}" />
+	</target>
+
+	<target name="-init-build">
+		<delete dir="${app.runtime.project.dir}" />
+		<mkdir dir="${app.runtime.project.dir}" />
+	</target>
+
+	<target name="build" depends="init, -init-build">
+		<property name="wac.config.xml" location="${app.runtime.project.dir}/config.xml" />
+
+		<regen.config src="${app.config.xml}" dest="${wac.config.xml}" minVersion="${wac.minVersion}" />
+
+		<copy todir="${app.runtime.project.dir}" overwrite="true">
+			<fileset dir="${app.dir}/src">
+				<exclude name="appspresso/appspresso.js" />
+			</fileset>
+			<fileset file="${ax.keel.dir}/keel.wac.js" />
+
+			<firstmatchmapper>
+				<globmapper from="keel.wac.js" to="appspresso/appspresso.js" />
+				<identitymapper />
+			</firstmatchmapper>
+		</copy>
+
+		<zip basedir="${app.runtime.project.dir}" file="${app.out.path}">
+		</zip>
+	</target>
+
+	<target name="export" depends="init, -init-build, build">
+	</target>
+
+	<target name="clean">
+	</target>
+	
+	<target name="help">
+	</target>
+</project>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-app-android" default="help" basedir=".">
+	<description>Appspresso App Build Script for Android</description>
+
+	<property environment="env" />
+	<dirname property="self.dir" file="ant.file.build-app-android" />
+	<property file="${self.dir}/build-app.properties" />
+
+	<!-- appspresso sdk cli -->
+	<property name="ax.sdk.dir" location="${env.AX_HOME}" />
+	<property name="ax.keel.dir" location="${ax.sdk.dir}/common/keel" />
+	<property name="ax.plugins.dir" location="${ax.sdk.dir}/plugins" />
+	<property name="ax.platforms.dir" location="${ax.sdk.dir}/platforms" />
+
+	<!-- appspresso sdk cli for android -->
+	<property name="ax.android.dir" location="${ax.platforms.dir}/android" />
+	<property name="ax.android.build-app.xml" location="${ax.android.dir}/build-app.xml" />
+	<property name="ax.android.templates.dir" location="${ax.android.dir}/templates" />
+	<property name="ax.android.templates.app.dir" location="${ax.android.templates.dir}/app" />
+
+	<!-- appspresso application -->
+	<property name="app.runtime.project.assets" location="${app.runtime.project.dir}/assets" />
+	<property name="app.runtime.project.libs" location="${app.runtime.project.dir}/libs" />
+	<property name="app.runtime.project.res" location="${app.runtime.project.dir}/res" />
+	<property name="app.platform.dir" location="${app.dir}/platforms/Android" />
+
+	<!-- android sdk & java sdk -->
+	<property name="android.sdk.dir" location="${env.ANDROID_HOME}" />
+	<property name="android.target" value="15" />
+
+	<property name="app.template.name" value="_blank" />
+	<property name="app.config.xml" location="" />
+
+	<property name="android.debug.apk" location="${app.runtime.project.dir}/bin/${android.app.id}-debug.apk" />
+	<property name="android.release.signed.apk" location="${app.runtime.project.dir}/bin/${android.app.id}-release.apk" />
+	<property name="android.release.unsigned.apk" location="${app.runtime.project.dir}/bin/${android.app.id}-release-unsigned.apk" />
+
+	<!-- android sdk tools -->
+	<property prefix="android.sdk.tools" file="${android.sdk.dir}/tools/source.properties" />
+	<echo>Tools Revision : ${android.sdk.tools.Pkg.Revision}</echo>
+
+	<condition property="has.keystore">
+		<and>
+			<isset property="android.key.store" />
+			<isset property="android.key.alias" />
+			<isset property="android.key.store.password" />
+			<isset property="android.key.alias.password" />
+		</and>
+	</condition>
+
+	<target name="init">
+		<tstamp />
+		<echo message="Appspresso SDK on ${ax.sdk.dir}" />
+		<echo message="Appspresso Android Runtime on ${ax.android.dir}" />
+		<echo message="Android SDK on ${android.sdk.dir}" />
+	</target>
+
+	<path id="anchor.libs">
+		<pathelement path="${ax.android.dir}/anttask/build-app.jar" />
+	</path>
+
+	<taskdef name="prepare-filterset" classpathref="anchor.libs" classname="com.appspresso.cli.ant.android.app.PrepareFilterSet" />
+	<taskdef name="axconfig-gen" classpathref="anchor.libs" classname="com.appspresso.cli.ant.android.app.AxConfigGen" />
+	<taskdef name="attach-axp" classpathref="anchor.libs" classname="com.appspresso.cli.ant.android.app.AttachAxp" />
+	<taskdef name="appname-gen" classpathref="anchor.libs" classname="com.appspresso.cli.ant.android.app.AppNameGen" />
+
+
+	<target name="-check-condition">
+		<fail message="Please install Android SDK Tools r14 or higher revision">
+			<condition>
+				<and>
+					<isset property="android.sdk.tools.Pkg.Revision" />
+					<scriptcondition language="javascript" value="true">
+						<![CDATA[
+						var toolsRev = project.getProperty("android.sdk.tools.Pkg.Revision");
+						self.setValue(toolsRev < 18);
+						]]>
+					</scriptcondition>
+				</and>
+			</condition>
+		</fail>
+	</target>
+
+	<target name="create" depends="-check-condition">
+		<echo>create on ${app.platform.dir}</echo>
+
+		<condition property="app.platform.template.dir"
+			value="${ax.android.templates.app.dir}/${app.template.name}"
+			else="${ax.android.templates.app.dir}/_blank">
+
+			<available file="${ax.android.templates.app.dir}/${app.template.name}" type="dir" />
+		</condition>
+
+		<copy todir="${app.platform.dir}">
+			<fileset dir="${app.platform.template.dir}">
+				<exclude name="**/*.png" />
+			</fileset>
+
+			<filterset>
+				<filter token="APP_NAME" value="${app.name}" />
+			</filterset>
+		</copy>
+
+		<copy todir="${app.platform.dir}">
+			<fileset dir="${app.platform.template.dir}">
+				<include name="**/*.png" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="-prepare-android">
+		<echo>build to android application</echo>
+		<echo message="app.dir = ${app.dir}" />
+		<echo message="app.runtime.project.dir = ${app.runtime.project.dir}" />
+
+		<delete includeemptydirs="true" dir="${app.runtime.project.dir}" />
+		<mkdir dir="${app.runtime.project.dir}" />
+
+		<prepare-filterset property="default.filter" />
+
+		<echo>prepare Appspresso Runtime Library...</echo>
+		<copy todir="${app.runtime.project.assets}/ax_scripts" file="${ax.keel.dir}/keel.js" />
+		<copy todir="${app.runtime.project.libs}">
+			<fileset dir="${ax.android.dir}/lib">
+				<include name="chronometer.jar" />
+				<include name="sail.jar" />
+			</fileset>
+		</copy>
+
+		<echo>prepare Android Project file</echo>
+		<copy todir="${app.runtime.project.dir}">
+			<filterset refid="default.filter" />
+			<fileset dir="${ax.android.templates.app.dir}/base" />
+			<scriptmapper language="javascript">
+                if (source == 'Activity.java') {
+                    packageName = project.getProperty('android.app.id');
+                    className = project.getProperty('android.activity');
+
+                    self.addMappedName("src/" + packageName.replace('\.', '/') + "/" + className + ".java");
+                }
+                else {
+                    self.addMappedName(source);
+                }
+            </scriptmapper>
+		</copy>
+
+		<echo>Android resources...</echo>
+		<copy todir="${app.runtime.project.res}">
+			<fileset dir="${app.platform.dir}" />
+
+			<firstmatchmapper>
+				<!-- for mac filesystem -->
+				<mapper type="regexp" from="resources/icon/icon/(.*)" to="drawable/ax_\1" />
+				<mapper type="regexp" from="resources/icon/icon\.(.*)/(.*)" to="drawable-\1/ax_\2" />
+
+				<mapper type="regexp" from="resources/splash/splash/(.*)" to="drawable/ax_\1" />
+				<mapper type="regexp" from="resources/splash/splash\.(.*)/(.*)" to="drawable-\1/ax_\2" />
+
+				<!-- for windows filesystem -->
+				<mapper type="regexp" from="resources\\icon\\icon\\(.*)" to="drawable/ax_\1" />
+				<mapper type="regexp" from="resources\\icon\\icon\.(.*)\\(.*)" to="drawable-\1/ax_\2" />
+
+				<mapper type="regexp" from="resources\\splash\\splash\\(.*)" to="drawable/ax_\1" />
+				<mapper type="regexp" from="resources\\splash\\splash\.(.*)\\(.*)" to="drawable-\1/ax_\2" />
+			</firstmatchmapper>
+		</copy>
+
+		<appname-gen />
+
+		<copy tofile="${app.runtime.project.dir}/AndroidManifest.xml" file="${app.platform.dir}/AndroidManifest.axml">
+			<filterset refid="default.filter" />
+		</copy>
+
+		<echo>generate appspresso-config.properties</echo>
+		<axconfig-gen dir="${app.runtime.project.dir}/src" />
+	</target>
+
+	<target name="-copy-widget" depends="-prepare-android">
+		<echo>copy widget...</echo>
+		<copy todir="${app.runtime.project.assets}/ax_www">
+			<fileset file="${app.config.xml}" />
+			<fileset dir="${app.dir}/src" />
+		</copy>
+	</target>
+
+	<target name="-attach-plugin" depends="-prepare-android">
+		<attach-axp />
+	</target>
+
+	<target name="-debug-build" depends="init, -check-condition, -prepare-android, -copy-widget, -attach-plugin" unless="has.keystore">
+		<ant antfile="${app.runtime.project.dir}/build.xml" target="debug" inheritall="false" />
+		<copy file="${android.debug.apk}" tofile="${app.out.path}" />
+	</target>
+
+	<target name="build">
+		<antcall target="-debug-build">
+			<param name="android.config.app.devel" value="true" />
+		</antcall>
+
+		<antcall target="-release-signed-export" />
+	</target>
+
+	<target name="run">
+		<property name="project.name" value="${app.name}" />
+
+		<exec executable="${android.sdk.dir}/platform-tools/adb" spawn="false" failonerror="true">
+			<arg value="-s" />
+			<arg value="${app.target.device}" />
+			<arg value="install" />
+			<arg value="-r" />
+			<arg path="${app.out.path}" />
+		</exec>
+
+		<exec executable="${android.sdk.dir}/platform-tools/adb" spawn="false" failonerror="true">
+			<arg value="-s" />
+			<arg value="${app.target.device}" />
+			<arg line="shell am start -a android.intent.action.MAIN -c" />
+			<arg line="android.intent.category.LAUNCHER -f 0x10200000" />
+			<arg line="-n ${android.app.id}/.${android.activity}" />
+		</exec>
+	</target>
+
+	<macrodef name="set-property-isset">
+		<attribute name="name" />
+
+		<sequential>
+			<condition property="@{name}" value="">
+				<not>
+					<isset property="@{name}" />
+				</not>
+			</condition>
+		</sequential>
+	</macrodef>
+
+	<target name="-release-unsigned-export" unless="has.keystore">
+		<ant antfile="${app.runtime.project.dir}/build.xml" target="release" inheritall="false" />
+		<move file="${android.release.unsigned.apk}" tofile="${app.out.path}" />
+	</target>
+
+	<target name="-release-signed-export" if="has.keystore">
+
+		<ant antfile="${app.runtime.project.dir}/build.xml" target="release" inheritall="false">
+			<property name="key.store" value="${android.key.store}" />
+			<property name="key.alias" value="${android.key.alias}" />
+			<property name="key.store.password" value="${android.key.store.password}" />
+			<property name="key.alias.password" value="${android.key.alias.password}" />
+		</ant>
+		<move file="${android.release.signed.apk}" tofile="${app.out.path}" />
+	</target>
+
+	<target name="export" depends="init, -check-condition, -prepare-android, -copy-widget, -attach-plugin, -release-unsigned-export, -release-signed-export">
+	</target>
+
+	<target name="clean">
+		<delete dir="${app.runtime.project.dir}" />
+	</target>
+
+	<target name="help">
+		<echo>
+			<![CDATA[
+Appspresso App Build Script for Android
+=======================================
+
+ant -f build-app.xml {create|build|run|export|clean|help}
+	-Dax.sdk.dir=/path/to/appspresso/sdk/directory (default: $AX_HOME)
+	-Dandroid.sdk.dir=/path/to/android/sdk/directory (default: $ANDROID_HOME)
+	-Djava.sdk.dir=/path/to/java/sdk/directory (default: $JAVA_HOME)
+	-D...
+
+ant -f build-axp.xml create
+	-Dapp.dir=/path/to/appspresso/app/project (required)
+	-Dapp.id=APP-ID
+	-Dapp.version=APP-VERSION
+	-Dapp.name=APP-NAME
+	-D...
+
+ant -f build-axp.xml build
+	-Dapp.dir=/path/to/appspresso/app/project (required)
+	-Dapp.out.android.dir=/path/to/output/directory (default: ${app.dir}/output/android)
+	-D...
+
+ant -f build-axp.xml run
+	-Dapp.dir=/path/to/appspresso/app/project (required)
+	-D...
+
+ant -f build-axp.xml export
+	-Dapp.dir=/path/to/appspresso/app/project (required)
+	-Dapp.out.android.apk=/path/to/output/apk/file (default: ${app.dir}/output/${app.id}-${app.version}.apk)
+	-D...
+
+ant -f build-axp.xml clean
+	-Dapp.out.android.dir=/path/to/output/directory (default: ${app.dir}/output/android)
+	-D...
+]]>
+		</echo>
+	</target>
+
+</project>

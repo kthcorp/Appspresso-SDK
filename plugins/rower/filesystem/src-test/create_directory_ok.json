@@ -1,0 +1,16 @@
+{
+    "id": 6,
+    "error": null,
+    "result": {
+        "fullPath": "documents/streamtest",
+        "path": "documents/",
+        "_handle": "documents/streamtest",
+        "isFile": false,
+        "name": "streamtest",
+        "isDirectory": true,
+        "readOnly": false,
+        "length": 0,
+        "created": 1321412865000,
+        "modified": 1321412865000
+    }
+}

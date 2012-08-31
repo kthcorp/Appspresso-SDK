@@ -1,0 +1,248 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6385832713B0489100C316B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6385832613B0489100C316B8 /* Foundation.framework */; };
+		6385833213B048A100C316B8 /* KthWaikikiOrientation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6385833013B048A100C316B8 /* KthWaikikiOrientation.h */; };
+		6385833313B048A100C316B8 /* KthWaikikiOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6385833113B048A100C316B8 /* KthWaikikiOrientation.m */; };
+		E2EA744E13F5044D00422EA7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2EA744C13F5044D00422EA7 /* CoreLocation.framework */; };
+		E2EA744F13F5044D00422EA7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2EA744D13F5044D00422EA7 /* CoreMotion.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6385832313B0489100C316B8 /* liborientation-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "liborientation-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6385832613B0489100C316B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6385832A13B0489100C316B8 /* orientation-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "orientation-ios-Prefix.pch"; sourceTree = "<group>"; };
+		6385833013B048A100C316B8 /* KthWaikikiOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KthWaikikiOrientation.h; sourceTree = "<group>"; };
+		6385833113B048A100C316B8 /* KthWaikikiOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KthWaikikiOrientation.m; sourceTree = "<group>"; };
+		E2EA744C13F5044D00422EA7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E2EA744D13F5044D00422EA7 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6385832013B0489100C316B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2EA744E13F5044D00422EA7 /* CoreLocation.framework in Frameworks */,
+				E2EA744F13F5044D00422EA7 /* CoreMotion.framework in Frameworks */,
+				6385832713B0489100C316B8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6385831813B0489100C316B8 = {
+			isa = PBXGroup;
+			children = (
+				6385832813B0489100C316B8 /* orientation-ios */,
+				6385832513B0489100C316B8 /* Frameworks */,
+				6385832413B0489100C316B8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6385832413B0489100C316B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6385832313B0489100C316B8 /* liborientation-ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6385832513B0489100C316B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E2EA744C13F5044D00422EA7 /* CoreLocation.framework */,
+				E2EA744D13F5044D00422EA7 /* CoreMotion.framework */,
+				6385832613B0489100C316B8 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6385832813B0489100C316B8 /* orientation-ios */ = {
+			isa = PBXGroup;
+			children = (
+				6385833013B048A100C316B8 /* KthWaikikiOrientation.h */,
+				6385833113B048A100C316B8 /* KthWaikikiOrientation.m */,
+				6385832913B0489100C316B8 /* Supporting Files */,
+			);
+			path = "orientation-ios";
+			sourceTree = "<group>";
+		};
+		6385832913B0489100C316B8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6385832A13B0489100C316B8 /* orientation-ios-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6385832113B0489100C316B8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6385833213B048A100C316B8 /* KthWaikikiOrientation.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6385832213B0489100C316B8 /* orientation-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6385832D13B0489100C316B8 /* Build configuration list for PBXNativeTarget "orientation-ios" */;
+			buildPhases = (
+				6385831F13B0489100C316B8 /* Sources */,
+				6385832013B0489100C316B8 /* Frameworks */,
+				6385832113B0489100C316B8 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "orientation-ios";
+			productName = "orientation-ios";
+			productReference = 6385832313B0489100C316B8 /* liborientation-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6385831A13B0489100C316B8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = KTH;
+			};
+			buildConfigurationList = 6385831D13B0489100C316B8 /* Build configuration list for PBXProject "orientation-ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6385831813B0489100C316B8;
+			productRefGroup = 6385832413B0489100C316B8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6385832213B0489100C316B8 /* orientation-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6385831F13B0489100C316B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6385833313B048A100C316B8 /* KthWaikikiOrientation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6385832B13B0489100C316B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6385832C13B0489100C316B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		6385832E13B0489100C316B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/orientation_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "orientation-ios/orientation-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6385832F13B0489100C316B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					armv6,
+					armv7,
+				);
+				DSTROOT = /tmp/orientation_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "orientation-ios/orientation-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../chronometer-ios";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6385831D13B0489100C316B8 /* Build configuration list for PBXProject "orientation-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6385832B13B0489100C316B8 /* Debug */,
+				6385832C13B0489100C316B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6385832D13B0489100C316B8 /* Build configuration list for PBXNativeTarget "orientation-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6385832E13B0489100C316B8 /* Debug */,
+				6385832F13B0489100C316B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6385831A13B0489100C316B8 /* Project object */;
+}
