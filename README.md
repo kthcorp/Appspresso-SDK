@@ -35,7 +35,7 @@ e.g.
 
 Build
 -----------------------------
-    $ cd sdk/build
+    $ cd build
     $ ant
 
 Using Appspresso SDK with Studio
