@@ -1,14 +1,9 @@
 /*
  * Appspresso
- * 
+ *
  * Copyright (c) 2011 KT Hitel Corp.
- * 
- * This source is subject to Appspresso license terms. Please see http://appspresso.com/ for more
- * information.
- * 
- * THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
- * FOR A PARTICULAR PURPOSE.
+ *
+ * Appspresso SDK may be freely distributed under the MIT license.
  */
 package com.appspresso.api.fs;
 
